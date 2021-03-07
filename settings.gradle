@@ -1,0 +1,2 @@
+rootProject.name = "dakku"
+include ':app'
