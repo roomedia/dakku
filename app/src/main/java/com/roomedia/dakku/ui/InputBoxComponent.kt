@@ -6,6 +6,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.roomedia.dakku.R
+import kotlin.math.PI
+import kotlin.math.atan2
 
 class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -16,7 +18,10 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
     private lateinit var verticalEnds: Pair<Float, Float>
 
     private lateinit var translationFactor: Pair<Float, Float>
+    private var rotationFactor: Float? = null
+
     private lateinit var baseOrigin: Pair<Float, Float>
+    private var baseAngle: Float? = null
 
     private val textView by lazy { findViewById<TextView>(R.id.textView) }
     private val backgroundImageView by lazy { findViewById<ImageView>(R.id.backgroundImageView) }
@@ -64,8 +69,9 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
         translationFactor = Pair(translationX, translationY)
     }
 
-    fun setRelativeOrigin(x: Float, y: Float) {
-        relativeOrigin = Pair(x, y)
+    private fun initRotation(delta: Delta) {
+        baseAngle = atan2(delta.y, delta.x)
+        rotationFactor = rotation
     }
 
     fun translation(x: Float, y: Float) {
@@ -75,12 +81,23 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
         translationY = clamp(translationFactor.second + dy, verticalEnds)
     }
 
-    fun rotate(deg: Float) {
-        TODO("Not yet implemented")
+    fun rotation(delta: Delta) {
+        if (baseAngle == null) {
+            initRotation(delta)
+            return
+        }
+        val angle = atan2(delta.y, delta.x)
+        val relativeAngle = toDegrees(angle - baseAngle!!)
+        rotation = rotationFactor!! + relativeAngle
     }
 
     fun scale(dw: Float, dh: Float) {
         TODO("Not yet implemented")
+    }
+
+    fun deinit() {
+        rotationFactor = null
+        baseAngle = null
     }
 
     private fun clamp(value: Float, ends: Pair<Float, Float>): Float {
@@ -89,5 +106,9 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
         if (value > ends.second)
             return ends.second
         return value
+    }
+
+    private fun toDegrees(value: Float): Float {
+        return (value / PI.toFloat() * 180F) % 360F
     }
 }

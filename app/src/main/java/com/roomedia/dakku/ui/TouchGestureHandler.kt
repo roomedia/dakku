@@ -4,7 +4,14 @@ import android.content.Context
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 
-class TouchGestureHandler(context : Context) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
+data class Delta(val x: Float, val y: Float)
+
+fun MotionEvent.getDelta(): Delta? {
+    if (pointerCount == 1) return null
+    return Delta(getX(1) - getX(0), getY(1) - getY(0))
+}
+
+class TouchGestureHandler(context: Context) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
 
     private var inputBoxComponent: InputBoxComponent? = null
 
@@ -33,9 +40,16 @@ class TouchGestureHandler(context : Context) : ScaleGestureDetector(context, Sim
     }
 
     private fun onTouchMoveEvent(event: MotionEvent) {
-        inputBoxComponent?.translation(event.x, event.y)
+        if (event.pointerCount == 1) {
+            inputBoxComponent?.translation(event.x, event.y)
+            return
+        }
+        event.getDelta()?.let { delta ->
+            inputBoxComponent?.rotation(delta)
+        }
     }
 
-    private fun onTouchUpEvent() {}
+    private fun onTouchUpEvent() {
+        inputBoxComponent?.deinit()
+    }
 }
-
