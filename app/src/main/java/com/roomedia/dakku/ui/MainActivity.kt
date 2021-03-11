@@ -8,26 +8,15 @@ import com.roomedia.dakku.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val touchEventHandler by lazy { TouchGestureHandler(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        touchEventHandler.setInputBoxComponent(binding.inputBoxComponent)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return when (event?.action) {
-            MotionEvent.ACTION_DOWN -> {
-                binding.inputBoxComponent.run {
-                    setPosition()
-                    setRelativeOrigin(event.x, event.y)
-                }
-                true
-            }
-            MotionEvent.ACTION_MOVE -> {
-                binding.inputBoxComponent.translation(event.x, event.y)
-                true
-            }
-            else -> super.onTouchEvent(event)
-        }
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return touchEventHandler.onTouchEvent(event)
     }
 }

@@ -15,11 +15,15 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
     private lateinit var horizontalEnds: Pair<Float, Float>
     private lateinit var verticalEnds: Pair<Float, Float>
 
-    private lateinit var position: Pair<Float, Float>
-    private lateinit var relativeOrigin: Pair<Float, Float>
+    private lateinit var translationFactor: Pair<Float, Float>
+    private lateinit var baseOrigin: Pair<Float, Float>
 
     private val textView by lazy { findViewById<TextView>(R.id.textView) }
     private val backgroundImageView by lazy { findViewById<ImageView>(R.id.backgroundImageView) }
+
+    companion object {
+        private const val MARGIN = 48
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -38,7 +42,7 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
             bottom = intrinsicHeight
         }
         backgroundImageView.layout(0, 0, right, bottom)
-        textView.layout(48, 48, right - 48, bottom - 48)
+        textView.layout(MARGIN, MARGIN, right - MARGIN, bottom - MARGIN)
     }
 
     private fun initTranslation(w: Int, h: Int) {
@@ -55,8 +59,9 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
         }
     }
 
-    fun setPosition() {
-        position = Pair(translationX, translationY)
+    fun initTranslation(x: Float, y: Float) {
+        baseOrigin = Pair(x, y)
+        translationFactor = Pair(translationX, translationY)
     }
 
     fun setRelativeOrigin(x: Float, y: Float) {
@@ -64,10 +69,10 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
     }
 
     fun translation(x: Float, y: Float) {
-        val dx = x - relativeOrigin.first
-        val dy = y - relativeOrigin.second
-        translationX = clamp(position.first + dx, horizontalEnds)
-        translationY = clamp(position.second + dy, verticalEnds)
+        val dx = x - baseOrigin.first
+        val dy = y - baseOrigin.second
+        translationX = clamp(translationFactor.first + dx, horizontalEnds)
+        translationY = clamp(translationFactor.second + dy, verticalEnds)
     }
 
     fun rotate(deg: Float) {
