@@ -46,6 +46,7 @@ class TouchGestureHandler(context: Context) : ScaleGestureDetector(context, Simp
         }
         event.getDelta()?.let { delta ->
             inputBoxComponent?.rotation(delta)
+            inputBoxComponent?.scale(delta, true)
         }
     }
 

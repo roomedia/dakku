@@ -8,6 +8,8 @@ import android.widget.TextView
 import com.roomedia.dakku.R
 import kotlin.math.PI
 import kotlin.math.atan2
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -19,9 +21,11 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
 
     private lateinit var translationFactor: Pair<Float, Float>
     private var rotationFactor: Float? = null
+    private var scaleFactor: Pair<Float, Float>? = null
 
     private lateinit var baseOrigin: Pair<Float, Float>
     private var baseAngle: Float? = null
+    private var baseSpan: Float? = null
 
     private val textView by lazy { findViewById<TextView>(R.id.textView) }
     private val backgroundImageView by lazy { findViewById<ImageView>(R.id.backgroundImageView) }
@@ -74,6 +78,11 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
         rotationFactor = rotation
     }
 
+    private fun initScale(delta: Delta) {
+        baseSpan = sqrt(delta.x.pow(2) + delta.y.pow(2))
+        scaleFactor = Pair(scaleX, scaleY)
+    }
+
     fun translation(x: Float, y: Float) {
         val dx = x - baseOrigin.first
         val dy = y - baseOrigin.second
@@ -91,13 +100,28 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
         rotation = rotationFactor!! + relativeAngle
     }
 
-    fun scale(dw: Float, dh: Float) {
-        TODO("Not yet implemented")
+    fun scale(delta: Delta, ratioLock: Boolean) {
+        if (baseSpan == null) {
+            initScale(delta)
+            return
+        }
+        val span = sqrt(delta.x.pow(2) + delta.y.pow(2))
+        val value = normalize(span - baseSpan!!, verticalEnds.second, 5F)
+        if (ratioLock) {
+            val ratio = scaleY / scaleX
+            scaleX = scaleFactor!!.first + value
+            scaleY = ratio * scaleX
+        } else {
+            scaleX = scaleFactor!!.first + normalize(x, horizontalEnds.second, 5F)
+            scaleY = scaleFactor!!.second + normalize(y, verticalEnds.second, 5F)
+        }
     }
 
     fun deinit() {
         rotationFactor = null
+        scaleFactor = null
         baseAngle = null
+        baseSpan = null
     }
 
     private fun clamp(value: Float, ends: Pair<Float, Float>): Float {
@@ -110,5 +134,9 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
 
     private fun toDegrees(value: Float): Float {
         return (value / PI.toFloat() * 180F) % 360F
+    }
+
+    private fun normalize(value: Float, srcLimit: Float, dstLimit: Float): Float {
+        return value * dstLimit / srcLimit
     }
 }
