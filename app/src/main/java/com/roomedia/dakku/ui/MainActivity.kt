@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        touchEventHandler.setInputBoxComponent(binding.inputBoxComponent)
+        touchEventHandler.setInputBoxComponent(binding.item1.root)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

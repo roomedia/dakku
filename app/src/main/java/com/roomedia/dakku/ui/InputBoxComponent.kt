@@ -3,9 +3,7 @@ package com.roomedia.dakku.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import com.roomedia.dakku.R
+import com.roomedia.dakku.databinding.InputBoxComponentBinding
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.pow
@@ -27,8 +25,7 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
     private var baseAngle: Float? = null
     private var baseSpan: Float? = null
 
-    private val textView by lazy { findViewById<TextView>(R.id.textView) }
-    private val backgroundImageView by lazy { findViewById<ImageView>(R.id.backgroundImageView) }
+    private val binding by lazy { InputBoxComponentBinding.bind(this) }
 
     companion object {
         private const val MARGIN = 48
@@ -44,14 +41,8 @@ class InputBoxComponent(context: Context, attrs: AttributeSet?) : FrameLayout(co
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val right: Int
-        val bottom: Int
-        backgroundImageView.drawable.run {
-            right = intrinsicWidth
-            bottom = intrinsicHeight
-        }
-        backgroundImageView.layout(0, 0, right, bottom)
-        textView.layout(MARGIN, MARGIN, right - MARGIN, bottom - MARGIN)
+        binding.backgroundImageView.layout(l, t, r, b)
+        binding.textView.layout(MARGIN, MARGIN, r - MARGIN, b - MARGIN)
     }
 
     private fun initTranslation(w: Int, h: Int) {
