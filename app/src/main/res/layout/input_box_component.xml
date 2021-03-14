@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_launcher_background"
-        tools:ignore="ContentDescription,VectorDrawableCompat" />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/textView"

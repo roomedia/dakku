@@ -2,21 +2,20 @@ package com.roomedia.dakku
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.roomedia.dakku.util.toWeekString
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.text.SimpleDateFormat
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
+    fun toWeekString_isCorrect() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.roomedia.dakku", appContext.packageName)
+        val pattern = appContext.getString(R.string.locale_date_format)
+        val localeDateFormat = SimpleDateFormat(pattern)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        assertEquals("03월 07일 - 03월 13일", simpleDateFormat.parse("2021-03-10")!!.toWeekString(localeDateFormat))
     }
 }
