@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dakku">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.editor.DiaryEditorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

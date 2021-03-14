@@ -1,8 +1,9 @@
-package com.roomedia.dakku.ui
+package com.roomedia.dakku.handler
 
 import android.content.Context
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import com.roomedia.dakku.ui.component.InputBoxComponent
 
 data class Delta(val x: Float, val y: Float)
 
