@@ -1,38 +1,23 @@
 package com.roomedia.dakku.util
 
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import com.roomedia.dakku.data.Diary
 
-private fun Date.toCalendar(): Calendar {
-    return Calendar.getInstance().also {
-        it.time = this
-    }
-}
-
-fun Date.isInSameWeek(that: Date): Boolean {
-    return this.toCalendar().get(Calendar.WEEK_OF_YEAR) ==
-        that.toCalendar().get(Calendar.WEEK_OF_YEAR)
-}
-
-fun Date.toWeekString(localeDateFormat: SimpleDateFormat): String {
-    val first = toCalendar().apply {
-        set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
-    }
-    val last = (first.clone() as Calendar).apply {
-        add(Calendar.DATE, 6)
-    }
-    return String.format("%s - %s", localeDateFormat.format(first.time), localeDateFormat.format(last.time))
-}
-
-fun List<Date>.splitByWeek(): List<List<Date>> {
-    return mutableListOf<MutableList<Date>>().also { weeks ->
-        forEach { date ->
-            if (weeks.isNotEmpty() && weeks.last().last().isInSameWeek(date)) {
-                weeks.last().add(date)
+fun List<Diary>.splitByWeek(): List<List<Diary>> {
+    return mutableListOf<MutableList<Diary>>().also { weeks ->
+        forEach { diary ->
+            if (weeks.isNotEmpty() && weeks.last().last().isInSameWeek(diary)) {
+                weeks.last().add(diary)
             } else {
-                weeks.add(mutableListOf(date))
+                weeks.add(mutableListOf(diary))
             }
         }
     }
+}
+
+fun List<Diary>.filterBookmark(isChecked: Boolean): List<Diary> {
+    return if (isChecked) this.filter { it.bookmark } else this
+}
+
+fun List<Diary>.filterLock(isChecked: Boolean): List<Diary> {
+    return if (isChecked) this.filter { it.lock } else this
 }

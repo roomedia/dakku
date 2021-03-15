@@ -28,8 +28,8 @@
         android:layout_marginBottom="56dp"
         android:clickable="true"
         android:focusable="true"
+        android:contentDescription="@string/add_new_diary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add"
-        android:contentDescription="@string/add_new_diary" />
+        app:srcCompat="@drawable/ic_add" />
 </androidx.constraintlayout.widget.ConstraintLayout>
