@@ -10,4 +10,8 @@
     <string name="bookmark_on">북마크 설정 버튼: on</string>
     <string name="lock_off">잠금 설정 버튼: off</string>
     <string name="lock_on">잠금 설정 버튼: on</string>
+    <string name="input_password_title">비밀 일기 %s</string>
+    <string name="password_open">열기</string>
+    <string name="password_unlock">해제</string>
+    <string name="input_password_message">비밀번호를 입력하세요!</string>
 </resources>

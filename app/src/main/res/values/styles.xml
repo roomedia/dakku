@@ -5,4 +5,8 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

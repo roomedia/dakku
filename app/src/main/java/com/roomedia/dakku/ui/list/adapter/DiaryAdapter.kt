@@ -1,14 +1,13 @@
 package com.roomedia.dakku.ui.list.adapter
 
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import com.roomedia.dakku.R
 import com.roomedia.dakku.data.Diary
 import com.roomedia.dakku.databinding.RecyclerDiaryItemBinding
+import com.roomedia.dakku.util.showPasswordUnlockDialog
 
 class DiaryAdapter(private val dataset: List<Diary>) : RecyclerView.Adapter<DiaryAdapter.DiaryViewHolder>() {
 
@@ -63,22 +62,9 @@ class DiaryAdapter(private val dataset: List<Diary>) : RecyclerView.Adapter<Diar
             view.contentDescription = view.context.getString(R.string.lock_on)
             return
         }
-        // MARK: temporal password input box
-        val editText = EditText(view.context)
-        AlertDialog.Builder(view.context)
-            .setTitle("비밀 일기 잠금 해제")
-            .setMessage("비밀번호를 입력하세요!")
-            .setView(editText)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                // MARK: temporal password checking
-                if (editText.text.toString() != "1234") {
-                    TODO("not yet impl. wrong password feedback")
-                    return@setPositiveButton
-                }
-                view.isSelected = false
-                view.contentDescription = view.context.getString(R.string.lock_off)
-            }
-            .show()
+        showPasswordUnlockDialog(view.context) {
+            view.isSelected = false
+            view.contentDescription = view.context.getString(R.string.lock_off)
+        }
     }
 }
