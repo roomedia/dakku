@@ -1,18 +1,20 @@
-package com.roomedia.dakku.ui
+package com.roomedia.dakku.ui.editor
 
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
-import com.roomedia.dakku.databinding.ActivityMainBinding
+import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
+import com.roomedia.dakku.handler.TouchGestureHandler
 
-class MainActivity : AppCompatActivity() {
+class DiaryEditorActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityDiaryEditorBinding.inflate(layoutInflater) }
     private val touchEventHandler by lazy { TouchGestureHandler(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.hide()
         touchEventHandler.setInputBoxComponent(binding.item1.root)
     }
 
