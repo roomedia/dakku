@@ -11,7 +11,17 @@
     <string name="lock_off">잠금 설정 버튼: off</string>
     <string name="lock_on">잠금 설정 버튼: on</string>
     <string name="input_password_title">비밀 일기 %s</string>
-    <string name="password_open">열기</string>
+    <string name="password_open">보기</string>
     <string name="password_unlock">해제</string>
     <string name="input_password_message">비밀번호를 입력하세요!</string>
+    <string name="rollback_diary_message">작업 사항이 저장되지 않습니다!</string>
+    <string name="menu_edit">편집</string>
+    <string name="menu_share">공유</string>
+    <string name="menu_save">저장</string>
+    <string name="menu_add">스티커 추가</string>
+    <string name="menu_undo">뒤로 가기</string>
+    <string name="menu_redo">앞으로 가기</string>
+    <string name="menu_delete">선택된 스티커 삭제</string>
+    <string name="editor_edit">편집</string>
+    <string name="editor_save">저장</string>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/button_editor_edit"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/editor_edit"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/button_editor_save"
+        android:icon="@drawable/ic_save"
+        android:title="@string/editor_save"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+</menu>
