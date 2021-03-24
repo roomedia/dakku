@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/thumbnail_image_view"
             android:layout_width="128dp"
             android:layout_height="192dp"
             android:contentDescription="@string/diary_thumbnail"

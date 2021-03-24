@@ -1,13 +1,17 @@
 package com.roomedia.dakku.ui.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.roomedia.dakku.R
 import com.roomedia.dakku.data.Diary
 import com.roomedia.dakku.databinding.ActivityDiaryListBinding
+import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.list.adapter.WeeklyDiaryAdapter
+import com.roomedia.dakku.util.REQUEST
 import com.roomedia.dakku.util.filterBookmark
 import com.roomedia.dakku.util.filterLock
 import com.roomedia.dakku.util.splitByWeek
@@ -74,5 +78,18 @@ class DiaryListActivity : AppCompatActivity() {
             .splitByWeek()
         adapter.notifyDataSetChanged()
         return true
+    }
+
+    fun toEditorActivity(view: View) {
+        val intent = Intent(this, DiaryEditorActivity::class.java).apply {
+            putExtra("request_code", REQUEST.NEW_DIARY)
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        startActivityForResult(intent, REQUEST.NEW_DIARY.ordinal)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // TODO: 2021/03/24 processing editor result is not yet implemented
     }
 }

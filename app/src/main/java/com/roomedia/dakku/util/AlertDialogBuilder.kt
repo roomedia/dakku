@@ -38,3 +38,14 @@ fun showPasswordOpenDialog(context: Context, okCallback: () -> Unit): AlertDialo
 fun showPasswordUnlockDialog(context: Context, okCallback: () -> Unit): AlertDialog {
     return showPasswordDialog(context, okCallback, R.string.password_unlock)
 }
+
+fun showConfirmDialog(context: Context, okCallback: () -> Unit): AlertDialog {
+    return AlertDialog
+        .Builder(context)
+        .setMessage(R.string.rollback_diary_message)
+        .setNegativeButton(android.R.string.cancel, null)
+        .setPositiveButton(android.R.string.ok) { _, _ ->
+            okCallback()
+        }
+        .show()
+}
