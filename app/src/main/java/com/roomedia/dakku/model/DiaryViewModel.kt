@@ -24,4 +24,14 @@ class DiaryViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteAll() {
         repository.deleteAll()
     }
+
+    fun onBookmark(diary: Diary) {
+        diary.bookmark = !diary.bookmark
+        update(diary)
+    }
+
+    fun onLock(diary: Diary) {
+        diary.lock = !diary.lock
+        update(diary)
+    }
 }

@@ -6,50 +6,35 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.roomedia.dakku.R
-import com.roomedia.dakku.data.Diary
 import com.roomedia.dakku.databinding.ActivityDiaryListBinding
+import com.roomedia.dakku.model.DiaryViewModel
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.list.adapter.WeeklyDiaryAdapter
 import com.roomedia.dakku.util.REQUEST
-import com.roomedia.dakku.util.filterBookmark
-import com.roomedia.dakku.util.filterLock
-import com.roomedia.dakku.util.splitByWeek
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.roomedia.dakku.util.setIcon
 
 class DiaryListActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDiaryListBinding.inflate(layoutInflater) }
-    // MARK: sorted dummy data
-    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    private val dataset = listOf(
-        Diary(simpleDateFormat.parse("2021-02-10")!!, "210210"),
-        Diary(simpleDateFormat.parse("2021-02-10")!!, "210210-2ㅜㅜ", lock = true),
-        Diary(simpleDateFormat.parse("2021-02-13")!!, "210213 오늘의 일", bookmark = true),
-        Diary(simpleDateFormat.parse("2021-02-14")!!, ".", lock = true),
-        Diary(simpleDateFormat.parse("2021-02-15")!!, "asdf", bookmark = true),
-        Diary(simpleDateFormat.parse("2021-02-18")!!, "210218"),
-        Diary(simpleDateFormat.parse("2021-02-20")!!, "210220"),
-        Diary(simpleDateFormat.parse("2021-02-21")!!, "210221"),
-        Diary(simpleDateFormat.parse("2021-02-21")!!, "210227"),
-        Diary(simpleDateFormat.parse("2021-02-27")!!, "뭐더라", lock = true),
-        Diary(simpleDateFormat.parse("2021-03-01")!!, "ㅇㄴㅋㅋㅋㅋ", bookmark = true, lock = true),
-        Diary(simpleDateFormat.parse("2021-03-02")!!, "210302"),
-        Diary(simpleDateFormat.parse("2021-03-04")!!, "210304"),
-        Diary(simpleDateFormat.parse("2021-03-04")!!, "?????"),
-        Diary(simpleDateFormat.parse("2021-03-05")!!, "ㄹㅇㅋㅋ"),
-        Diary(simpleDateFormat.parse("2021-03-06")!!, "ㅎㅇ"),
-    )
-    private val adapter by lazy { WeeklyDiaryAdapter(this, dataset.splitByWeek()) }
+    private val diaryViewModel by lazy {
+        ViewModelProvider.AndroidViewModelFactory(application)
+            .create(DiaryViewModel::class.java)
+    }
+
+    private val adapter by lazy { WeeklyDiaryAdapter(this) }
     private lateinit var bookmarkMenuItem: MenuItem
     private lateinit var lockMenuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         binding.weeklyRecyclerView.adapter = adapter
+        diaryViewModel.diaries.observe(this) {
+            adapter.setDataSource(it)
+            diaryViewModel.diaries.removeObservers(this)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,27 +47,17 @@ class DiaryListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         item.isChecked = !item.isChecked
         when (item.itemId) {
-            R.id.button_category_bookmark -> {
-                if (item.isChecked) R.drawable.ic_bookmark_on else R.drawable.ic_bookmark_off
-            }
-            R.id.button_category_lock -> {
-                if (item.isChecked) R.drawable.ic_lock_on else R.drawable.ic_lock_off
-            }
-            else -> null
-        }?.also { iconId ->
-            item.setIcon(iconId)
+            R.id.button_category_bookmark -> item.setIcon(R.drawable.ic_bookmark_on, R.drawable.ic_bookmark_off)
+            R.id.button_category_lock -> item.setIcon(R.drawable.ic_lock_on, R.drawable.ic_lock_off)
+            else -> return false
         }
-        adapter.dataset = dataset
-            .filterBookmark(bookmarkMenuItem.isChecked)
-            .filterLock(lockMenuItem.isChecked)
-            .splitByWeek()
-        adapter.notifyDataSetChanged()
+        adapter.setFiltering(bookmarkMenuItem.isChecked, lockMenuItem.isChecked)
         return true
     }
 
     fun toEditorActivity(view: View) {
-        val intent = Intent(this, DiaryEditorActivity::class.java).apply {
-            putExtra("request_code", REQUEST.NEW_DIARY)
+        val intent = Intent(view.context, DiaryEditorActivity::class.java).apply {
+            putExtra("request_code", REQUEST.NEW_DIARY.ordinal)
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         startActivityForResult(intent, REQUEST.NEW_DIARY.ordinal)

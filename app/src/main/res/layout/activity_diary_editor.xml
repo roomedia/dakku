@@ -66,19 +66,19 @@
             <ImageButton
                 android:id="@+id/translationButton"
                 style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
+                android:contentDescription="@string/menu_translate"
                 app:srcCompat="@drawable/ic_translate" />
 
             <ImageButton
                 android:id="@+id/rotationButton"
                 style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
+                android:contentDescription="@string/menu_rotate"
                 app:srcCompat="@drawable/ic_rotate" />
 
             <ImageButton
                 android:id="@+id/scaleButton"
                 style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
+                android:contentDescription="@string/menu_scale"
                 app:srcCompat="@drawable/ic_scale" />
 
             <View
@@ -91,13 +91,13 @@
             <ImageButton
                 android:id="@+id/layerButton"
                 style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
+                android:contentDescription="@string/menu_layer"
                 app:srcCompat="@drawable/ic_layers" />
 
             <ImageButton
                 android:id="@+id/duplicateButton"
                 style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
+                android:contentDescription="@string/menu_duplicate"
                 app:srcCompat="@drawable/ic_duplicate" />
 
         </LinearLayout>
