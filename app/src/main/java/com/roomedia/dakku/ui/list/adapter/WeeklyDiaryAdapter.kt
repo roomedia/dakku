@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.roomedia.dakku.R
-import com.roomedia.dakku.data.Diary
+import com.roomedia.dakku.data.diary.Diary
 import com.roomedia.dakku.databinding.RecyclerWeeklyDiaryListItemBinding
 import com.roomedia.dakku.util.filterBookmark
 import com.roomedia.dakku.util.filterLock
@@ -21,10 +21,6 @@ class WeeklyDiaryAdapter(context: Context) :
     private var dataSource: List<Diary> = listOf()
     private var dataset: MutableList<List<Diary>> = mutableListOf()
     private val localDateFormat = SimpleDateFormat(context.getString(R.string.locale_date_format), Locale.getDefault())
-
-    inner class WeeklyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = RecyclerWeeklyDiaryListItemBinding.bind(itemView)
-    }
 
     fun setDataSource(dataSource: List<Diary>) {
         // TODO: 2021/03/25 should be changed to DiffUtil method
@@ -52,7 +48,6 @@ class WeeklyDiaryAdapter(context: Context) :
     }
 
     override fun onBindViewHolder(holder: WeeklyViewHolder, position: Int) {
-        holder.binding.weeklyDiaryList = dataset[position]
         holder.binding.weekString = dataset[position].toWeekString(localDateFormat)
         holder.binding.DiaryRecyclerView.apply {
             adapter = DiaryAdapter(dataset[position])
@@ -61,5 +56,9 @@ class WeeklyDiaryAdapter(context: Context) :
 
     override fun getItemCount(): Int {
         return dataset.size
+    }
+
+    inner class WeeklyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding = RecyclerWeeklyDiaryListItemBinding.bind(itemView)
     }
 }

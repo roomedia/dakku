@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="diary" type="com.roomedia.dakku.data.Diary" />
-        <variable name="handlers" type="com.roomedia.dakku.model.DiaryViewModelHandlers" />
+        <variable name="diary" type="com.roomedia.dakku.data.diary.Diary" />
+        <variable name="handlers" type="com.roomedia.dakku.model.diary.DiaryViewModelHandlers" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,21 +38,23 @@
 
         <ImageButton
             android:id="@+id/bookmarkImageButton"
-            android:contentDescription="@string/bookmark_off"
-            android:onClick="@{(view) -> handlers.onBookmark(view, diary)}"
+            style="@style/TransparentImageButton"
+            android:contentDescription="@{diary.bookmark ? @string/bookmark_on : @string/bookmark_off}"
+            android:src="@{diary.bookmark ? @drawable/ic_bookmark_on : @drawable/ic_bookmark_off}"
+            android:onClick="@{() -> handlers.onBookmark(diary)}"
             app:layout_constraintEnd_toStartOf="@+id/lockImageButton"
             app:layout_constraintTop_toTopOf="@+id/lockImageButton"
-            app:srcCompat="@drawable/ic_bookmark"
-            style="@style/TransparentImageButton" />
+            tools:src="@drawable/ic_bookmark_off" />
 
         <ImageButton
             android:id="@+id/lockImageButton"
-            android:contentDescription="@string/lock_off"
-            android:onClick="@{(view) -> handlers.onLock(view, diary)}"
+            style="@style/TransparentImageButton"
+            android:contentDescription="@{diary.lock ? @string/lock_on : @string/lock_off}"
+            android:src="@{diary.lock ? @drawable/ic_lock_on : @drawable/ic_lock_off}"
+            android:onClick="@{(view) -> handlers.onLock(view.context, diary)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_lock"
-            style="@style/TransparentImageButton" />
+            tools:src="@drawable/ic_lock_off" />
 
         <TextView
             android:id="@+id/dateTextView"

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryListBinding
-import com.roomedia.dakku.model.DiaryViewModel
+import com.roomedia.dakku.model.diary.DiaryViewModel
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.list.adapter.WeeklyDiaryAdapter
 import com.roomedia.dakku.util.REQUEST
@@ -24,8 +24,8 @@ class DiaryListActivity : AppCompatActivity() {
     }
 
     private val adapter by lazy { WeeklyDiaryAdapter(this) }
-    private lateinit var bookmarkMenuItem: MenuItem
-    private lateinit var lockMenuItem: MenuItem
+    private var bookmarkMenuItem: MenuItem? = null
+    private var lockMenuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,10 @@ class DiaryListActivity : AppCompatActivity() {
         binding.weeklyRecyclerView.adapter = adapter
         diaryViewModel.diaries.observe(this) {
             adapter.setDataSource(it)
-            diaryViewModel.diaries.removeObservers(this)
+            adapter.setFiltering(
+                bookmarkMenuItem?.isChecked ?: false,
+                lockMenuItem?.isChecked ?: false
+            )
         }
     }
 
@@ -51,7 +54,7 @@ class DiaryListActivity : AppCompatActivity() {
             R.id.button_category_lock -> item.setIcon(R.drawable.ic_lock_on, R.drawable.ic_lock_off)
             else -> return false
         }
-        adapter.setFiltering(bookmarkMenuItem.isChecked, lockMenuItem.isChecked)
+        adapter.setFiltering(bookmarkMenuItem!!.isChecked, lockMenuItem!!.isChecked)
         return true
     }
 

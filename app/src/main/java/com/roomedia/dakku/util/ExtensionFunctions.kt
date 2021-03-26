@@ -2,7 +2,7 @@ package com.roomedia.dakku.util
 
 import android.view.MenuItem
 import androidx.annotation.DrawableRes
-import com.roomedia.dakku.data.Diary
+import com.roomedia.dakku.data.diary.Diary
 import java.text.SimpleDateFormat
 import java.util.Calendar
 

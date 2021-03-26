@@ -5,16 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.roomedia.dakku.R
-import com.roomedia.dakku.data.Diary
+import com.roomedia.dakku.data.diary.Diary
 import com.roomedia.dakku.databinding.RecyclerDiaryItemBinding
-import com.roomedia.dakku.model.DiaryViewModelHandlers
+import com.roomedia.dakku.model.diary.DiaryViewModelHandlers
 
 class DiaryAdapter(private val dataset: List<Diary>) :
     RecyclerView.Adapter<DiaryAdapter.DiaryViewHolder>() {
-
-    inner class DiaryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = RecyclerDiaryItemBinding.bind(itemView)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaryAdapter.DiaryViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,18 +19,15 @@ class DiaryAdapter(private val dataset: List<Diary>) :
     }
 
     override fun onBindViewHolder(holder: DiaryAdapter.DiaryViewHolder, position: Int) {
-        val handlers = DiaryViewModelHandlers()
-        holder.binding.handlers = handlers
+        holder.binding.handlers = DiaryViewModelHandlers()
         holder.binding.diary = dataset[position]
-        if (dataset[position].bookmark) {
-            handlers.toggleBookmark(holder.binding.bookmarkImageButton)
-        }
-        if (dataset[position].lock) {
-            handlers.toggleLock(holder.binding.lockImageButton)
-        }
     }
 
     override fun getItemCount(): Int {
         return dataset.size
+    }
+
+    inner class DiaryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding = RecyclerDiaryItemBinding.bind(itemView)
     }
 }

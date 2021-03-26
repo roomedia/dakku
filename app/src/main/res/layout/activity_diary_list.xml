@@ -6,10 +6,10 @@
     <data>
         <import type="androidx.lifecycle.LiveData" />
         <import type="java.util.List" />
-        <import type="com.roomedia.dakku.data.Diary" />
+        <import type="com.roomedia.dakku.data.diary.Diary" />
         <variable
             name="diaryList"
-            type="LiveData&lt;List&lt;Diary>>" />
+            type="com.roomedia.dakku.data.diary.Diary" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

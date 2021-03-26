@@ -1,4 +1,4 @@
-package com.roomedia.dakku.data
+package com.roomedia.dakku.data.diary
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,11 +7,11 @@ import java.util.Date
 
 @Entity
 data class Diary(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: Long,
     val title: String = date.toString(),
     var bookmark: Boolean = false,
-    var lock: Boolean = false
+    var lock: Boolean = false,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
 ) {
     fun toCalendar(): Calendar = Calendar.getInstance().also {
         it.time = Date(date)

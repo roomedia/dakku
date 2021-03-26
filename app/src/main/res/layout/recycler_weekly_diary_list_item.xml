@@ -4,15 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="java.util.List" />
-        <import type="java.text.SimpleDateFormat" />
-        <import type="com.roomedia.dakku.data.Diary" />
-        <variable
-            name="weeklyDiaryList"
-            type="List&lt;Diary>" />
-        <variable
-            name="weekString"
-            type="String" />
+        <variable name="weekString" type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
