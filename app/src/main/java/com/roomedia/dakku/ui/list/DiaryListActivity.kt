@@ -5,23 +5,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryListBinding
-import com.roomedia.dakku.model.diary.DiaryViewModel
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
-import com.roomedia.dakku.ui.list.adapter.WeeklyDiaryAdapter
 import com.roomedia.dakku.util.REQUEST
 import com.roomedia.dakku.util.setIcon
 
 class DiaryListActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDiaryListBinding.inflate(layoutInflater) }
-    private val diaryViewModel by lazy {
-        ViewModelProvider.AndroidViewModelFactory(application)
-            .create(DiaryViewModel::class.java)
-    }
+    private val diaryListViewModel: DiaryListViewModel by viewModels()
 
     private val adapter by lazy { WeeklyDiaryAdapter(this) }
     private var bookmarkMenuItem: MenuItem? = null
@@ -30,8 +25,12 @@ class DiaryListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initRecyclerView()
         binding.weeklyRecyclerView.adapter = adapter
-        diaryViewModel.diaries.observe(this) {
+    }
+
+    private fun initRecyclerView() {
+        diaryListViewModel.diaries.observe(this) {
             adapter.setDataSource(it)
             adapter.setFiltering(
                 bookmarkMenuItem?.isChecked ?: false,
@@ -54,8 +53,13 @@ class DiaryListActivity : AppCompatActivity() {
             R.id.button_category_lock -> item.setIcon(R.drawable.ic_lock_on, R.drawable.ic_lock_off)
             else -> return false
         }
-        adapter.setFiltering(bookmarkMenuItem!!.isChecked, lockMenuItem!!.isChecked)
+        diaryListViewModel.updateAll()
         return true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        diaryListViewModel.updateAll()
     }
 
     fun toEditorActivity(view: View) {

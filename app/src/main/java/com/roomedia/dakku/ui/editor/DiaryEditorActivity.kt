@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
-import com.roomedia.dakku.handler.TouchGestureHandler
+import com.roomedia.dakku.ui.component.TransformGestureDetector
 import com.roomedia.dakku.util.REQUEST
 import com.roomedia.dakku.util.RESPONSE
 import com.roomedia.dakku.util.showConfirmDialog
@@ -17,7 +17,7 @@ import com.roomedia.dakku.util.showConfirmDialog
 class DiaryEditorActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDiaryEditorBinding.inflate(layoutInflater) }
-    private var touchGestureHandler: TouchGestureHandler? = null
+    private var transformGestureDetector: TransformGestureDetector? = null
 
     private var isEdit = false
     private lateinit var editMenuItem: MenuItem
@@ -65,7 +65,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         isEdit = true
         saveMenuItem.isVisible = true
         editMenuItem.isVisible = false
-        touchGestureHandler = TouchGestureHandler(this)
+        transformGestureDetector = TransformGestureDetector(this)
         binding.commonMenuHandlers?.commonMenuVisibility?.set(View.VISIBLE)
     }
 
@@ -74,7 +74,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         isEdit = false
         editMenuItem.isVisible = true
         saveMenuItem.isVisible = false
-        touchGestureHandler = null
+        transformGestureDetector = null
 
         binding.commonMenuHandlers?.commonMenuVisibility?.set(View.GONE)
         Toast.makeText(this, getString(R.string.editor_save), Toast.LENGTH_SHORT).show()
@@ -82,7 +82,7 @@ class DiaryEditorActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (!isEdit) {
-            touchGestureHandler = null
+            transformGestureDetector = null
             finish()
             return
         }
@@ -93,6 +93,6 @@ class DiaryEditorActivity : AppCompatActivity() {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return touchGestureHandler?.onTouchEvent(event) ?: false
+        return transformGestureDetector?.onTouchEvent(event) ?: false
     }
 }

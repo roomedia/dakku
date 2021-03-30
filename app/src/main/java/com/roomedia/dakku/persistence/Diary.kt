@@ -1,4 +1,4 @@
-package com.roomedia.dakku.data.diary
+package com.roomedia.dakku.persistence
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

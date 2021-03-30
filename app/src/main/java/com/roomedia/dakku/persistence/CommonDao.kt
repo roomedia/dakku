@@ -1,4 +1,4 @@
-package com.roomedia.dakku.model
+package com.roomedia.dakku.persistence
 
 import androidx.room.Delete
 import androidx.room.Insert

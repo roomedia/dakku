@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="diary" type="com.roomedia.dakku.data.diary.Diary" />
-        <variable name="handlers" type="com.roomedia.dakku.model.diary.DiaryViewModelHandlers" />
+        <variable name="viewModel" type="com.roomedia.dakku.ui.list.DiaryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,16 +31,16 @@
                 android:layout_height="192dp"
                 android:contentDescription="@string/diary_thumbnail"
                 android:scaleType="centerCrop"
-                android:onClick="@{(view) -> handlers.onThumbnail(view.context, diary)}"
+                android:onClick="@{(view) -> viewModel.onThumbnail(view.context)}"
                 app:srcCompat="@drawable/ic_launcher_background" />
         </androidx.cardview.widget.CardView>
 
         <ImageButton
             android:id="@+id/bookmarkImageButton"
             style="@style/TransparentImageButton"
-            android:contentDescription="@{diary.bookmark ? @string/bookmark_on : @string/bookmark_off}"
-            android:src="@{diary.bookmark ? @drawable/ic_bookmark_on : @drawable/ic_bookmark_off}"
-            android:onClick="@{() -> handlers.onBookmark(diary)}"
+            android:contentDescription="@{viewModel.isBookmarked ? @string/bookmark_on : @string/bookmark_off}"
+            android:src="@{viewModel.isBookmarked ? @drawable/ic_bookmark_on : @drawable/ic_bookmark_off}"
+            android:onClick="@{() -> viewModel.onBookmark()}"
             app:layout_constraintEnd_toStartOf="@+id/lockImageButton"
             app:layout_constraintTop_toTopOf="@+id/lockImageButton"
             tools:src="@drawable/ic_bookmark_off" />
@@ -49,9 +48,9 @@
         <ImageButton
             android:id="@+id/lockImageButton"
             style="@style/TransparentImageButton"
-            android:contentDescription="@{diary.lock ? @string/lock_on : @string/lock_off}"
-            android:src="@{diary.lock ? @drawable/ic_lock_on : @drawable/ic_lock_off}"
-            android:onClick="@{(view) -> handlers.onLock(view.context, diary)}"
+            android:contentDescription="@{viewModel.isLocked ? @string/lock_on : @string/lock_off}"
+            android:src="@{viewModel.isLocked ? @drawable/ic_lock_on : @drawable/ic_lock_off}"
+            android:onClick="@{(view) -> viewModel.onLock(view.context)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_lock_off" />
@@ -64,7 +63,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text="@{diary.title}"
+            android:text="@{viewModel.title}"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/cardView"

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.roomedia.dakku.databinding.InputBoxComponentBinding
-import com.roomedia.dakku.handler.Delta
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.pow
