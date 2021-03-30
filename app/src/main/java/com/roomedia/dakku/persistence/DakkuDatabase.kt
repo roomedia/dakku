@@ -8,7 +8,7 @@ import com.roomedia.dakku.DakkuApplication
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 @Database(entities = [Diary::class, Sticker::class], version = 1, exportSchema = false)
 abstract class DakkuDatabase : RoomDatabase() {
