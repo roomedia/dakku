@@ -1,106 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.editor.DiaryEditorActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <data>
+        <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.CommonMenuHandlers" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:context=".ui.editor.DiaryEditorActivity">
 
-        <include
-            android:id="@+id/item1"
-            layout="@layout/input_box_component" />
-    </FrameLayout>
-
-    <HorizontalScrollView
-        android:id="@+id/commonMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        <FrameLayout
+            android:id="@+id/diaryFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/addButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_add"
-                app:srcCompat="@drawable/ic_add" />
-
-            <ImageButton
-                android:id="@+id/undoButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_undo"
-                app:srcCompat="@drawable/ic_undo" />
-
-            <ImageButton
-                android:id="@+id/redoButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_redo"
-                app:srcCompat="@drawable/ic_redo" />
-
-            <ImageButton
-                android:id="@+id/deleteButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_delete"
-                app:srcCompat="@drawable/ic_delete" />
+            android:id="@+id/menuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <View
-                android:id="@+id/divider1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
-            <ImageButton
-                android:id="@+id/translationButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
-                app:srcCompat="@drawable/ic_translate" />
-
-            <ImageButton
-                android:id="@+id/rotationButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
-                app:srcCompat="@drawable/ic_rotate" />
-
-            <ImageButton
-                android:id="@+id/scaleButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
-                app:srcCompat="@drawable/ic_scale" />
+            <include
+                android:id="@+id/addMenu"
+                android:visibility="@{ commonMenuHandlers.addMenuVisibility }"
+                layout="@layout/menu_add" />
 
             <View
-                android:id="@+id/divider2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
-            <ImageButton
-                android:id="@+id/layerButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
-                app:srcCompat="@drawable/ic_layers" />
-
-            <ImageButton
-                android:id="@+id/duplicateButton"
-                style="@style/TransparentMenu"
-                android:contentDescription="@string/menu_edit"
-                app:srcCompat="@drawable/ic_duplicate" />
-
+            <include
+                android:id="@+id/commonMenu"
+                android:visibility="@{ commonMenuHandlers.commonMenuVisibility }"
+                layout="@layout/menu_common" />
         </LinearLayout>
-    </HorizontalScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

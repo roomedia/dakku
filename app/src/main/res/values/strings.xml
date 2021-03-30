@@ -2,26 +2,43 @@
     <string name="app_name">dakku</string>
     <string name="category_bookmark">마음 일기 모아보기</string>
     <string name="category_lock">비밀 일기 모아보기</string>
-    <string name="spinner_title">표시 월 선택</string>
     <string name="add_new_diary">다이어리 쓰기</string>
     <string name="locale_date_format">MM월 dd일</string>
+
     <string name="diary_thumbnail">다이어리 썸네일</string>
     <string name="bookmark_off">북마크 설정 버튼: off</string>
     <string name="bookmark_on">북마크 설정 버튼: on</string>
     <string name="lock_off">잠금 설정 버튼: off</string>
     <string name="lock_on">잠금 설정 버튼: on</string>
+
     <string name="input_password_title">비밀 일기 %s</string>
     <string name="password_open">보기</string>
     <string name="password_unlock">해제</string>
     <string name="input_password_message">비밀번호를 입력하세요!</string>
+    <string name="input_text_message">텍스트를 입력하세요!</string>
+
     <string name="rollback_diary_message">작업 사항이 저장되지 않습니다!</string>
-    <string name="menu_edit">편집</string>
-    <string name="menu_share">공유</string>
-    <string name="menu_save">저장</string>
+    <string name="save_diary_message">작업 사항이 저장되었습니다.</string>
+
     <string name="menu_add">스티커 추가</string>
     <string name="menu_undo">뒤로 가기</string>
     <string name="menu_redo">앞으로 가기</string>
     <string name="menu_delete">선택된 스티커 삭제</string>
+    <string name="menu_translate">이동</string>
+    <string name="menu_rotate">회전</string>
+    <string name="menu_scale">크기 조정</string>
+    <string name="menu_layer">레이어 조정</string>
+    <string name="menu_duplicate">레이어 복제</string>
+
     <string name="editor_edit">편집</string>
     <string name="editor_save">저장</string>
+
+    <string name="example_text">다람쥐\n헌 쳇바퀴\n타고파</string>
+    <string name="menu_image">이미지 추가</string>
+    <string name="menu_video">비디오 추가</string>
+    <string name="menu_switch">스위치 추가</string>
+    <string name="menu_radio">라디오 버튼 추가</string>
+    <string name="menu_check">체크 박스 추가</string>
+    <string name="menu_slider">슬라이더 추가</string>
+    <string name="menu_text">텍스트 박스 추가</string>
 </resources>
