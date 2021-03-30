@@ -15,6 +15,7 @@
     <string name="password_open">보기</string>
     <string name="password_unlock">해제</string>
     <string name="input_password_message">비밀번호를 입력하세요!</string>
+    <string name="input_text_message">텍스트를 입력하세요!</string>
 
     <string name="rollback_diary_message">작업 사항이 저장되지 않습니다!</string>
     <string name="save_diary_message">작업 사항이 저장되었습니다.</string>
@@ -31,4 +32,13 @@
 
     <string name="editor_edit">편집</string>
     <string name="editor_save">저장</string>
+
+    <string name="example_text">다람쥐\n헌 쳇바퀴\n타고파</string>
+    <string name="menu_image">이미지 추가</string>
+    <string name="menu_video">비디오 추가</string>
+    <string name="menu_switch">스위치 추가</string>
+    <string name="menu_radio">라디오 버튼 추가</string>
+    <string name="menu_check">체크 박스 추가</string>
+    <string name="menu_slider">슬라이더 추가</string>
+    <string name="menu_text">텍스트 박스 추가</string>
 </resources>

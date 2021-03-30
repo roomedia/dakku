@@ -32,7 +32,7 @@
                 android:layout_height="192dp"
                 android:contentDescription="@string/diary_thumbnail"
                 android:scaleType="centerCrop"
-                android:onClick="@{(view) -> handlers.onThumbnail(view.context, diary.lock)}"
+                android:onClick="@{(view) -> handlers.onThumbnail(view.context, diary)}"
                 app:srcCompat="@drawable/ic_launcher_background" />
         </androidx.cardview.widget.CardView>
 

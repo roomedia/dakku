@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="addMenuHandlers" type="com.roomedia.dakku.ui.editor.AddMenuHandlers" />
+    </data>
+
+    <HorizontalScrollView
+        android:id="@+id/addMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/textButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_text"
+                android:onClick="@{ () -> addMenuHandlers.onText() }"
+                app:srcCompat="@drawable/ic_text" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_image"
+                android:onClick="@{ () -> addMenuHandlers.onImage() }"
+                app:srcCompat="@drawable/ic_image" />
+
+            <ImageButton
+                android:id="@+id/videoButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_video"
+                android:onClick="@{ () -> addMenuHandlers.onVideo() }"
+                app:srcCompat="@drawable/ic_video" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:id="@+id/switchButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_switch"
+                android:onClick="@{ () -> addMenuHandlers.onSwitch() }"
+                app:srcCompat="@drawable/ic_switch" />
+
+            <ImageButton
+                android:id="@+id/radioButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_radio"
+                android:onClick="@{ () -> addMenuHandlers.onRadio() }"
+                app:srcCompat="@drawable/ic_radio" />
+
+            <ImageButton
+                android:id="@+id/checkButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_check"
+                android:onClick="@{ () -> addMenuHandlers.onCheck() }"
+                app:srcCompat="@drawable/ic_check" />
+
+            <ImageButton
+                android:id="@+id/sliderButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_slider"
+                android:onClick="@{ () -> addMenuHandlers.onSlider() }"
+                app:srcCompat="@drawable/ic_slider" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</layout>

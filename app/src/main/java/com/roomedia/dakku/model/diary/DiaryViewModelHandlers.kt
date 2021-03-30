@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.roomedia.dakku.data.diary.Diary
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
+import com.roomedia.dakku.util.REQUEST
 import com.roomedia.dakku.util.showPasswordOpenDialog
 import com.roomedia.dakku.util.showPasswordUnlockDialog
 
@@ -14,13 +15,23 @@ class DiaryViewModelHandlers {
     private val diaryViewModel = ViewModelProvider.AndroidViewModelFactory(Application())
         .create(DiaryViewModel::class.java)
 
-    fun onThumbnail(context: Context, isLocked: Boolean) {
-        if (!isLocked) {
-            context.startActivity(Intent(context, DiaryEditorActivity::class.java))
+    fun onThumbnail(context: Context, diary: Diary) {
+        if (!diary.lock) {
+            val intent = Intent(context, DiaryEditorActivity::class.java).apply {
+                putExtra("request_code", REQUEST.EDIT_DIARY.ordinal)
+                putExtra("diary_id", diary.id)
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            context.startActivity(intent)
             return
         }
         showPasswordOpenDialog(context) {
-            context.startActivity(Intent(context, DiaryEditorActivity::class.java))
+            val intent = Intent(context, DiaryEditorActivity::class.java).apply {
+                putExtra("request_code", REQUEST.EDIT_DIARY.ordinal)
+                putExtra("diary_id", diary.id)
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            context.startActivity(intent)
         }
     }
 

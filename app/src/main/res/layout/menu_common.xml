@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.CommonMenuHandlers" />
+    </data>
+
+    <HorizontalScrollView
+        android:id="@+id/commonMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/addButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_add"
+                android:onClick="@{ () -> commonMenuHandlers.onAdd() }"
+                app:srcCompat="@drawable/ic_add" />
+
+            <ImageButton
+                android:id="@+id/undoButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_undo"
+                android:onClick="@{ () -> commonMenuHandlers.onUndo() }"
+                app:srcCompat="@drawable/ic_undo" />
+
+            <ImageButton
+                android:id="@+id/redoButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_redo"
+                android:onClick="@{ () -> commonMenuHandlers.onRedo() }"
+                app:srcCompat="@drawable/ic_redo" />
+
+            <ImageButton
+                android:id="@+id/deleteButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_delete"
+                android:onClick="@{ (view) -> commonMenuHandlers.onDelete(view) }"
+                app:srcCompat="@drawable/ic_delete" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:id="@+id/translationButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_translate"
+                android:onClick="@{ () -> commonMenuHandlers.onTranslation() }"
+                app:srcCompat="@drawable/ic_translate" />
+
+            <ImageButton
+                android:id="@+id/rotationButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_rotate"
+                android:onClick="@{ () -> commonMenuHandlers.onRotation() }"
+                app:srcCompat="@drawable/ic_rotate" />
+
+            <ImageButton
+                android:id="@+id/scaleButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_scale"
+                android:onClick="@{ () -> commonMenuHandlers.onScale() }"
+                app:srcCompat="@drawable/ic_scale" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:id="@+id/layerButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_layer"
+                android:onClick="@{ () -> commonMenuHandlers.onLayer() }"
+                app:srcCompat="@drawable/ic_layers" />
+
+            <ImageButton
+                android:id="@+id/duplicateButton"
+                style="@style/TransparentMenu"
+                android:contentDescription="@string/menu_duplicate"
+                android:onClick="@{ () -> commonMenuHandlers.onDuplicate() }"
+                app:srcCompat="@drawable/ic_duplicate" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</layout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.roomedia.dakku.R
@@ -25,6 +26,11 @@ class DiaryEditorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        CommonMenuHandlers().also {
+            binding.commonMenuHandlers = it
+            binding.commonMenu.commonMenuHandlers = it
+        }
+        binding.addMenu.addMenuHandlers = AddMenuHandlers(binding.diaryFrame)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -60,6 +66,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         saveMenuItem.isVisible = true
         editMenuItem.isVisible = false
         touchGestureHandler = TouchGestureHandler(this)
+        binding.commonMenuHandlers?.commonMenuVisibility?.set(View.VISIBLE)
     }
 
     private fun onSavePressed() {
@@ -69,6 +76,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         saveMenuItem.isVisible = false
         touchGestureHandler = null
 
+        binding.commonMenuHandlers?.commonMenuVisibility?.set(View.GONE)
         Toast.makeText(this, getString(R.string.editor_save), Toast.LENGTH_SHORT).show()
     }
 
