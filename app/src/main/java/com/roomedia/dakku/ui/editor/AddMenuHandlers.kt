@@ -6,7 +6,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.roomedia.dakku.R
-import com.roomedia.dakku.util.showEditTextDialog
+import com.roomedia.dakku.ui.util.showEditTextDialog
 
 class AddMenuHandlers(private val frame: FrameLayout) {
     fun onText() {

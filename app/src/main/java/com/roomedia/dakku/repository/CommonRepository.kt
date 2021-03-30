@@ -1,6 +1,6 @@
-package com.roomedia.dakku.data
+package com.roomedia.dakku.repository
 
-import com.roomedia.dakku.model.CommonDao
+import com.roomedia.dakku.persistence.CommonDao
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

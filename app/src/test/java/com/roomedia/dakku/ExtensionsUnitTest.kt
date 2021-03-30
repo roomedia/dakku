@@ -1,8 +1,8 @@
 package com.roomedia.dakku
 
-import com.roomedia.dakku.data.diary.Diary
-import com.roomedia.dakku.util.splitByWeek
-import com.roomedia.dakku.util.toWeekString
+import com.roomedia.dakku.persistence.Diary
+import com.roomedia.dakku.ui.util.splitByWeek
+import com.roomedia.dakku.ui.util.toWeekString
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

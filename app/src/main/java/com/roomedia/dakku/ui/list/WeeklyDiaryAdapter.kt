@@ -1,4 +1,4 @@
-package com.roomedia.dakku.ui.list.adapter
+package com.roomedia.dakku.ui.list
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.roomedia.dakku.R
-import com.roomedia.dakku.data.diary.Diary
 import com.roomedia.dakku.databinding.RecyclerWeeklyDiaryListItemBinding
-import com.roomedia.dakku.util.filterBookmark
-import com.roomedia.dakku.util.filterLock
-import com.roomedia.dakku.util.splitByWeek
-import com.roomedia.dakku.util.toWeekString
+import com.roomedia.dakku.persistence.Diary
+import com.roomedia.dakku.ui.util.filterBookmark
+import com.roomedia.dakku.ui.util.filterLock
+import com.roomedia.dakku.ui.util.splitByWeek
+import com.roomedia.dakku.ui.util.toWeekString
 import java.text.SimpleDateFormat
 import java.util.Locale
 

@@ -1,10 +1,8 @@
-package com.roomedia.dakku.model.sticker
+package com.roomedia.dakku.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import com.roomedia.dakku.data.sticker.Sticker
-import com.roomedia.dakku.model.CommonDao
 
 @Dao
 abstract class StickerDao : CommonDao<Sticker> {

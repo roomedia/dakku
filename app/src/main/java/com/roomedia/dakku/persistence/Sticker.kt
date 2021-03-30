@@ -1,9 +1,8 @@
-package com.roomedia.dakku.data.sticker
+package com.roomedia.dakku.persistence
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.roomedia.dakku.data.diary.Diary
 
 @Entity(
     foreignKeys = [

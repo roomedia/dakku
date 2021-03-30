@@ -1,10 +1,9 @@
-package com.roomedia.dakku.model
+package com.roomedia.dakku.ui.util
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.roomedia.dakku.data.CommonRepository
+import androidx.lifecycle.ViewModel
+import com.roomedia.dakku.repository.CommonRepository
 
-abstract class CommonViewModel<T>(application: Application) : AndroidViewModel(application) {
+abstract class CommonViewModel<T> : ViewModel() {
     abstract val repository: CommonRepository<T>
 
     fun insert(vararg entities: T) {

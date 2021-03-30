@@ -1,9 +1,8 @@
-package com.roomedia.dakku.handler
+package com.roomedia.dakku.ui.editor
 
 import android.content.Context
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import com.roomedia.dakku.ui.component.InputBoxComponent
 
 data class Delta(val x: Float, val y: Float)
 
@@ -12,7 +11,7 @@ fun MotionEvent.getDelta(): Delta? {
     return Delta(getX(1) - getX(0), getY(1) - getY(0))
 }
 
-class TouchGestureHandler(context: Context) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
+class TransformGestureDetector(context: Context) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
 
     private var inputBoxComponent: InputBoxComponent? = null
 

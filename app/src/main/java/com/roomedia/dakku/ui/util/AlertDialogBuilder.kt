@@ -1,4 +1,4 @@
-package com.roomedia.dakku.util
+package com.roomedia.dakku.ui.util
 
 import android.app.AlertDialog
 import android.content.Context
@@ -39,8 +39,7 @@ private fun showPasswordDialog(context: Context, okCallback: () -> Unit, @String
             .format(context.getString(titleId))
     }
 
-    val dialog = AlertDialog
-        .Builder(context)
+    val dialog = AlertDialog.Builder(context)
         .setView(binding.root)
         .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(android.R.string.ok, null)
@@ -66,8 +65,7 @@ fun showPasswordUnlockDialog(context: Context, okCallback: () -> Unit): AlertDia
 }
 
 fun showConfirmDialog(context: Context, okCallback: () -> Unit): AlertDialog {
-    return AlertDialog
-        .Builder(context)
+    return AlertDialog.Builder(context)
         .setMessage(R.string.rollback_diary_message)
         .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(android.R.string.ok) { _, _ ->

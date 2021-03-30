@@ -1,8 +1,8 @@
-package com.roomedia.dakku.util
+package com.roomedia.dakku.ui.util
 
 import android.view.MenuItem
 import androidx.annotation.DrawableRes
-import com.roomedia.dakku.data.diary.Diary
+import com.roomedia.dakku.persistence.Diary
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
