@@ -1,4 +1,4 @@
-package com.roomedia.dakku.viewModel
+package com.roomedia.dakku.ui.util
 
 import androidx.lifecycle.ViewModel
 import com.roomedia.dakku.repository.CommonRepository

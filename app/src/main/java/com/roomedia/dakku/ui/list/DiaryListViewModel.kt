@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.repository.DiaryRepository
-import com.roomedia.dakku.viewModel.CommonViewModel
+import com.roomedia.dakku.ui.util.CommonViewModel
 
 class DiaryListViewModel : CommonViewModel<Diary>(), LifecycleOwner {
 

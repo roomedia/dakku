@@ -1,4 +1,4 @@
-package com.roomedia.dakku.ui.component
+package com.roomedia.dakku.ui.editor
 
 import android.content.Context
 import android.view.MotionEvent

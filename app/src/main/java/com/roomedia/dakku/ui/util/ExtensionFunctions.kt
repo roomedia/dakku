@@ -1,4 +1,4 @@
-package com.roomedia.dakku.util
+package com.roomedia.dakku.ui.util
 
 import android.view.MenuItem
 import androidx.annotation.DrawableRes

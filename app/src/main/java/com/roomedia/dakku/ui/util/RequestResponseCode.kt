@@ -1,4 +1,4 @@
-package com.roomedia.dakku.util
+package com.roomedia.dakku.ui.util
 
 enum class REQUEST {
     NEW_DIARY,

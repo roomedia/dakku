@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryListBinding
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
-import com.roomedia.dakku.util.REQUEST
-import com.roomedia.dakku.util.setIcon
+import com.roomedia.dakku.ui.util.REQUEST
+import com.roomedia.dakku.ui.util.setIcon
 
 class DiaryListActivity : AppCompatActivity() {
 

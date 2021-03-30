@@ -9,10 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
-import com.roomedia.dakku.ui.component.TransformGestureDetector
-import com.roomedia.dakku.util.REQUEST
-import com.roomedia.dakku.util.RESPONSE
-import com.roomedia.dakku.util.showConfirmDialog
+import com.roomedia.dakku.ui.util.REQUEST
+import com.roomedia.dakku.ui.util.RESPONSE
+import com.roomedia.dakku.ui.util.showConfirmDialog
 
 class DiaryEditorActivity : AppCompatActivity() {
 
