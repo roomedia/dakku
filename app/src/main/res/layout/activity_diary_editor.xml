@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable name="viewModel" type="com.roomedia.dakku.ui.editor.StickerViewModel" />
         <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.CommonMenuHandlers" />
     </data>
 
@@ -37,7 +38,7 @@
 
             <include
                 android:id="@+id/addMenu"
-                android:visibility="@{ commonMenuHandlers.addMenuVisibility }"
+                android:visibility="@{commonMenuHandlers.addMenuVisibility}"
                 layout="@layout/menu_add" />
 
             <View
@@ -47,7 +48,7 @@
 
             <include
                 android:id="@+id/commonMenu"
-                android:visibility="@{ commonMenuHandlers.commonMenuVisibility }"
+                android:visibility="@{commonMenuHandlers.commonMenuVisibility}"
                 layout="@layout/menu_common" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
