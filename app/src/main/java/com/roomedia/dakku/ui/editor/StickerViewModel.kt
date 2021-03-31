@@ -3,11 +3,12 @@ package com.roomedia.dakku.ui.editor
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
+import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.repository.StickerRepository
 import com.roomedia.dakku.ui.util.CommonViewModel
 
-class StickerViewModel(private val diaryId: Int) : CommonViewModel<Sticker>() {
+class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
     override val repository = StickerRepository()
     val stickers = repository.getFrom(diaryId)
     val isEdit = MutableLiveData<Boolean>()
@@ -16,8 +17,9 @@ class StickerViewModel(private val diaryId: Int) : CommonViewModel<Sticker>() {
         isEdit.value = true
     }
 
-    fun onSave() {
+    fun onSave(stickerViews: Sequence<View>) {
         isEdit.value = false
+        save(stickerViews)
     }
 
     fun onBack(editCallback: () -> Unit, saveCallback: () -> Unit) {
@@ -28,10 +30,11 @@ class StickerViewModel(private val diaryId: Int) : CommonViewModel<Sticker>() {
         saveCallback()
     }
 
-    fun save(stickers: Sequence<View>) {
-        stickers.mapIndexed { zIndex, it ->
+    fun save(stickerViews: Sequence<View>) {
+        val diary = if (diaryId == 0L) Diary() else null
+        val stickers = stickerViews.mapIndexed { zIndex, it ->
             Sticker(
-                diaryId,
+                diary?.id ?: diaryId,
                 it.translationX,
                 it.translationY,
                 it.scaleX,
@@ -41,15 +44,16 @@ class StickerViewModel(private val diaryId: Int) : CommonViewModel<Sticker>() {
                 (it as TextView).text.toString(),
                 if (it.id != -1) it.id else 0
             )
-        }.forEach {
-            insertOrUpdate(it)
         }
-    }
-
-    private fun insertOrUpdate(sticker: Sticker) {
-        when (sticker.id) {
-            0 -> insert(sticker)
-            else -> update(sticker)
+        diary?.let {
+            repository.insertInto(it, *stickers.toList().toTypedArray())
+            return
+        }
+        stickers.forEach {
+            when (it.id) {
+                0 -> insert(it)
+                else -> update(it)
+            }
         }
     }
 }

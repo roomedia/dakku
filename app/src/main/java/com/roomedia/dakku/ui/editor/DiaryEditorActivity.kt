@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.roomedia.dakku.R
@@ -15,7 +16,10 @@ import com.roomedia.dakku.ui.util.showConfirmDialog
 class DiaryEditorActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDiaryEditorBinding.inflate(layoutInflater) }
-    private val stickerViewModel by lazy { StickerViewModel(intent.getIntExtra("diary_id", 0)) }
+    private val stickerViewModel by lazy {
+        val diaryId = intent.getLongExtra("diary_id", 0L)
+        StickerViewModel(diaryId)
+    }
     private var transformGestureDetector: TransformGestureDetector? = null
 
     private lateinit var editMenuItem: MenuItem
@@ -79,7 +83,10 @@ class DiaryEditorActivity : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
             R.id.button_editor_edit -> stickerViewModel.onEdit()
-            R.id.button_editor_save -> stickerViewModel.onSave()
+            R.id.button_editor_save -> {
+                stickerViewModel.onSave(binding.diaryFrame.children)
+                Toast.makeText(this, R.string.save_diary_message, Toast.LENGTH_SHORT).show()
+            }
             else -> {}
         }
         return super.onOptionsItemSelected(item)

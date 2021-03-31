@@ -7,14 +7,13 @@ import java.util.Date
 
 @Entity
 data class Diary(
-    val date: Long,
-    val title: String = date.toString(),
+    @PrimaryKey val id: Long = Date().time,
+    val title: String = id.toString(),
     var bookmark: Boolean = false,
     var lock: Boolean = false,
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
 ) {
     fun toCalendar(): Calendar = Calendar.getInstance().also {
-        it.time = Date(date)
+        it.time = Date(id)
     }
 
     fun isInSameWeek(that: Diary): Boolean {

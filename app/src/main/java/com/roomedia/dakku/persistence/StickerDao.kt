@@ -2,13 +2,24 @@ package com.roomedia.dakku.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
-abstract class StickerDao : CommonDao<Sticker> {
+interface StickerDao : CommonDao<Sticker> {
     @Query("SELECT * FROM sticker WHERE diaryId = :diaryId ORDER BY id ASC")
-    abstract fun getFrom(diaryId: Int): LiveData<List<Sticker>>
+    fun getFrom(diaryId: Long): LiveData<List<Sticker>>
+
+    @Transaction
+    fun insertInto(diary: Diary, vararg stickers: Sticker) {
+        insert(diary)
+        insert(*stickers)
+    }
+
+    @Insert
+    fun insert(diary: Diary)
 
     @Query("DELETE FROM sticker WHERE diaryId = :diaryId")
-    abstract fun deleteFrom(diaryId: Int)
+    fun deleteFrom(diaryId: Long)
 }
