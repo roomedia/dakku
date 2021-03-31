@@ -17,10 +17,13 @@ fun showEditTextDialog(context: Context, text: String, okCallback: (String) -> U
         setText(text)
         requestFocus()
         selectAll()
-        postDelayed({
-            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-                .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
-        }, 50)
+        postDelayed(
+            {
+                (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                    .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+            },
+            50
+        )
     }
     return AlertDialog.Builder(context)
         .setView(binding.root)
