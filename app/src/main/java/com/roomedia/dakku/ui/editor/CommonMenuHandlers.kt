@@ -8,6 +8,15 @@ class CommonMenuHandlers {
     var commonMenuVisibility = ObservableInt(View.GONE)
     var addMenuVisibility = ObservableInt(View.GONE)
 
+    fun setVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            commonMenuVisibility.set(View.VISIBLE)
+        } else {
+            commonMenuVisibility.set(View.GONE)
+            addMenuVisibility.set(View.GONE)
+        }
+    }
+
     fun onAdd() {
         addMenuVisibility.set(View.VISIBLE)
     }
