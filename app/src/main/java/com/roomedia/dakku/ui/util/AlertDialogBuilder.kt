@@ -12,10 +12,15 @@ import com.roomedia.dakku.databinding.DialogInputTextBinding
 fun showEditTextDialog(context: Context, text: String, okCallback: (String) -> Unit): AlertDialog {
     val binding = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).let { layoutInflater ->
         DialogInputTextBinding.inflate(layoutInflater)
-    }.also { binding ->
-        binding.editText.setText(text)
-        binding.editText.requestFocus()
-        binding.editText.selectAll()
+    }
+    binding.editText.apply {
+        setText(text)
+        requestFocus()
+        selectAll()
+        postDelayed({
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        }, 50)
     }
     return AlertDialog.Builder(context)
         .setView(binding.root)
@@ -24,13 +29,6 @@ fun showEditTextDialog(context: Context, text: String, okCallback: (String) -> U
             okCallback(binding.editText.text.toString())
         }
         .show()
-        // MARK: show soft input is not working
-        .apply {
-            setOnShowListener {
-                (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-                    .showSoftInput(this.currentFocus, InputMethodManager.SHOW_IMPLICIT)
-            }
-        }
 }
 
 private fun showPasswordDialog(context: Context, okCallback: () -> Unit, @StringRes titleId: Int): AlertDialog {
