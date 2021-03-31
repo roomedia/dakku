@@ -23,7 +23,6 @@ class WeeklyDiaryAdapter(context: Context) :
     private val localDateFormat = SimpleDateFormat(context.getString(R.string.locale_date_format), Locale.getDefault())
 
     fun setDataSource(dataSource: List<Diary>) {
-        // TODO: 2021/03/25 should be changed to DiffUtil method
         this.dataSource = dataSource
         dataset.clear()
         dataset.addAll(dataSource.splitByWeek())
@@ -31,7 +30,6 @@ class WeeklyDiaryAdapter(context: Context) :
     }
 
     fun setFiltering(isFilterBookmark: Boolean, isFilterLock: Boolean) {
-        // TODO: 2021/03/25 should be changed to DiffUtil method
         dataset.clear()
         dataset.addAll(
             dataSource.filterBookmark(isFilterBookmark)
