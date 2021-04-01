@@ -9,7 +9,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.AlertInputPasswordBinding
 import com.roomedia.dakku.databinding.DialogInputTextBinding
 
-fun showEditTextDialog(context: Context, text: String, okCallback: (String) -> Unit): AlertDialog {
+fun showEditTextDialog(context: Context, text: CharSequence, okCallback: (String) -> Unit): AlertDialog {
     val binding = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).let { layoutInflater ->
         DialogInputTextBinding.inflate(layoutInflater)
     }

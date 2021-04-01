@@ -23,7 +23,7 @@ data class Sticker(
     val h: Float,
     val rot: Float,
     val zIndex: Int,
-    val text: String?,
     var type: StickerType? = null,
+    var text: CharSequence? = null,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 )

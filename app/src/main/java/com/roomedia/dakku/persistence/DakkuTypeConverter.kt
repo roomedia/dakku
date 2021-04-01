@@ -12,6 +12,16 @@ class DakkuTypeConverter {
     fun stickerTypeToOrdinal(stickerType: StickerType): Int {
         return stickerType.ordinal
     }
+
+    @TypeConverter
+    fun stringToCharSequence(string: String?): CharSequence? {
+        return string
+    }
+
+    @TypeConverter
+    fun charSequenceToString(charSequence: CharSequence?): String? {
+        return charSequence?.toString()
+    }
 }
 
 enum class StickerType {
