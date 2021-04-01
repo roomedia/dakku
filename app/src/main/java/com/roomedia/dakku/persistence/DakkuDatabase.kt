@@ -3,6 +3,7 @@ package com.roomedia.dakku.persistence
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.roomedia.dakku.DakkuApplication
 import kotlinx.coroutines.GlobalScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+@TypeConverters(DakkuTypeConverter::class)
 @Database(entities = [Diary::class, Sticker::class], version = 1, exportSchema = false)
 abstract class DakkuDatabase : RoomDatabase() {
     abstract fun diaryDao(): DiaryDao

@@ -1,7 +1,5 @@
 package com.roomedia.dakku.ui.editor
 
-import android.view.View
-import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.Sticker
@@ -17,7 +15,7 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
         isEdit.value = true
     }
 
-    fun onSave(stickerViews: Sequence<View>) {
+    fun onSave(stickerViews: Sequence<StickerView>) {
         isEdit.value = false
         save(stickerViews)
     }
@@ -30,30 +28,16 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
         saveCallback()
     }
 
-    fun save(stickerViews: Sequence<View>) {
+    fun save(stickerViews: Sequence<StickerView>) {
         val diary = if (diaryId == 0L) Diary() else null
-        val stickers = stickerViews.mapIndexed { zIndex, it ->
-            Sticker(
-                diary?.id ?: diaryId,
-                it.translationX,
-                it.translationY,
-                it.scaleX,
-                it.scaleY,
-                it.rotation,
-                zIndex,
-                (it as TextView).text.toString(),
-                if (it.id != -1) it.id else 0
-            )
-        }
+        val stickers = stickerViews.mapIndexed { zIndex, stickerView ->
+            stickerView.toSticker(diary?.id ?: diaryId, zIndex)
+        }.toList().toTypedArray()
+
         diary?.let {
-            repository.insertInto(it, *stickers.toList().toTypedArray())
-            return
-        }
-        stickers.forEach {
-            when (it.id) {
-                0 -> insert(it)
-                else -> update(it)
-            }
+            repository.insertInto(it, *stickers)
+        } ?: run {
+            stickers.forEach { if (it.id == 0) insert(it) else update(it) }
         }
     }
 }
