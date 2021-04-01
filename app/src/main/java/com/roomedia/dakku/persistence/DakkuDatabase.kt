@@ -19,7 +19,7 @@ abstract class DakkuDatabase : RoomDatabase() {
         val instance: DakkuDatabase = Room.databaseBuilder(
             DakkuApplication.instance,
             DakkuDatabase::class.java,
-            "contact-database"
+            "dakku-database"
         )
             .addCallback(setInitialRoomDatabaseCallback())
             .build()
