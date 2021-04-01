@@ -24,5 +24,6 @@ data class Sticker(
     val rot: Float,
     val zIndex: Int,
     val text: String?,
+    var type: StickerType? = null,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 )
