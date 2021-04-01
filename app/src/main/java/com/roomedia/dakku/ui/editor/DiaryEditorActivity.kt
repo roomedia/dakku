@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
+import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.util.REQUEST
 import com.roomedia.dakku.ui.util.RESPONSE
 import com.roomedia.dakku.ui.util.showConfirmDialog
@@ -51,8 +52,13 @@ class DiaryEditorActivity : AppCompatActivity() {
 
     private fun initDiaryFrame() {
         stickerViewModel.stickers.observe(this) { stickers ->
-            stickers.forEach {
-                binding.diaryFrame.addView(it.toStickerView(this))
+            stickers.map {
+                when (it.type) {
+                    StickerType.TEXT_VIEW -> StickerTextViewImpl(this, it)
+                    else -> TODO("not yet implemented")
+                }
+            }.forEach {
+                binding.diaryFrame.addView(it)
             }
             stickerViewModel.stickers.removeObservers(this)
         }
@@ -84,7 +90,11 @@ class DiaryEditorActivity : AppCompatActivity() {
             android.R.id.home -> onBackPressed()
             R.id.button_editor_edit -> stickerViewModel.onEdit()
             R.id.button_editor_save -> {
-                stickerViewModel.onSave(binding.diaryFrame.children)
+                binding.diaryFrame.children.map {
+                    it as StickerView
+                }.also {
+                    stickerViewModel.onSave(it)
+                }
                 Toast.makeText(this, R.string.save_diary_message, Toast.LENGTH_SHORT).show()
             }
             else -> {}
@@ -101,7 +111,11 @@ class DiaryEditorActivity : AppCompatActivity() {
                 }
             },
             {
-                stickerViewModel.save(binding.diaryFrame.children)
+                binding.diaryFrame.children.map {
+                    it as StickerView
+                }.also {
+                    stickerViewModel.save(it)
+                }
                 transformGestureDetector = null
                 finish()
             }

@@ -15,11 +15,32 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="StickerTextView">
+    <style name="Sticker">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="Sticker.TextView" parent="Sticker">
         <item name="android:inputType">textMultiLine|text</item>
-        <item name="android:padding">32dp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Sticker.ImageView" parent="Sticker">
+    </style>
+
+    <style name="Sticker.VideoView" parent="Sticker">
+    </style>
+
+    <style name="Sticker.Switch" parent="Sticker">
+    </style>
+
+    <style name="Sticker.RadioButton" parent="Sticker">
+    </style>
+
+    <style name="Sticker.CheckBox" parent="Sticker">
+    </style>
+
+    <style name="Sticker.Slider" parent="Sticker">
     </style>
 </resources>
