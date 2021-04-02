@@ -2,6 +2,7 @@ package com.roomedia.dakku.persistence
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
@@ -11,11 +12,13 @@ import androidx.room.PrimaryKey
         ForeignKey(
             entity = Diary::class,
             parentColumns = ["id"],
-            childColumns = ["diaryId"]
+            childColumns = ["diaryId"],
+            onDelete = CASCADE,
         ),
     ],
 )
 data class Sticker(
+    @PrimaryKey val id: Int,
     val diaryId: Long,
     val x: Float,
     val y: Float,
@@ -25,5 +28,4 @@ data class Sticker(
     val zIndex: Int,
     var type: StickerType? = null,
     var text: CharSequence? = null,
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
 )

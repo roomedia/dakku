@@ -13,12 +13,13 @@ import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.util.REQUEST
 import com.roomedia.dakku.ui.util.RESPONSE
 import com.roomedia.dakku.ui.util.showConfirmDialog
+import java.util.Date
 
 class DiaryEditorActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDiaryEditorBinding.inflate(layoutInflater) }
     private val stickerViewModel by lazy {
-        val diaryId = intent.getLongExtra("diary_id", 0L)
+        val diaryId = intent.getLongExtra("diary_id", Date().time)
         StickerViewModel(diaryId)
     }
     private var transformGestureDetector: TransformGestureDetector? = null
