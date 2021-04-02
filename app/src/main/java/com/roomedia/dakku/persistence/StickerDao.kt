@@ -3,6 +3,7 @@ package com.roomedia.dakku.persistence
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
 
@@ -17,8 +18,11 @@ interface StickerDao : CommonDao<Sticker> {
         insert(*stickers)
     }
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun insert(diary: Diary)
+
+    @Insert(onConflict = REPLACE)
+    override fun insert(vararg entities: Sticker)
 
     @Query("DELETE FROM sticker WHERE diaryId = :diaryId")
     fun deleteFrom(diaryId: Long)

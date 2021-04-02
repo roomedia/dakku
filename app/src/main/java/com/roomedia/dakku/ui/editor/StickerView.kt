@@ -8,6 +8,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.util.showEditTextDialog
+import java.util.Date
 
 interface StickerView {
 
@@ -38,6 +39,7 @@ interface StickerView {
 
     fun toSticker(diaryId: Long, zIndex: Int): Sticker {
         return Sticker(
+            getId(),
             diaryId,
             getTranslationX(),
             getTranslationY(),
@@ -46,7 +48,6 @@ interface StickerView {
             getRotation(),
             zIndex,
             StickerType.TEXT_VIEW,
-            id = if (getId() != -1) getId() else 0
         )
     }
 }
@@ -61,7 +62,6 @@ interface StickerTextView : StickerView {
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
         setText(sticker.text)
-        setOnClickListener { showEditTextDialog() }
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker {
@@ -81,7 +81,9 @@ class StickerTextViewImpl(context: Context) :
     AppCompatTextView(context, null, 0), StickerTextView {
 
     init {
+        id = Date().time.toInt()
         style(R.style.Sticker_TextView)
+        setOnClickListener { showEditTextDialog() }
     }
 
     constructor(context: Context, sticker: Sticker) : this(context) {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.roomedia.dakku.R
@@ -48,6 +47,9 @@ class DiaryEditorActivity : AppCompatActivity() {
             binding.diaryFrame.children.forEach {
                 it.isEnabled = isEdit
             }
+            if (!isEdit) {
+                stickerViewModel.save(binding.diaryFrame.children)
+            }
         }
     }
 
@@ -90,14 +92,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
             R.id.button_editor_edit -> stickerViewModel.onEdit()
-            R.id.button_editor_save -> {
-                binding.diaryFrame.children.map {
-                    it as StickerView
-                }.also {
-                    stickerViewModel.onSave(it)
-                }
-                Toast.makeText(this, R.string.save_diary_message, Toast.LENGTH_SHORT).show()
-            }
+            R.id.button_editor_save -> stickerViewModel.onSave()
             else -> {}
         }
         return super.onOptionsItemSelected(item)
@@ -112,11 +107,6 @@ class DiaryEditorActivity : AppCompatActivity() {
                 }
             },
             {
-                binding.diaryFrame.children.map {
-                    it as StickerView
-                }.also {
-                    stickerViewModel.save(it)
-                }
                 transformGestureDetector = null
                 finish()
             }
