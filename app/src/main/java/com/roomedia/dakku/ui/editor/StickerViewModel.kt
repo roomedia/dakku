@@ -12,6 +12,8 @@ import com.roomedia.dakku.ui.util.CommonViewModel
 class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
     override val repository = StickerRepository()
     val stickers = repository.getFrom(diaryId)
+
+    private var isInit = true
     val isEdit = MutableLiveData<Boolean>()
 
     fun onEdit() {
@@ -19,6 +21,7 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
     }
 
     fun onSave() {
+        isInit = false
         isEdit.value = false
     }
 
@@ -31,6 +34,7 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
     }
 
     fun save(views: Sequence<View>) {
+        if (isInit) return
         val stickers = views.mapIndexed { zIndex, view ->
             (view as StickerView).toSticker(diaryId, zIndex)
         }.toList().toTypedArray()
