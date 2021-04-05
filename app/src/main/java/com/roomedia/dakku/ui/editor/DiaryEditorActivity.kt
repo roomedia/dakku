@@ -48,7 +48,7 @@ class DiaryEditorActivity : AppCompatActivity() {
                 it.isEnabled = isEdit
             }
             if (!isEdit) {
-                stickerViewModel.save(binding.diaryFrame.children)
+                stickerViewModel.save(binding.diaryFrame)
             }
         }
     }
