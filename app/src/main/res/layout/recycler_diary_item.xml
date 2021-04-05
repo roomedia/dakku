@@ -10,8 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="0dp"
         android:paddingStart="16dp"
         android:paddingEnd="0dp">
 
@@ -32,7 +30,7 @@
                 android:contentDescription="@string/diary_thumbnail"
                 android:scaleType="centerCrop"
                 android:onClick="@{(view) -> viewModel.onThumbnail(view.context)}"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:src="@{viewModel.thumbnail}" />
         </androidx.cardview.widget.CardView>
 
         <ImageButton
