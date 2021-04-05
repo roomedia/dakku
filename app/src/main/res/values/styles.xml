@@ -27,11 +27,6 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Sticker.TextView.Hide" parent="Sticker.TextView">
-        <item name="android:textColor">@color/gray</item>
-        <item name="android:background">@color/gray</item>
-    </style>
-
     <style name="Sticker.ImageView" parent="Sticker">
     </style>
 

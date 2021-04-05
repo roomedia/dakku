@@ -1,6 +1,9 @@
 package com.roomedia.dakku.ui.editor
 
 import android.content.Context
+import android.graphics.Color
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.paris.extensions.style
@@ -50,6 +53,9 @@ interface StickerView {
             StickerType.TEXT_VIEW,
         )
     }
+
+    fun hidePrivacyContent()
+    fun showPrivacyContent()
 }
 
 interface StickerTextView : StickerView {
@@ -57,11 +63,16 @@ interface StickerTextView : StickerView {
     fun getContext(): Context
     fun getText(): CharSequence
     fun setText(text: CharSequence?)
+    fun setTextColor(color: Int)
     fun setOnClickListener(l: View.OnClickListener?)
+
+    var spannableString: SpannableString?
+    var backgroundColorSpan: BackgroundColorSpan?
 
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
-        setText(sticker.text)
+        // TODO: 2021/04/05 change background color to a value from database
+        setSpannedText(sticker.text, Color.BLACK, Color.TRANSPARENT)
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker {
@@ -70,15 +81,41 @@ interface StickerTextView : StickerView {
         }
     }
 
+    private fun setSpannedText(text: CharSequence?, textColor: Int, backgroundColor: Int) {
+        backgroundColorSpan?.let {
+            spannableString!!.removeSpan(it)
+        }
+        backgroundColorSpan = BackgroundColorSpan(backgroundColor)
+        spannableString = SpannableString(text).apply {
+            setSpan(backgroundColorSpan, 0, count(), SpannableString.SPAN_MARK_MARK)
+        }
+        setTextColor(textColor)
+        setText(spannableString)
+    }
+
     fun showEditTextDialog() {
         showEditTextDialog(getContext(), getText()) {
-            setText(it)
+            // TODO: 2021/04/05 change background color to a value from database
+            setSpannedText(it, Color.BLACK, Color.TRANSPARENT)
         }
+    }
+
+    override fun hidePrivacyContent() {
+        // TODO: 2021/04/05 change background color to a value from database
+        setSpannedText(getText(), Color.GRAY, Color.GRAY)
+    }
+
+    override fun showPrivacyContent() {
+        // TODO: 2021/04/05 change background color to a value from database
+        setSpannedText(getText(), Color.BLACK, Color.TRANSPARENT)
     }
 }
 
 class StickerTextViewImpl(context: Context) :
     AppCompatTextView(context, null, 0), StickerTextView {
+
+    override var spannableString: SpannableString? = null
+    override var backgroundColorSpan: BackgroundColorSpan? = null
 
     init {
         id = Date().time.toInt()

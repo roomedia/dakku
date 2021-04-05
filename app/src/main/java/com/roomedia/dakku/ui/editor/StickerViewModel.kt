@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.MutableLiveData
-import com.airbnb.paris.extensions.style
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.Sticker
@@ -41,42 +40,32 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
 
     fun save(diaryFrame: FrameLayout) {
         if (isInit) return
+        saveDiaryEntity(diaryFrame)
+        saveThumbnail(diaryFrame)
+        Toast.makeText(diaryFrame.context, R.string.save_diary_message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun saveDiaryEntity(diaryFrame: FrameLayout) {
         val stickers = diaryFrame.children.mapIndexed { zIndex, view ->
             (view as StickerView).toSticker(diaryId, zIndex)
         }.toList().toTypedArray()
         repository.insertInto(Diary(diaryId), *stickers)
-        Toast.makeText(diaryFrame.context, R.string.save_diary_message, Toast.LENGTH_SHORT).show()
-
-        hide(diaryFrame)
-        saveThumbnail(diaryFrame)
-        show(diaryFrame)
-    }
-
-    private fun hide(diaryFrame: FrameLayout) {
-        diaryFrame.children.forEach {
-            when (it) {
-                is StickerTextViewImpl -> it.style(R.style.Sticker_TextView_Hide)
-                else -> {}
-            }
-        }
-    }
-
-    private fun show(diaryFrame: FrameLayout) {
-        diaryFrame.children.forEach {
-            when (it) {
-                is StickerTextViewImpl -> it.style(R.style.Sticker_TextView)
-                else -> {}
-            }
-        }
     }
 
     private fun saveThumbnail(diaryFrame: FrameLayout) {
         val stream = ByteArrayOutputStream()
-        diaryFrame.drawToBitmap().compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        toBitmap(diaryFrame).compress(Bitmap.CompressFormat.JPEG, 100, stream)
 
         val thumbnail = stream.toByteArray()
         diaryFrame.context.openFileOutput(diaryId.toString(), Context.MODE_PRIVATE).use {
             it.write(thumbnail)
         }
+    }
+
+    private fun toBitmap(diaryFrame: FrameLayout): Bitmap {
+        diaryFrame.children.forEach { (it as StickerView).hidePrivacyContent() }
+        val bitmap = diaryFrame.drawToBitmap()
+        diaryFrame.children.forEach { (it as StickerView).showPrivacyContent() }
+        return bitmap
     }
 }
