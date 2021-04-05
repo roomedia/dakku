@@ -18,7 +18,7 @@ class DiaryAdapter(private val dataset: List<Diary>) :
     }
 
     override fun onBindViewHolder(holder: DiaryViewHolder, position: Int) {
-        holder.binding.viewModel = DiaryViewModel(dataset[position])
+        holder.binding.viewModel = DiaryViewModel(dataset[position], holder.binding.root.context)
     }
 
     override fun getItemCount(): Int {
