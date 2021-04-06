@@ -11,6 +11,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.repository.StickerRepository
+import com.roomedia.dakku.ui.editor.sticker.StickerView
 import com.roomedia.dakku.ui.util.CommonViewModel
 import java.io.ByteArrayOutputStream
 

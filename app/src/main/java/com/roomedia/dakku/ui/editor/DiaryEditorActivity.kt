@@ -9,6 +9,9 @@ import androidx.core.view.children
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.StickerType
+import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
+import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
+import com.roomedia.dakku.ui.editor.sticker.StickerView
 import com.roomedia.dakku.ui.util.REQUEST
 import com.roomedia.dakku.ui.util.showConfirmDialog
 import java.util.Date
@@ -65,6 +68,7 @@ class DiaryEditorActivity : AppCompatActivity() {
             stickers.map {
                 when (it.type) {
                     StickerType.TEXT_VIEW -> StickerTextViewImpl(this, it)
+                    StickerType.IMAGE_VIEW -> StickerImageViewImpl(this, it)
                     else -> TODO("not yet implemented")
                 }
             }.forEach {
