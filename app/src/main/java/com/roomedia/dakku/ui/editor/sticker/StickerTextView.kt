@@ -1,10 +1,9 @@
-package com.roomedia.dakku.ui.editor
+package com.roomedia.dakku.ui.editor.sticker
 
 import android.content.Context
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
-import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.paris.extensions.style
 import com.roomedia.dakku.R
@@ -13,58 +12,12 @@ import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.util.showEditTextDialog
 import java.util.Date
 
-interface StickerView {
-
-    fun getId(): Int
-    fun getTranslationX(): Float
-    fun getTranslationY(): Float
-    fun getRotation(): Float
-    fun getScaleX(): Float
-    fun getScaleY(): Float
-
-    fun setId(id: Int)
-    fun setTranslationX(x: Float)
-    fun setTranslationY(y: Float)
-    fun setRotation(rot: Float)
-    fun setScaleX(w: Float)
-    fun setScaleY(h: Float)
-
-    fun fromSticker(sticker: Sticker) {
-        with(sticker) {
-            setId(id)
-            setTranslationX(x)
-            setTranslationY(y)
-            setRotation(rot)
-            setScaleX(w)
-            setScaleY(h)
-        }
-    }
-
-    fun toSticker(diaryId: Long, zIndex: Int): Sticker {
-        return Sticker(
-            getId(),
-            diaryId,
-            getTranslationX(),
-            getTranslationY(),
-            getScaleX(),
-            getScaleY(),
-            getRotation(),
-            zIndex,
-            StickerType.TEXT_VIEW,
-        )
-    }
-
-    fun hidePrivacyContent()
-    fun showPrivacyContent()
-}
-
 interface StickerTextView : StickerView {
 
     fun getContext(): Context
     fun getText(): CharSequence
     fun setText(text: CharSequence?)
     fun setTextColor(color: Int)
-    fun setOnClickListener(l: View.OnClickListener?)
 
     var spannableString: SpannableString?
     var backgroundColorSpan: BackgroundColorSpan?

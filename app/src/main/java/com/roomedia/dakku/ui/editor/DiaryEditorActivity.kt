@@ -9,6 +9,7 @@ import androidx.core.view.children
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.StickerType
+import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.util.REQUEST
 import com.roomedia.dakku.ui.util.RESPONSE
 import com.roomedia.dakku.ui.util.showConfirmDialog
