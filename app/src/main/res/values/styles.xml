@@ -3,7 +3,7 @@
     <style name="TransparentImageButton">
         <item name="android:layout_width">32dp</item>
         <item name="android:layout_height">40dp</item>
-        <item name="android:background">@drawable/transparent_background</item>
+        <item name="android:background">@drawable/bg_transparent</item>
     </style>
 
     <style name="TransparentMenu" parent="TransparentImageButton">
@@ -19,7 +19,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@drawable/bg_selectable</item>
     </style>
 
     <style name="Sticker.TextView" parent="Sticker">
