@@ -18,7 +18,7 @@
     <style name="Sticker">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:padding">2dp</item>
         <item name="android:background">@drawable/bg_selectable</item>
     </style>
 

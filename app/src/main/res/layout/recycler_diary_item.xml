@@ -28,9 +28,13 @@
                 android:layout_width="128dp"
                 android:layout_height="192dp"
                 android:contentDescription="@string/diary_thumbnail"
-                android:scaleType="centerCrop"
                 android:onClick="@{(view) -> viewModel.onThumbnail(view.context)}"
-                android:src="@{viewModel.thumbnail}" />
+                android:scaleType="centerCrop"
+                android:src="@{viewModel.thumbnail}"
+                android:tint="@color/colorOverlay"
+                tools:src="@color/white"
+                tools:tint="@color/colorOverlay"
+                tools:ignore="UseAppTint" />
         </androidx.cardview.widget.CardView>
 
         <ImageButton
