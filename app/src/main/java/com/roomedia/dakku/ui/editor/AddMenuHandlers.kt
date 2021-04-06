@@ -2,9 +2,12 @@ package com.roomedia.dakku.ui.editor
 
 import android.widget.FrameLayout
 
-class AddMenuHandlers(private val frame: FrameLayout) {
+class AddMenuHandlers(
+    private val diaryEditorActivity: DiaryEditorActivity,
+    private val frame: FrameLayout
+) {
     fun onText() {
-        StickerTextViewImpl(frame.context).apply {
+        StickerTextViewImpl(diaryEditorActivity).apply {
             showEditTextDialog()
         }.also {
             frame.addView(it)

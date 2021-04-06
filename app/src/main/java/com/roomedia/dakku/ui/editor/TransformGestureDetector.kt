@@ -1,6 +1,5 @@
 package com.roomedia.dakku.ui.editor
 
-import android.content.Context
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 
@@ -11,13 +10,8 @@ fun MotionEvent.getDelta(): Delta? {
     return Delta(getX(1) - getX(0), getY(1) - getY(0))
 }
 
-class TransformGestureDetector(context: Context) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
-
-    private var inputBoxComponent: InputBoxComponent? = null
-
-    fun setInputBoxComponent(inputBoxComponent: InputBoxComponent) {
-        this.inputBoxComponent = inputBoxComponent
-    }
+class TransformGestureDetector(private val activity: DiaryEditorActivity) :
+    ScaleGestureDetector(activity, SimpleOnScaleGestureListener()) {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
@@ -36,21 +30,21 @@ class TransformGestureDetector(context: Context) : ScaleGestureDetector(context,
     }
 
     private fun onTouchDownEvent(event: MotionEvent) {
-        inputBoxComponent?.initTranslation(event.x, event.y)
+        activity.selectedSticker?.initTranslation(event.x, event.y)
     }
 
     private fun onTouchMoveEvent(event: MotionEvent) {
         if (event.pointerCount == 1) {
-            inputBoxComponent?.translation(event.x, event.y)
+            activity.selectedSticker?.setTranslation(event.x, event.y)
             return
         }
         event.getDelta()?.let { delta ->
-            inputBoxComponent?.rotation(delta)
-            inputBoxComponent?.scale(delta, true)
+            activity.selectedSticker?.setRotation(delta)
+            activity.selectedSticker?.setScale(delta)
         }
     }
 
     private fun onTouchUpEvent() {
-        inputBoxComponent?.deinit()
+        activity.selectedSticker?.destroy()
     }
 }
