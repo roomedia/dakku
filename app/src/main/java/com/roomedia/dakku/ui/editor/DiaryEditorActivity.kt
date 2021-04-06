@@ -10,7 +10,6 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.util.REQUEST
-import com.roomedia.dakku.ui.util.RESPONSE
 import com.roomedia.dakku.ui.util.showConfirmDialog
 import java.util.Date
 
@@ -43,11 +42,16 @@ class DiaryEditorActivity : AppCompatActivity() {
         stickerViewModel.isEdit.observe(this) { isEdit ->
             editMenuItem.isVisible = !isEdit
             saveMenuItem.isVisible = isEdit
+
             binding.commonMenuHandlers?.setVisibility(isEdit)
             binding.diaryFrame.children.forEach {
                 it.isEnabled = isEdit
             }
-            if (!isEdit) {
+
+            if (isEdit) {
+                transformGestureDetector = TransformGestureDetector(this)
+            } else {
+                transformGestureDetector = null
                 stickerViewModel.save(binding.diaryFrame)
             }
         }
@@ -76,16 +80,13 @@ class DiaryEditorActivity : AppCompatActivity() {
     }
 
     private fun initMode() {
-        when (intent.getIntExtra("request_code", -1)) {
-            REQUEST.NEW_DIARY.ordinal,
-            REQUEST.NEW_TEMPLATE.ordinal,
-            REQUEST.NEW_STICKER.ordinal -> {
-                stickerViewModel.isEdit.value = true
+        stickerViewModel.isEdit.value =
+            when (intent.getIntExtra("request_code", -1)) {
+                REQUEST.NEW_DIARY.ordinal,
+                REQUEST.NEW_TEMPLATE.ordinal,
+                REQUEST.NEW_STICKER.ordinal -> true
+                else -> false
             }
-            else -> {
-                stickerViewModel.isEdit.value = false
-            }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -102,14 +103,11 @@ class DiaryEditorActivity : AppCompatActivity() {
         stickerViewModel.onBack(
             {
                 showConfirmDialog(this) {
-                    setResult(RESPONSE.ROLLBACK_DIARY.ordinal)
+                    transformGestureDetector = null
                     finish()
                 }
             },
-            {
-                transformGestureDetector = null
-                finish()
-            }
+            { finish() }
         )
     }
 
