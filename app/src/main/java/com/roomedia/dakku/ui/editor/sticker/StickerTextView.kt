@@ -28,9 +28,13 @@ interface StickerTextView : StickerView {
         setSpannedText(sticker.text, Color.BLACK, Color.TRANSPARENT)
     }
 
-    override fun toSticker(diaryId: Long, zIndex: Int): Sticker {
-        return super.toSticker(diaryId, zIndex).also {
-            it.text = getText()
+    override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
+        val text = getText()
+        return when {
+            text.isNotBlank() -> super.toSticker(diaryId, zIndex)!!.also {
+                it.text = text
+            }
+            else -> null
         }
     }
 
@@ -96,9 +100,9 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
         fromSticker(sticker)
     }
 
-    override fun toSticker(diaryId: Long, zIndex: Int): Sticker {
+    override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return super.toSticker(diaryId, zIndex).also {
-            it.type = StickerType.TEXT_VIEW
+            it?.type = StickerType.TEXT_VIEW
         }
     }
 }

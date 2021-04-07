@@ -1,6 +1,7 @@
 package com.roomedia.dakku.ui.editor.sticker
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.appcompat.widget.AppCompatImageView
 import com.airbnb.paris.extensions.style
 import com.roomedia.dakku.R
@@ -14,15 +15,26 @@ interface StickerImageView : StickerView {
 
     val type: String
     val observer: SelectLifecycleObserver
+    var uri: Uri?
+
+    fun setImageURI(uri: Uri?)
+
+    fun setImage(uri: Uri?) {
+        this.uri = uri
+        setImageURI(uri)
+    }
 
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
-        // TODO: 2021/04/06 not yet implemented
+        setImage(sticker.uri)
     }
 
-    override fun toSticker(diaryId: Long, zIndex: Int): Sticker {
-        return super.toSticker(diaryId, zIndex).also {
-            // TODO: 2021/04/06 not yet implemented
+    override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
+        return when (uri) {
+            null -> null
+            else -> super.toSticker(diaryId, zIndex).also {
+                it?.uri = uri
+            }
         }
     }
 
@@ -49,6 +61,7 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
 
     override val type = "image/*"
     override val observer = activity.observer
+    override var uri: Uri? = null
 
     init {
         id = Date().time.toInt()
@@ -66,9 +79,9 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
         fromSticker(sticker)
     }
 
-    override fun toSticker(diaryId: Long, zIndex: Int): Sticker {
+    override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return super.toSticker(diaryId, zIndex).also {
-            it.type = StickerType.IMAGE_VIEW
+            it?.type = StickerType.IMAGE_VIEW
         }
     }
 }

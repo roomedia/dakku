@@ -2,7 +2,6 @@ package com.roomedia.dakku.ui.editor.sticker
 
 import android.content.Context
 import com.roomedia.dakku.persistence.Sticker
-import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.editor.Delta
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -106,7 +105,7 @@ interface StickerView {
         }
     }
 
-    fun toSticker(diaryId: Long, zIndex: Int): Sticker {
+    fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return Sticker(
             getId(),
             diaryId,
@@ -116,7 +115,6 @@ interface StickerView {
             getScaleY(),
             getRotation(),
             zIndex,
-            StickerType.TEXT_VIEW,
         )
     }
 

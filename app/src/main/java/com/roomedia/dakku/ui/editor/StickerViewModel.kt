@@ -49,7 +49,7 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
     private fun saveDiaryEntity(diaryFrame: FrameLayout) {
         val stickers = diaryFrame.children.mapIndexed { zIndex, view ->
             (view as StickerView).toSticker(diaryId, zIndex)
-        }.toList().toTypedArray()
+        }.filterNotNull().toList().toTypedArray()
         repository.insertInto(Diary(diaryId), *stickers)
     }
 

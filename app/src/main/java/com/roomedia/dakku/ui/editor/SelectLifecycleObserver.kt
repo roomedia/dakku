@@ -9,7 +9,6 @@ import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import coil.api.load
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 
 class SelectImageResultContract : ActivityResultContract<String, Uri?>() {
@@ -36,7 +35,7 @@ class SelectLifecycleObserver(
     override fun onCreate(owner: LifecycleOwner) {
         getContent = registry.register("key", owner, SelectImageResultContract()) {
             if (it == null) return@register
-            (activity.selectedSticker as? StickerImageViewImpl)?.load(it)
+            (activity.selectedSticker as? StickerImageViewImpl)?.setImage(it)
         }
     }
 
