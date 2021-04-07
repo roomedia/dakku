@@ -25,6 +25,7 @@ class DiaryEditorActivity : AppCompatActivity() {
     }
     private var transformGestureDetector: TransformGestureDetector? = null
     var selectedSticker: StickerView? = null
+    val observer = SelectLifecycleObserver(this, activityResultRegistry)
 
     private lateinit var editMenuItem: MenuItem
     private lateinit var saveMenuItem: MenuItem
@@ -40,6 +41,8 @@ class DiaryEditorActivity : AppCompatActivity() {
         binding.commonMenu.commonMenuHandlers = commonMenuHandlers
         binding.addMenu.addMenuHandlers = AddMenuHandlers(this, binding.diaryFrame)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        lifecycle.addObserver(observer)
     }
 
     private fun initCommonMenu() {
@@ -55,8 +58,7 @@ class DiaryEditorActivity : AppCompatActivity() {
             if (isEdit) {
                 transformGestureDetector = TransformGestureDetector(this)
             } else {
-                selectedSticker?.setSelected(false)
-                selectedSticker = null
+                select(null)
                 transformGestureDetector = null
                 stickerViewModel.save(binding.diaryFrame)
             }
@@ -120,5 +122,11 @@ class DiaryEditorActivity : AppCompatActivity() {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return transformGestureDetector?.onTouchEvent(event) ?: false
+    }
+
+    fun select(stickerView: StickerView?) {
+        stickerView?.setSelected(true)
+        selectedSticker?.setSelected(false)
+        selectedSticker = stickerView
     }
 }

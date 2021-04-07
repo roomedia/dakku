@@ -7,9 +7,13 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
+import com.roomedia.dakku.ui.editor.SelectLifecycleObserver
 import java.util.Date
 
 interface StickerImageView : StickerView {
+
+    val type: String
+    val observer: SelectLifecycleObserver
 
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
@@ -22,8 +26,8 @@ interface StickerImageView : StickerView {
         }
     }
 
-    fun showSelectImageDialog() {
-        // TODO: 2021/04/06 not yet implemented
+    fun showSelectItemDialog() {
+        observer.selectItem(type)
     }
 
     override fun hidePrivacyContent() {}
@@ -43,10 +47,19 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
     override var baseTouchAngle: Float? = null
     override var baseTouchSpan: Float? = null
 
+    override val type = "image/*"
+    override val observer = activity.observer
+
     init {
         id = Date().time.toInt()
         style(R.style.Sticker_ImageView)
-        setOnClickListener { showSelectImageDialog() }
+        setOnClickListener {
+            if (isSelected) {
+                showSelectItemDialog()
+            } else {
+                activity.select(this)
+            }
+        }
     }
 
     constructor(activity: DiaryEditorActivity, sticker: Sticker) : this(activity) {

@@ -10,6 +10,7 @@ class AddMenuHandlers(
 ) {
     fun onText() {
         StickerTextViewImpl(diaryEditorActivity).apply {
+            diaryEditorActivity.select(this)
             showEditTextDialog()
         }.also {
             frame.addView(it)
@@ -18,7 +19,8 @@ class AddMenuHandlers(
 
     fun onImage() {
         StickerImageViewImpl(diaryEditorActivity).apply {
-            showSelectImageDialog()
+            diaryEditorActivity.select(this)
+            showSelectItemDialog()
         }.also {
             frame.addView(it)
         }

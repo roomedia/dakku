@@ -11,6 +11,15 @@ import kotlin.math.sqrt
 
 interface StickerView {
 
+    var baseTranslation: Pair<Float, Float>
+    var baseRotation: Float?
+    var baseScale: Pair<Float, Float>
+    var baseRatio: Float?
+
+    var baseTouchPoint: Pair<Float, Float>
+    var baseTouchAngle: Float?
+    var baseTouchSpan: Float?
+
     fun getId(): Int
     fun getContext(): Context
     fun getTranslationX(): Float
@@ -26,15 +35,6 @@ interface StickerView {
     fun setScaleX(w: Float)
     fun setScaleY(h: Float)
     fun setSelected(isSelected: Boolean)
-
-    var baseTranslation: Pair<Float, Float>
-    var baseRotation: Float?
-    var baseScale: Pair<Float, Float>
-    var baseRatio: Float?
-
-    var baseTouchPoint: Pair<Float, Float>
-    var baseTouchAngle: Float?
-    var baseTouchSpan: Float?
 
     fun initTranslation(x: Float, y: Float) {
         baseTranslation = Pair(getTranslationX(), getTranslationY())
