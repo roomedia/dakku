@@ -70,7 +70,7 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
             if (isSelected) {
                 showSelectItemDialog()
             } else {
-                activity.select(this)
+                activity.selectSticker(this)
             }
         }
     }

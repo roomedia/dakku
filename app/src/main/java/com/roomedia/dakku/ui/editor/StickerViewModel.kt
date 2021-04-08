@@ -14,10 +14,11 @@ import com.roomedia.dakku.repository.StickerRepository
 import com.roomedia.dakku.ui.editor.sticker.StickerView
 import com.roomedia.dakku.ui.util.CommonViewModel
 import java.io.ByteArrayOutputStream
+import java.util.Date
 
-class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
+class StickerViewModel(private var diary: Diary?) : CommonViewModel<Sticker>() {
     override val repository = StickerRepository()
-    val stickers = repository.getFrom(diaryId)
+    val stickers = diary?.id?.let { repository.getFrom(it) }
 
     private var isInit = true
     val isEdit = MutableLiveData<Boolean>()
@@ -47,10 +48,14 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
     }
 
     private fun saveDiaryEntity(diaryFrame: FrameLayout) {
+        if (diary == null) {
+            diary = Diary(Date().time)
+        }
+
         val stickers = diaryFrame.children.mapIndexed { zIndex, view ->
-            (view as StickerView).toSticker(diaryId, zIndex)
+            (view as StickerView).toSticker(diary!!.id, zIndex)
         }.filterNotNull().toList().toTypedArray()
-        repository.insertInto(Diary(diaryId), *stickers)
+        repository.insertInto(diary!!, *stickers)
     }
 
     private fun saveThumbnail(diaryFrame: FrameLayout) {
@@ -58,7 +63,7 @@ class StickerViewModel(private val diaryId: Long) : CommonViewModel<Sticker>() {
         toBitmap(diaryFrame).compress(Bitmap.CompressFormat.JPEG, 100, stream)
 
         val thumbnail = stream.toByteArray()
-        diaryFrame.context.openFileOutput(diaryId.toString(), Context.MODE_PRIVATE).use {
+        diaryFrame.context.openFileOutput(diary!!.id.toString(), Context.MODE_PRIVATE).use {
             it.write(thumbnail)
         }
     }

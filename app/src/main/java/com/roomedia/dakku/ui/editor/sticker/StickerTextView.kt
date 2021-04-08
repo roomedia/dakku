@@ -91,7 +91,7 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
             if (isSelected) {
                 showEditTextDialog()
             } else {
-                activity.select(this)
+                activity.selectSticker(this)
             }
         }
     }

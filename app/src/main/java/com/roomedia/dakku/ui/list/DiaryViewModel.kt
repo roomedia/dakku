@@ -25,7 +25,7 @@ class DiaryViewModel(private val diary: Diary, context: Context) : CommonViewMod
     fun onThumbnail(context: Context) {
         val intent = Intent(context, DiaryEditorActivity::class.java).apply {
             putExtra("request_code", REQUEST.EDIT_DIARY.ordinal)
-            putExtra("diary_id", diary.id)
+            putExtra("diary", diary)
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         if (!diary.lock) {

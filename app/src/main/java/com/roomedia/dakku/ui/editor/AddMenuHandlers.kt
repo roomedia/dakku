@@ -5,12 +5,12 @@ import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class AddMenuHandlers(
-    private val diaryEditorActivity: DiaryEditorActivity,
+    private val activity: DiaryEditorActivity,
     private val frame: FrameLayout
 ) {
     fun onText() {
-        StickerTextViewImpl(diaryEditorActivity).apply {
-            diaryEditorActivity.select(this)
+        StickerTextViewImpl(activity).apply {
+            activity.selectSticker(this)
             showEditTextDialog()
         }.also {
             frame.addView(it)
@@ -18,8 +18,8 @@ class AddMenuHandlers(
     }
 
     fun onImage() {
-        StickerImageViewImpl(diaryEditorActivity).apply {
-            diaryEditorActivity.select(this)
+        StickerImageViewImpl(activity).apply {
+            activity.selectSticker(this)
             showSelectItemDialog()
         }.also {
             frame.addView(it)

@@ -44,7 +44,7 @@
                 android:id="@+id/deleteButton"
                 style="@style/TransparentMenu"
                 android:contentDescription="@string/menu_delete"
-                android:onClick="@{ (view) -> commonMenuHandlers.onDelete(view) }"
+                android:onClick="@{ () -> commonMenuHandlers.onDelete() }"
                 app:srcCompat="@drawable/ic_delete" />
 
             <View

@@ -3,7 +3,7 @@ package com.roomedia.dakku.ui.editor
 import android.view.View
 import androidx.databinding.ObservableInt
 
-class CommonMenuHandlers {
+class CommonMenuHandlers(private val activity: DiaryEditorActivity) {
 
     var commonMenuVisibility = ObservableInt(View.GONE)
     var addMenuVisibility = ObservableInt(View.GONE)
@@ -30,8 +30,8 @@ class CommonMenuHandlers {
         TODO("not yet implemented")
     }
 
-    fun onDelete(sticker: View) {
-        TODO("not yet implemented")
+    fun onDelete() {
+        activity.deleteSelected()
     }
 
     fun onTranslation() {
