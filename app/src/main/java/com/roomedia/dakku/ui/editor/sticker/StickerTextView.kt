@@ -72,14 +72,10 @@ interface StickerTextView : StickerView {
 class StickerTextViewImpl(activity: DiaryEditorActivity) :
     AppCompatTextView(activity, null, 0), StickerTextView {
 
-    override lateinit var baseTranslation: Pair<Float, Float>
-    override var baseRotation: Float? = null
-    override lateinit var baseScale: Pair<Float, Float>
-    override var baseRatio: Float? = null
-
-    override lateinit var baseTouchPoint: Pair<Float, Float>
-    override var baseTouchAngle: Float? = null
-    override var baseTouchSpan: Float? = null
+    override var ratio: Float? = null
+    override lateinit var pastTouchPos: Pair<Float, Float>
+    override var pastTouchAngle: Float? = null
+    override var pastTouchSpan: Float? = null
 
     override var spannableString: SpannableString? = null
     override var backgroundColorSpan: BackgroundColorSpan? = null

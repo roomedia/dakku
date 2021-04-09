@@ -2,11 +2,10 @@ package com.roomedia.dakku.ui.editor.sticker
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.widget.ImageView
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.net.toUri
 import coil.api.load
-import coil.size.Precision
 import com.airbnb.paris.extensions.style
 import com.roomedia.dakku.DakkuApplication
 import com.roomedia.dakku.R
@@ -23,13 +22,20 @@ interface StickerImageView : StickerView {
     val observer: SelectLifecycleObserver
     var uri: Uri?
 
+    fun loadImage(uri: Uri?)
     fun setImage(uri: Uri?) {
         this.uri = uri
-        // TODO: check if this will work at VideoView
-        (this as? ImageView)?.load(uri) {
-            allowHardware(false)
-            precision(Precision.INEXACT)
+        loadImage(uri)
+        val layoutParams = getLayoutParams().apply {
+            width = WRAP_CONTENT
+            height = WRAP_CONTENT
         }
+        setLayoutParams(layoutParams)
+    }
+
+    override fun onTouchUp() {
+        loadImage(uri)
+        super.onTouchUp()
     }
 
     override fun fromSticker(sticker: Sticker) {
@@ -69,14 +75,10 @@ interface StickerImageView : StickerView {
 class StickerImageViewImpl(activity: DiaryEditorActivity) :
     AppCompatImageView(activity, null, 0), StickerImageView {
 
-    override lateinit var baseTranslation: Pair<Float, Float>
-    override var baseRotation: Float? = null
-    override lateinit var baseScale: Pair<Float, Float>
-    override var baseRatio: Float? = null
-
-    override lateinit var baseTouchPoint: Pair<Float, Float>
-    override var baseTouchAngle: Float? = null
-    override var baseTouchSpan: Float? = null
+    override var ratio: Float? = null
+    override lateinit var pastTouchPos: Pair<Float, Float>
+    override var pastTouchAngle: Float? = null
+    override var pastTouchSpan: Float? = null
 
     override val type = "image/*"
     override val observer = activity.observer
@@ -96,6 +98,12 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
 
     constructor(activity: DiaryEditorActivity, sticker: Sticker) : this(activity) {
         fromSticker(sticker)
+    }
+
+    override fun loadImage(uri: Uri?) {
+        load(uri) {
+            allowHardware(false)
+        }
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {

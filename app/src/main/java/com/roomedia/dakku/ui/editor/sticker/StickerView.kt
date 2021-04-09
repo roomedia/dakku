@@ -1,6 +1,7 @@
 package com.roomedia.dakku.ui.editor.sticker
 
 import android.content.Context
+import android.view.ViewGroup
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.ui.editor.Delta
 import kotlin.math.PI
@@ -10,80 +11,69 @@ import kotlin.math.sqrt
 
 interface StickerView {
 
-    var baseTranslation: Pair<Float, Float>
-    var baseRotation: Float?
-    var baseScale: Pair<Float, Float>
-    var baseRatio: Float?
-
-    var baseTouchPoint: Pair<Float, Float>
-    var baseTouchAngle: Float?
-    var baseTouchSpan: Float?
+    var ratio: Float?
+    var pastTouchPos: Pair<Float, Float>
+    var pastTouchAngle: Float?
+    var pastTouchSpan: Float?
 
     fun getId(): Int
     fun getContext(): Context
     fun getTranslationX(): Float
     fun getTranslationY(): Float
     fun getRotation(): Float
-    fun getScaleX(): Float
-    fun getScaleY(): Float
+    fun getWidth(): Int
+    fun getHeight(): Int
+    fun getLayoutParams(): ViewGroup.LayoutParams
 
     fun setId(id: Int)
     fun setTranslationX(x: Float)
     fun setTranslationY(y: Float)
     fun setRotation(rot: Float)
-    fun setScaleX(w: Float)
-    fun setScaleY(h: Float)
+    fun setLayoutParams(layoutParams: ViewGroup.LayoutParams)
     fun setSelected(isSelected: Boolean)
 
     fun initTranslation(x: Float, y: Float) {
-        baseTranslation = Pair(getTranslationX(), getTranslationY())
-        baseTouchPoint = Pair(x, y)
-    }
-
-    private fun initRotation(delta: Delta) {
-        baseRotation = getRotation()
-        baseTouchAngle = atan2(delta.y, delta.x)
-    }
-
-    private fun initScale(delta: Delta) {
-        baseScale = Pair(getScaleX(), getScaleY())
-        baseRatio = baseScale.second / baseScale.first
-        baseTouchSpan = sqrt(delta.x.pow(2) + delta.y.pow(2))
+        pastTouchPos = Pair(x, y)
     }
 
     fun setTranslation(x: Float, y: Float) {
-        val dx = x - baseTouchPoint.first
-        val dy = y - baseTouchPoint.second
-        setTranslationX(baseTranslation.first + dx)
-        setTranslationY(baseTranslation.second + dy)
+        val dx = x - pastTouchPos.first
+        val dy = y - pastTouchPos.second
+        setTranslationX(getTranslationX() + dx)
+        setTranslationY(getTranslationY() + dy)
+        pastTouchPos = Pair(x, y)
     }
 
     fun setRotation(delta: Delta) {
-        if (baseTouchAngle == null) {
-            initRotation(delta)
+        val angle = atan2(delta.y, delta.x)
+        if (pastTouchAngle == null) {
+            pastTouchAngle = angle
             return
         }
-        val angle = atan2(delta.y, delta.x)
-        val deltaAngle = toDegrees(angle - baseTouchAngle!!)
-        setRotation(baseRotation!! + deltaAngle)
+        val deltaAngle = toDegrees(angle - pastTouchAngle!!)
+        setRotation(getRotation() + deltaAngle)
+        pastTouchAngle = angle
     }
 
     fun setScale(delta: Delta) {
-        if (baseTouchSpan == null) {
-            initScale(delta)
+        val span = sqrt(delta.x.pow(2) + delta.y.pow(2))
+        if (pastTouchSpan == null) {
+            ratio = getHeight().toFloat() / getWidth().toFloat()
+            pastTouchSpan = span
             return
         }
-        val span = sqrt(delta.x.pow(2) + delta.y.pow(2))
-        val deltaSpan = normalize(span - baseTouchSpan!!, getContext().resources.displayMetrics.widthPixels.toFloat(), 5F)
-        setScaleX(baseScale.first + deltaSpan)
-        setScaleY(baseRatio!! * getScaleX())
+        val deltaSpan = (span - pastTouchSpan!!).toInt()
+        val layoutParams = getLayoutParams().apply {
+            width = getWidth() + deltaSpan
+            height = (ratio!! * width).toInt()
+        }
+        setLayoutParams(layoutParams)
+        pastTouchSpan = span
     }
 
-    fun destroy() {
-        baseRotation = null
-        baseRatio = null
-        baseTouchAngle = null
-        baseTouchSpan = null
+    fun onTouchUp() {
+        pastTouchAngle = null
+        pastTouchSpan = null
     }
 
     private fun toDegrees(value: Float): Float {
@@ -100,8 +90,8 @@ interface StickerView {
             setTranslationX(x)
             setTranslationY(y)
             setRotation(rot)
-            setScaleX(w)
-            setScaleY(h)
+            getLayoutParams().width = w
+            getLayoutParams().height = h
         }
     }
 
@@ -111,8 +101,8 @@ interface StickerView {
             diaryId,
             getTranslationX(),
             getTranslationY(),
-            getScaleX(),
-            getScaleY(),
+            getWidth(),
+            getHeight(),
             getRotation(),
             zIndex,
         )

@@ -45,6 +45,6 @@ class TransformGestureDetector(private val activity: DiaryEditorActivity) :
     }
 
     private fun onTouchUpEvent() {
-        activity.selectedSticker?.destroy()
+        activity.selectedSticker?.onTouchUp()
     }
 }
