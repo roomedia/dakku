@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
@@ -14,7 +15,7 @@ import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 class SelectImageResultContract : ActivityResultContract<String, Uri?>() {
 
     override fun createIntent(context: Context, type: String?): Intent {
-        return Intent(Intent.ACTION_PICK).setType(type)
+        return Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType(type)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
@@ -30,7 +31,7 @@ class SelectLifecycleObserver(
     private val registry: ActivityResultRegistry,
 ) : DefaultLifecycleObserver {
 
-    lateinit var getContent: ActivityResultLauncher<String>
+    private lateinit var getContent: ActivityResultLauncher<String>
 
     override fun onCreate(owner: LifecycleOwner) {
         getContent = registry.register("key", owner, SelectImageResultContract()) {

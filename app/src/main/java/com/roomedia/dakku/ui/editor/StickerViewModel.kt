@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.MutableLiveData
+import com.roomedia.dakku.DakkuApplication
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.Sticker
@@ -52,6 +53,7 @@ class StickerViewModel(private var diary: Diary?) : CommonViewModel<Sticker>() {
             diary = Diary(Date().time)
         }
 
+        DakkuApplication.instance.setMediaFolder()
         val stickers = diaryFrame.children.mapIndexed { zIndex, view ->
             (view as StickerView).toSticker(diary!!.id, zIndex)
         }.filterNotNull().toList().toTypedArray()
