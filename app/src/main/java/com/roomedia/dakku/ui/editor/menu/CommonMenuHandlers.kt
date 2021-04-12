@@ -1,7 +1,8 @@
-package com.roomedia.dakku.ui.editor
+package com.roomedia.dakku.ui.editor.menu
 
 import android.view.View
 import androidx.databinding.ObservableInt
+import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 
 class CommonMenuHandlers(private val activity: DiaryEditorActivity) {
 

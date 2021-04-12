@@ -8,11 +8,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.StickerType
+import com.roomedia.dakku.ui.editor.menu.AddMenuHandlers
+import com.roomedia.dakku.ui.editor.menu.CommonMenuHandlers
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerView

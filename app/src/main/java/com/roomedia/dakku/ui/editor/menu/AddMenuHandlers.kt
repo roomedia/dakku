@@ -1,6 +1,7 @@
-package com.roomedia.dakku.ui.editor
+package com.roomedia.dakku.ui.editor.menu
 
 import android.widget.FrameLayout
+import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 

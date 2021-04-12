@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="addMenuHandlers" type="com.roomedia.dakku.ui.editor.AddMenuHandlers" />
+        <variable name="addMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.AddMenuHandlers" />
     </data>
 
     <LinearLayout
