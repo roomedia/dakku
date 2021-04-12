@@ -1,13 +1,16 @@
 package com.roomedia.dakku.ui.editor
 
 import android.widget.FrameLayout
+import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
+import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class AddMenuHandlers(
-    private val diaryEditorActivity: DiaryEditorActivity,
+    private val activity: DiaryEditorActivity,
     private val frame: FrameLayout
 ) {
     fun onText() {
-        StickerTextViewImpl(diaryEditorActivity).apply {
+        StickerTextViewImpl(activity).apply {
+            activity.selectSticker(this)
             showEditTextDialog()
         }.also {
             frame.addView(it)
@@ -15,7 +18,12 @@ class AddMenuHandlers(
     }
 
     fun onImage() {
-        TODO("not yet implemented")
+        StickerImageViewImpl(activity).apply {
+            activity.selectSticker(this)
+            showSelectItemDialog()
+        }.also {
+            frame.addView(it)
+        }
     }
 
     fun onVideo() {

@@ -1,5 +1,6 @@
 package com.roomedia.dakku.persistence
 
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
@@ -22,10 +23,11 @@ data class Sticker(
     val diaryId: Long,
     val x: Float,
     val y: Float,
-    val w: Float,
-    val h: Float,
+    val w: Int,
+    val h: Int,
     val rot: Float,
     val zIndex: Int,
     var type: StickerType? = null,
     var text: CharSequence? = null,
+    var uri: Uri? = null,
 )

@@ -1,5 +1,7 @@
 package com.roomedia.dakku.persistence
 
+import android.net.Uri
+import androidx.core.net.toUri
 import androidx.room.TypeConverter
 
 class DakkuTypeConverter {
@@ -21,6 +23,16 @@ class DakkuTypeConverter {
     @TypeConverter
     fun charSequenceToString(charSequence: CharSequence?): String? {
         return charSequence?.toString()
+    }
+
+    @TypeConverter
+    fun stringToUri(string: String?): Uri? {
+        return string?.toUri()
+    }
+
+    @TypeConverter
+    fun uriToString(uri: Uri?): String? {
+        return uri?.toString()
     }
 }
 
