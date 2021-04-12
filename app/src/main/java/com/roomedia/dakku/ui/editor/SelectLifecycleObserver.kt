@@ -10,7 +10,6 @@ import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 
 class SelectImageResultContract : ActivityResultContract<String, Uri?>() {
 
@@ -27,8 +26,8 @@ class SelectImageResultContract : ActivityResultContract<String, Uri?>() {
 }
 
 class SelectLifecycleObserver(
-    private val activity: DiaryEditorActivity,
     private val registry: ActivityResultRegistry,
+    private val callback: (Uri) -> Unit
 ) : DefaultLifecycleObserver {
 
     private lateinit var getContent: ActivityResultLauncher<String>
@@ -36,7 +35,7 @@ class SelectLifecycleObserver(
     override fun onCreate(owner: LifecycleOwner) {
         getContent = registry.register("key", owner, SelectImageResultContract()) {
             if (it == null) return@register
-            (activity.selectedSticker as? StickerImageViewImpl)?.setImage(it)
+            callback(it)
         }
     }
 

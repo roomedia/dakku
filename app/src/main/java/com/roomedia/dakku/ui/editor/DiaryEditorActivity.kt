@@ -1,10 +1,12 @@
 package com.roomedia.dakku.ui.editor
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.roomedia.dakku.R
@@ -27,7 +29,11 @@ class DiaryEditorActivity : AppCompatActivity() {
     }
     private var transformGestureDetector: TransformGestureDetector? = null
     var selectedSticker: StickerView? = null
-    val observer = SelectLifecycleObserver(this, activityResultRegistry)
+    val requestActivity = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = result.data?.data
+        (selectedSticker as? StickerImageViewImpl)?.setImage(uri)
+    }
 
     private lateinit var editMenuItem: MenuItem
     private lateinit var saveMenuItem: MenuItem
@@ -43,8 +49,6 @@ class DiaryEditorActivity : AppCompatActivity() {
         binding.commonMenu.commonMenuHandlers = commonMenuHandlers
         binding.addMenu.addMenuHandlers = AddMenuHandlers(this, binding.diaryFrame)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        lifecycle.addObserver(observer)
     }
 
     private fun initCommonMenu() {
