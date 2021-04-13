@@ -4,7 +4,7 @@ import android.view.View
 import androidx.databinding.ObservableInt
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
-import com.roomedia.dakku.ui.editor.sticker.StickerTextView
+import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class CommonMenuHandlers(
     private val activity: DiaryEditorActivity,
@@ -24,6 +24,7 @@ class CommonMenuHandlers(
 
         binding.commonMenu.commonMenuHandlers = this
         binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
+        binding.textMenu.textMenuHandlers = TextMenuHandlers(activity, selectedSticker)
     }
 
     private fun initSelectedSticker() {
@@ -31,7 +32,7 @@ class CommonMenuHandlers(
             initMenuVisibility()
             when (sticker) {
                 null -> return@observe
-                is StickerTextView -> textMenuVisibility.set(View.VISIBLE)
+                is StickerTextViewImpl -> textMenuVisibility.set(View.VISIBLE)
             }
         }
     }

@@ -46,8 +46,9 @@
                     android:id="@+id/alignButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_align_left"
-                    android:onClick="@{ () -> textMenuHandlers.onAlign() }"
-                    app:srcCompat="@drawable/ic_align_left" />
+                    android:onClick="@{ (view) -> textMenuHandlers.onAlign(view) }"
+                    app:srcCompat="@{textMenuHandlers.alignIcon}"
+                    tools:srcCompat="@drawable/ic_align_left" />
 
                 <View style="@style/verticalDivider" />
 

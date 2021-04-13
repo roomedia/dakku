@@ -29,5 +29,6 @@ data class Sticker(
     val zIndex: Int,
     var type: StickerType? = null,
     var text: CharSequence? = null,
+    var textAlignment: Int? = null,
     var uri: Uri? = null,
 )

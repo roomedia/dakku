@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
+import android.view.Gravity
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.paris.extensions.style
 import com.roomedia.dakku.R
@@ -15,7 +16,10 @@ import java.util.Date
 
 interface StickerTextView : StickerView {
 
+    fun getGravity(): Int
     fun getText(): CharSequence
+
+    fun setGravity(gravity: Int)
     fun setText(text: CharSequence?)
     fun setTextColor(color: Int)
 
@@ -26,6 +30,7 @@ interface StickerTextView : StickerView {
         super.fromSticker(sticker)
         // TODO: 2021/04/05 change background color to a value from database
         setSpannedText(sticker.text, Color.BLACK, Color.TRANSPARENT)
+        setGravity(sticker.textAlignment ?: Gravity.START)
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
@@ -33,6 +38,7 @@ interface StickerTextView : StickerView {
         return when {
             text.isNotBlank() -> super.toSticker(diaryId, zIndex)!!.also {
                 it.text = text
+                it.textAlignment = getGravity()
             }
             else -> null
         }
