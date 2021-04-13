@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="@{commonMenuHandlers.visibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -39,7 +40,6 @@
 
             <include
                 android:id="@+id/commonMenu"
-                android:visibility="@{commonMenuHandlers.commonMenuVisibility}"
                 layout="@layout/menu_common" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

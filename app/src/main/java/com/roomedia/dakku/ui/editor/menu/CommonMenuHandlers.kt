@@ -1,20 +1,49 @@
 package com.roomedia.dakku.ui.editor.menu
 
+import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableInt
+import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
+import com.roomedia.dakku.ui.editor.sticker.StickerTextView
 
-class CommonMenuHandlers(private val activity: DiaryEditorActivity) {
+class CommonMenuHandlers(
+    private val activity: DiaryEditorActivity,
+    binding: ActivityDiaryEditorBinding,
+) {
 
-    var commonMenuVisibility = ObservableInt(View.GONE)
-    var addMenuVisibility = ObservableInt(View.GONE)
+    private val selectedSticker = activity.selectedSticker
+    private val frame = binding.diaryFrame
+
+    var visibility = ObservableInt(View.VISIBLE)
+    var addMenuVisibility = ObservableInt()
+
+    init {
+        initSelectedSticker()
+        initMenuVisibility()
+
+        binding.commonMenu.commonMenuHandlers = this
+        binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
+    }
+
+    private fun initSelectedSticker() {
+        selectedSticker.observe(activity) { sticker ->
+            when (sticker) {
+                null -> initMenuVisibility()
+                is StickerTextView -> Log.d("SELECT", "select textView")
+            }
+        }
+    }
+
+    private fun initMenuVisibility() {
+        addMenuVisibility.set(View.GONE)
+    }
 
     fun setVisibility(isVisible: Boolean) {
         if (isVisible) {
-            commonMenuVisibility.set(View.VISIBLE)
+            visibility.set(View.VISIBLE)
         } else {
-            commonMenuVisibility.set(View.GONE)
-            addMenuVisibility.set(View.GONE)
+            visibility.set(View.GONE)
         }
     }
 

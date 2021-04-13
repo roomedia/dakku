@@ -8,11 +8,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
+import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.StickerType
-import com.roomedia.dakku.ui.editor.menu.AddMenuHandlers
 import com.roomedia.dakku.ui.editor.menu.CommonMenuHandlers
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
@@ -28,12 +29,13 @@ class DiaryEditorActivity : AppCompatActivity() {
         val diary = intent.getParcelableExtra("diary") as? Diary ?: Diary(Date().time)
         StickerViewModel(diary)
     }
+
     private var transformGestureDetector: TransformGestureDetector? = null
-    var selectedSticker: StickerView? = null
+    val selectedSticker = MutableLiveData<StickerView?>(null)
     val requestActivity = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = result.data?.data
-        (selectedSticker as? StickerImageViewImpl)?.setImage(uri)
+        (selectedSticker.value as? StickerImageViewImpl)?.setImage(uri)
     }
 
     private lateinit var editMenuItem: MenuItem
@@ -45,10 +47,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         initCommonMenu()
         initDiaryFrame()
 
-        val commonMenuHandlers = CommonMenuHandlers(this)
-        binding.commonMenuHandlers = commonMenuHandlers
-        binding.commonMenu.commonMenuHandlers = commonMenuHandlers
-        binding.addMenu.addMenuHandlers = AddMenuHandlers(this, binding.diaryFrame)
+        binding.commonMenuHandlers = CommonMenuHandlers(this, binding)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -63,7 +62,7 @@ class DiaryEditorActivity : AppCompatActivity() {
             }
 
             if (isEdit) {
-                transformGestureDetector = TransformGestureDetector(this)
+                transformGestureDetector = TransformGestureDetector(this, selectedSticker)
             } else {
                 selectSticker(null)
                 transformGestureDetector = null
@@ -133,13 +132,14 @@ class DiaryEditorActivity : AppCompatActivity() {
 
     fun selectSticker(stickerView: StickerView?) {
         stickerView?.setSelected(true)
-        selectedSticker?.setSelected(false)
-        selectedSticker = stickerView
+        selectedSticker.value?.setSelected(false)
+        selectedSticker.value = stickerView
     }
 
     fun deleteSelected() {
-        selectedSticker?.let { sticker ->
+        selectedSticker.value?.let { sticker ->
             binding.diaryFrame.removeView(sticker as View)
         }
+        selectSticker(null)
     }
 }
