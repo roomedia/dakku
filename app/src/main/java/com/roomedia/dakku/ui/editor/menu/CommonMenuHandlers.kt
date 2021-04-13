@@ -1,6 +1,5 @@
 package com.roomedia.dakku.ui.editor.menu
 
-import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableInt
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
@@ -15,8 +14,9 @@ class CommonMenuHandlers(
     private val selectedSticker = activity.selectedSticker
     private val frame = binding.diaryFrame
 
-    var visibility = ObservableInt(View.VISIBLE)
-    var addMenuVisibility = ObservableInt()
+    val visibility = ObservableInt(View.VISIBLE)
+    val addMenuVisibility = ObservableInt()
+    val textMenuVisibility = ObservableInt()
 
     init {
         initSelectedSticker()
@@ -28,15 +28,18 @@ class CommonMenuHandlers(
 
     private fun initSelectedSticker() {
         selectedSticker.observe(activity) { sticker ->
+            initMenuVisibility()
             when (sticker) {
-                null -> initMenuVisibility()
-                is StickerTextView -> Log.d("SELECT", "select textView")
+                null -> return@observe
+                is StickerTextView -> textMenuVisibility.set(View.VISIBLE)
             }
         }
     }
 
     private fun initMenuVisibility() {
-        addMenuVisibility.set(View.GONE)
+        listOf(addMenuVisibility, textMenuVisibility).forEach {
+            it.set(View.GONE)
+        }
     }
 
     fun setVisibility(isVisible: Boolean) {
@@ -52,7 +55,6 @@ class CommonMenuHandlers(
     }
 
     fun onUndo() {
-        addMenuVisibility.set(View.GONE)
         TODO("not yet implemented")
     }
 

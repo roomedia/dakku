@@ -11,6 +11,16 @@
         <item name="android:layout_height">48dp</item>
     </style>
 
+    <style name="TransparentTextMenu" parent="@style/Widget.AppCompat.Button.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:background">@drawable/bg_transparent</item>
+    </style>
+
     <style name="TitleText">
         <item name="android:textSize">20sp</item>
     </style>

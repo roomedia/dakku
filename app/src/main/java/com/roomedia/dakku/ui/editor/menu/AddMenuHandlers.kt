@@ -7,7 +7,7 @@ import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class AddMenuHandlers(
     private val activity: DiaryEditorActivity,
-    private val frame: FrameLayout
+    private val frame: FrameLayout,
 ) {
     fun onText() {
         StickerTextViewImpl(activity).apply {

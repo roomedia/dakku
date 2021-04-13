@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="textMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.TextMenuHandlers" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View style="@style/horizontalDivider" />
+
+        <HorizontalScrollView
+            android:id="@+id/addMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/fontButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_font"
+                    android:onClick="@{ () -> textMenuHandlers.onFont() }"
+                    tools:text="나눔고딕" />
+
+                <Button
+                    android:id="@+id/sizeButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_size"
+                    android:onClick="@{ () -> textMenuHandlers.onSize() }"
+                    tools:text="14" />
+
+                <ImageButton
+                    android:id="@+id/alignButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_align_left"
+                    android:onClick="@{ () -> textMenuHandlers.onAlign() }"
+                    app:srcCompat="@drawable/ic_align_left" />
+
+                <View style="@style/verticalDivider" />
+
+                <Button
+                    android:id="@+id/boldButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_bold"
+                    android:onClick="@{ () -> textMenuHandlers.onBold() }"
+                    android:text="B"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/italicButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_italic"
+                    android:fontFamily="serif"
+                    android:onClick="@{ () -> textMenuHandlers.onItalic() }"
+                    android:text="I"
+                    android:textStyle="italic"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/strokeButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_stroke"
+                    android:onClick="@{ () -> textMenuHandlers.onStroke() }"
+                    android:text="S̶"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/underlineButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_underline"
+                    android:onClick="@{ () -> textMenuHandlers.onUnderline() }"
+                    android:text="U̲"
+                    tools:ignore="HardcodedText" />
+
+                <View style="@style/verticalDivider" />
+
+                <ImageButton
+                    android:id="@+id/lineSpacingButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_line_spacing"
+                    android:onClick="@{ () -> textMenuHandlers.onLineSpacing() }"
+                    app:srcCompat="@drawable/ic_line_spacing" />
+
+                <Button
+                    android:id="@+id/letterSpacingButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_letter_spacing"
+                    android:onClick="@{ () -> textMenuHandlers.onLetterSpacing() }"
+                    android:text="AA"
+                    android:letterSpacing="0.5"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+</layout>
