@@ -35,12 +35,12 @@
 
             <include
                 android:id="@+id/textMenu"
-                android:visibility="@{commonMenuHandlers.textMenuVisibility}"
+                android:selectVisibility="@{commonMenuHandlers.menuVisibility}"
                 layout="@layout/menu_text" />
 
             <include
                 android:id="@+id/addMenu"
-                android:visibility="@{commonMenuHandlers.addMenuVisibility}"
+                android:selectVisibility="@{commonMenuHandlers.menuVisibility}"
                 layout="@layout/menu_add" />
 
             <include
