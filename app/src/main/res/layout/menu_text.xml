@@ -84,20 +84,11 @@
                 <View style="@style/verticalDivider" />
 
                 <ImageButton
-                    android:id="@+id/lineSpacingButton"
+                    android:id="@+id/spacingButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_line_spacing"
-                    android:onClick="@{ () -> textMenuHandlers.onLineSpacing() }"
-                    app:srcCompat="@drawable/ic_line_spacing" />
-
-                <Button
-                    android:id="@+id/letterSpacingButton"
-                    style="@style/TransparentTextMenu"
-                    android:contentDescription="@string/menu_letter_spacing"
-                    android:onClick="@{ () -> textMenuHandlers.onLetterSpacing() }"
-                    android:text="AA"
-                    android:letterSpacing="0.5"
-                    tools:ignore="HardcodedText" />
+                    android:onClick="@{ () -> textMenuHandlers.onSpacing() }"
+                    app:srcCompat="@drawable/ic_spacing" />
 
             </LinearLayout>
         </HorizontalScrollView>

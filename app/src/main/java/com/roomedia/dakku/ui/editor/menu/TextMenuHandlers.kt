@@ -70,12 +70,10 @@ class TextMenuHandlers(
         }
     }
 
-    fun onLineSpacing() {
-        TODO("not yet implemented")
-    }
-
-    fun onLetterSpacing() {
-        TODO("not yet implemented")
+    fun onSpacing() {
+        (selectedSticker.value as? StickerTextViewImpl)?.apply {
+            // TODO: 2021/04/14 set slider VISIBLE/GONE for all button -> do when working on undo/redo
+        }
     }
 
     companion object {

@@ -80,10 +80,6 @@ interface StickerView {
         return (value / PI.toFloat() * 180F) % 360F
     }
 
-    private fun normalize(value: Float, srcLimit: Float, dstLimit: Float): Float {
-        return value * dstLimit / srcLimit
-    }
-
     fun fromSticker(sticker: Sticker) {
         with(sticker) {
             setId(id)

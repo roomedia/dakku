@@ -3,15 +3,19 @@ package com.roomedia.dakku.ui.editor.sticker
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.Gravity
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.paris.extensions.backgroundTint
 import com.airbnb.paris.extensions.gravity
+import com.airbnb.paris.extensions.letterSpacing
+import com.airbnb.paris.extensions.lineHeight
 import com.airbnb.paris.extensions.style
 import com.airbnb.paris.extensions.textColor
 import com.airbnb.paris.extensions.textStyle
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
+import com.roomedia.dakku.ui.editor.Delta
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.util.showEditTextDialog
 import java.util.Date
@@ -20,6 +24,7 @@ interface StickerTextView : StickerView {
 
     fun getText(): CharSequence
     fun setText(text: CharSequence?)
+    override fun setScale(delta: Delta) {}
 
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
@@ -30,6 +35,8 @@ interface StickerTextView : StickerView {
         val text = getText()
         return when {
             text.isNotBlank() -> super.toSticker(diaryId, zIndex)!!.also {
+                it.w = WRAP_CONTENT
+                it.h = WRAP_CONTENT
                 it.text = text
             }
             else -> null
@@ -74,16 +81,20 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
             // TODO: 2021/04/05 change background color to a value from database
             textColor(Color.BLACK)
             backgroundTint(null)
-            textStyle(sticker.textStyle)
             gravity(sticker.textAlignment ?: Gravity.START)
+            textStyle(sticker.textStyle)
+            lineHeight(sticker.lineSpacing)
+            letterSpacing(sticker.letterSpacing)
         }
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return super.toSticker(diaryId, zIndex)?.also {
             it.type = StickerType.TEXT_VIEW
-            it.textStyle = typeface.style
             it.textAlignment = gravity
+            it.textStyle = typeface.style
+            it.lineSpacing = lineHeight
+            it.letterSpacing = letterSpacing
         }
     }
 

@@ -2,26 +2,27 @@ package com.roomedia.dakku.ui.editor.menu
 
 import android.view.View
 import androidx.databinding.ObservableInt
+import com.roomedia.dakku.LETTER
+import com.roomedia.dakku.LINE
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
+import com.roomedia.dakku.spacingToSlider
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class CommonMenuHandlers(
     private val activity: DiaryEditorActivity,
-    binding: ActivityDiaryEditorBinding,
+    private val binding: ActivityDiaryEditorBinding,
 ) {
 
     private val selectedSticker = activity.selectedSticker
     private val frame = binding.diaryFrame
 
     val visibility = ObservableInt(View.VISIBLE)
-    val menuVisibility = ObservableInt()
+    val menuHandlersVisibility = ObservableInt(0)
 
     init {
         initSelectedSticker()
-        menuVisibility.set(-1)
-
         binding.commonMenu.commonMenuHandlers = this
         binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
         binding.textMenu.textMenuHandlers = TextMenuHandlers(activity, selectedSticker)
@@ -31,7 +32,17 @@ class CommonMenuHandlers(
         selectedSticker.observe(activity) { sticker ->
             when (sticker) {
                 null -> return@observe
-                is StickerTextViewImpl -> menuVisibility.set(R.id.textMenu)
+                is StickerTextViewImpl -> {
+                    menuHandlersVisibility.set(R.id.textMenu)
+                    binding.verticalSeekBar.apply {
+                        setOnSeekBarChangeListener(LineSpacingListener(sticker))
+                        progress = sticker.lineHeight.spacingToSlider(LINE)
+                    }
+                    binding.horizontalSeekBar.apply {
+                        setOnSeekBarChangeListener(LetterSpacingListener(sticker))
+                        progress = sticker.letterSpacing.spacingToSlider(LETTER)
+                    }
+                }
             }
         }
     }
@@ -45,7 +56,7 @@ class CommonMenuHandlers(
     }
 
     fun onAdd() {
-        menuVisibility.set(R.id.addMenu)
+        menuHandlersVisibility.set(R.id.addMenu)
     }
 
     fun onUndo() {
@@ -57,7 +68,7 @@ class CommonMenuHandlers(
     }
 
     fun onDelete() {
-        menuVisibility.set(-1)
+        menuHandlersVisibility.set(0)
         activity.deleteSelected()
     }
 
