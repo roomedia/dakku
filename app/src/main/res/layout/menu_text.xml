@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidUnknownAttribute -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -42,11 +43,16 @@
                     android:onClick="@{ () -> textMenuHandlers.onSize() }"
                     tools:text="14" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold" />
+
                 <ImageButton
                     android:id="@+id/alignButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_align_left"
-                    android:onClick="@{ (view) -> textMenuHandlers.onAlign(view) }"
+                    android:onClick="@{ () -> textMenuHandlers.onAlign() }"
                     app:srcCompat="@{textMenuHandlers.alignIcon}"
                     tools:srcCompat="@drawable/ic_align_left" />
 
@@ -55,36 +61,24 @@
                 <Button
                     android:id="@+id/boldButton"
                     style="@style/TransparentTextMenu"
+                    android:background="@drawable/bg_toggle"
                     android:contentDescription="@string/menu_bold"
                     android:onClick="@{ () -> textMenuHandlers.onBold() }"
                     android:text="B"
                     android:textStyle="bold"
+                    android:selected="@{textMenuHandlers.isBold}"
                     tools:ignore="HardcodedText" />
 
                 <Button
                     android:id="@+id/italicButton"
                     style="@style/TransparentTextMenu"
+                    android:background="@drawable/bg_toggle"
                     android:contentDescription="@string/menu_italic"
                     android:fontFamily="serif"
                     android:onClick="@{ () -> textMenuHandlers.onItalic() }"
                     android:text="I"
                     android:textStyle="italic"
-                    tools:ignore="HardcodedText" />
-
-                <Button
-                    android:id="@+id/strokeButton"
-                    style="@style/TransparentTextMenu"
-                    android:contentDescription="@string/menu_stroke"
-                    android:onClick="@{ () -> textMenuHandlers.onStroke() }"
-                    android:text="S̶"
-                    tools:ignore="HardcodedText" />
-
-                <Button
-                    android:id="@+id/underlineButton"
-                    style="@style/TransparentTextMenu"
-                    android:contentDescription="@string/menu_underline"
-                    android:onClick="@{ () -> textMenuHandlers.onUnderline() }"
-                    android:text="U̲"
+                    android:selected="@{textMenuHandlers.isItalic}"
                     tools:ignore="HardcodedText" />
 
                 <View style="@style/verticalDivider" />

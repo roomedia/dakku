@@ -1,10 +1,12 @@
 package com.roomedia.dakku.ui.editor.menu
 
 import android.view.Gravity
-import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import com.airbnb.paris.extensions.style
+import com.airbnb.paris.extensions.textStyle
 import com.roomedia.dakku.R
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerView
@@ -14,13 +16,18 @@ class TextMenuHandlers(
     private val selectedSticker: MutableLiveData<StickerView?>,
 ) {
 
+    val isBold = ObservableBoolean()
+    val isItalic = ObservableBoolean()
+
     private var alignIndex = 0
     val alignIcon = ObservableInt()
 
     init {
         selectedSticker.observe(lifecycleOwner) { sticker ->
-            (sticker as? StickerTextViewImpl)?.gravity?.also { flag ->
-                alignIndex = Alignments.indexOf(flag)
+            (sticker as? StickerTextViewImpl)?.apply {
+                isBold.set(typeface.isBold)
+                isItalic.set(typeface.isItalic)
+                alignIndex = Alignments.indexOf(gravity)
             }
             alignIcon.set(AlignmentIcons[alignIndex])
         }
@@ -34,42 +41,48 @@ class TextMenuHandlers(
         TODO("not yet implemented")
     }
 
-    fun onAlign(view: View) {
+    fun onAlign() {
         alignIndex = (alignIndex + 1) % Alignments.size
         alignIcon.set(AlignmentIcons[alignIndex])
         val sticker = selectedSticker.value as? StickerTextViewImpl
         sticker?.gravity = Alignments[alignIndex]
     }
 
-    fun onLetterSpacing() {
-        TODO("not yet implemented")
+    fun onBold() {
+        (selectedSticker.value as? StickerTextViewImpl)?.apply {
+            isBold.set(!typeface.isBold)
+            var textStyle = if (typeface.isBold) 0 else 1
+            textStyle += if (typeface.isItalic) 2 else 0
+            style {
+                textStyle(textStyle)
+            }
+        }
+    }
+
+    fun onItalic() {
+        (selectedSticker.value as? StickerTextViewImpl)?.apply {
+            isItalic.set(!typeface.isItalic)
+            var textStyle = if (typeface.isBold) 1 else 0
+            textStyle += if (typeface.isItalic) 0 else 2
+            style {
+                textStyle(textStyle)
+            }
+        }
     }
 
     fun onLineSpacing() {
         TODO("not yet implemented")
     }
 
-    fun onBold() {
-        TODO("not yet implemented")
-    }
-
-    fun onItalic() {
-        TODO("not yet implemented")
-    }
-
-    fun onStroke() {
-        TODO("not yet implemented")
-    }
-
-    fun onUnderline() {
+    fun onLetterSpacing() {
         TODO("not yet implemented")
     }
 
     companion object {
         val Alignments = listOf(
-            Gravity.START + Gravity.TOP,
-            Gravity.CENTER_HORIZONTAL + Gravity.TOP,
-            Gravity.END + Gravity.TOP,
+            Gravity.START + Gravity.CENTER_VERTICAL,
+            Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL,
+            Gravity.END + Gravity.CENTER_VERTICAL,
         )
         val AlignmentIcons = listOf(
             R.drawable.ic_align_left,

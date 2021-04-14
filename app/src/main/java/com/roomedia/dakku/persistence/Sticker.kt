@@ -28,7 +28,14 @@ data class Sticker(
     val rot: Float,
     val zIndex: Int,
     var type: StickerType? = null,
+
     var text: CharSequence? = null,
+    val font: String = "",
+    val textSize: Int = 14,
     var textAlignment: Int? = null,
+    var textStyle: Int = 0,
+    val lineSpacing: Float = 1F,
+    val letterSpacing: Float = 0F,
+
     var uri: Uri? = null,
 )
