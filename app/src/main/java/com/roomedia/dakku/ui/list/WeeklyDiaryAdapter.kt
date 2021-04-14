@@ -8,11 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.RecyclerWeeklyDiaryListItemBinding
 import com.roomedia.dakku.persistence.Diary
-import com.roomedia.dakku.ui.util.filterBookmark
-import com.roomedia.dakku.ui.util.filterLock
-import com.roomedia.dakku.ui.util.splitByWeek
-import com.roomedia.dakku.ui.util.toWeekString
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class WeeklyDiaryAdapter(context: Context) :
@@ -54,6 +51,40 @@ class WeeklyDiaryAdapter(context: Context) :
 
     override fun getItemCount(): Int {
         return dataset.size
+    }
+
+    private fun List<Diary>.splitByWeek(): List<List<Diary>> {
+        return mutableListOf<MutableList<Diary>>().also { weeks ->
+            forEach { diary ->
+                if (weeks.isNotEmpty() && weeks.last().last().isInSameWeek(diary)) {
+                    weeks.last().add(diary)
+                } else {
+                    weeks.add(mutableListOf(diary))
+                }
+            }
+        }
+    }
+
+    private fun List<Diary>.filterBookmark(isChecked: Boolean): List<Diary> {
+        return if (isChecked) this.filter { it.bookmark } else this
+    }
+
+    private fun List<Diary>.filterLock(isChecked: Boolean): List<Diary> {
+        return if (isChecked) this.filter { it.lock } else this
+    }
+
+    private fun List<Diary>.toWeekString(localeDateFormat: SimpleDateFormat): String {
+        val first = first().toCalendar().apply {
+            set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
+        }
+        val last = (first.clone() as Calendar).apply {
+            add(Calendar.DATE, 6)
+        }
+        return String.format(
+            "%s - %s",
+            localeDateFormat.format(first.time),
+            localeDateFormat.format(last.time)
+        )
     }
 
     inner class WeeklyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

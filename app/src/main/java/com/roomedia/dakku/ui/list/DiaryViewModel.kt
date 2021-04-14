@@ -7,15 +7,12 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.ObservableBoolean
 import com.roomedia.dakku.persistence.Diary
-import com.roomedia.dakku.repository.DiaryRepository
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
-import com.roomedia.dakku.ui.util.CommonViewModel
 import com.roomedia.dakku.ui.util.REQUEST
 import com.roomedia.dakku.ui.util.showPasswordOpenDialog
 import com.roomedia.dakku.ui.util.showPasswordUnlockDialog
 
-class DiaryViewModel(private val diary: Diary, context: Context) : CommonViewModel<Diary>() {
-    override val repository = DiaryRepository()
+class DiaryViewModel(private val diary: Diary, context: Context) {
     val isBookmarked = ObservableBoolean(diary.bookmark)
     val isLocked = ObservableBoolean(diary.lock)
 
