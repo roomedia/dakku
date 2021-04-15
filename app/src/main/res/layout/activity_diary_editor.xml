@@ -72,6 +72,5 @@
                 android:id="@+id/commonMenu"
                 layout="@layout/menu_common" />
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

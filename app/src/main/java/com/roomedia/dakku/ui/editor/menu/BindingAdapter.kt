@@ -10,6 +10,8 @@ import androidx.databinding.BindingMethod
 import androidx.databinding.BindingMethods
 import com.airbnb.paris.extensions.backgroundTint
 import com.airbnb.paris.extensions.style
+import com.airbnb.paris.extensions.textStyle
+import com.roomedia.dakku.R
 
 @BindingMethods(
     BindingMethod(
@@ -38,6 +40,8 @@ object BindingAdapters {
         style {
             val color = if (isTint) Color.LTGRAY else Color.WHITE
             backgroundTint(color)
+            textStyle(typeface.style)
+            add(R.style.TintTextMenu)
         }
     }
 }

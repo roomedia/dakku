@@ -52,6 +52,7 @@ class CommonMenuHandlers(
             visibility.set(View.VISIBLE)
         } else {
             visibility.set(View.GONE)
+            menuHandlersVisibility.set(0)
         }
     }
 

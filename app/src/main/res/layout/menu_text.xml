@@ -16,7 +16,7 @@
         <View style="@style/horizontalDivider" />
 
         <HorizontalScrollView
-            android:id="@+id/addMenu"
+            android:id="@+id/textMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorOnPrimary"
@@ -51,9 +51,9 @@
                     style="@style/TintTextMenu"
                     android:contentDescription="@string/menu_bold"
                     android:onClick="@{ () -> textMenuHandlers.onBold() }"
+                    android:backgroundTint="@{textMenuHandlers.isBold}"
                     android:text="B"
                     android:textStyle="bold"
-                    android:backgroundTint="@{textMenuHandlers.isBold}"
                     tools:ignore="HardcodedText" />
 
                 <Button
@@ -62,9 +62,9 @@
                     android:contentDescription="@string/menu_italic"
                     android:fontFamily="serif"
                     android:onClick="@{ () -> textMenuHandlers.onItalic() }"
+                    android:backgroundTint="@{textMenuHandlers.isItalic}"
                     android:text="I"
                     android:textStyle="italic"
-                    android:backgroundTint="@{textMenuHandlers.isItalic}"
                     tools:ignore="HardcodedText" />
 
                 <View style="@style/verticalDivider" />
