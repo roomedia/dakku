@@ -1,12 +1,12 @@
 package com.roomedia.dakku.ui.editor.menu
 
+import android.content.Context
+import android.graphics.Color
 import android.view.View
 import androidx.databinding.ObservableInt
-import com.roomedia.dakku.LETTER
-import com.roomedia.dakku.LINE
+import androidx.lifecycle.LifecycleOwner
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
-import com.roomedia.dakku.spacingToSlider
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
@@ -20,12 +20,23 @@ class CommonMenuHandlers(
 
     val visibility = ObservableInt(View.VISIBLE)
     val menuHandlersVisibility = ObservableInt(0)
+    val textColor = ObservableInt(Color.BLACK)
 
     init {
         initSelectedSticker()
         binding.commonMenu.commonMenuHandlers = this
         binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
-        binding.textMenu.textMenuHandlers = TextMenuHandlers(activity, selectedSticker)
+        binding.textMenu.textMenuHandlers = TextMenuHandlers(
+            activity as LifecycleOwner,
+            selectedSticker,
+            textColor
+        )
+        binding.colorMenu.colorMenuHandlers = ColorMenuHandlers(
+            activity as Context,
+            binding.colorMenu,
+            selectedSticker,
+            textColor
+        )
     }
 
     private fun initSelectedSticker() {
@@ -36,11 +47,11 @@ class CommonMenuHandlers(
                     menuHandlersVisibility.set(R.id.textMenu)
                     binding.verticalSeekBar.apply {
                         setOnSeekBarChangeListener(LineSpacingListener(sticker))
-                        progress = sticker.lineHeight.spacingToSlider(LINE)
+                        progress = sticker.lineHeight.toSlider(SliderType.LINE_SPACING)
                     }
                     binding.horizontalSeekBar.apply {
                         setOnSeekBarChangeListener(LetterSpacingListener(sticker))
-                        progress = sticker.letterSpacing.spacingToSlider(LETTER)
+                        progress = sticker.letterSpacing.toSlider(SliderType.LETTER_SPACING)
                     }
                 }
             }

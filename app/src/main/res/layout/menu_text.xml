@@ -43,6 +43,15 @@
                     android:onClick="@{ () -> textMenuHandlers.onSize() }"
                     tools:text="14" />
 
+                <Button
+                    android:id="@+id/textColorButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_color"
+                    android:onClick="@{ () -> textMenuHandlers.onColor() }"
+                    android:text="A"
+                    android:textSize="20sp"
+                    android:textColor="@{textMenuHandlers.textColor}"
+                    tools:ignore="HardcodedText" />
 
                 <View style="@style/verticalDivider" />
 

@@ -59,6 +59,10 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <include
+                android:id="@+id/colorMenu"
+                layout="@layout/menu_color" />
+
+            <include
                 android:id="@+id/textMenu"
                 layout="@layout/menu_text"
                 android:selectVisibility="@{commonMenuHandlers.menuHandlersVisibility}" />

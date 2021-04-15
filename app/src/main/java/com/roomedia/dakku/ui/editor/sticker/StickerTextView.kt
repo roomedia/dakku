@@ -58,10 +58,14 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
     override lateinit var pastTouchPos: Pair<Float, Float>
     override var pastTouchAngle: Float? = null
     override var pastTouchSpan: Float? = null
+    private var pastTextColor: Int = Color.BLACK
 
     init {
         id = Date().time.toInt()
-        style(R.style.Sticker_TextView)
+        style {
+            add(R.style.Sticker_TextView)
+            textColor(Color.BLACK)
+        }
         setOnClickListener {
             if (isSelected) {
                 showEditTextDialog()
@@ -78,9 +82,7 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
         style {
-            // TODO: 2021/04/05 change background color to a value from database
-            textColor(Color.BLACK)
-            backgroundTint(null)
+            textColor(sticker.textColor ?: Color.BLACK)
             gravity(sticker.textAlignment ?: Gravity.START)
             textStyle(sticker.textStyle)
             lineHeight(sticker.lineSpacing)
@@ -91,6 +93,7 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return super.toSticker(diaryId, zIndex)?.also {
             it.type = StickerType.TEXT_VIEW
+            it.textColor = currentTextColor
             it.textAlignment = gravity
             it.textStyle = typeface.style
             it.lineSpacing = lineHeight
@@ -99,20 +102,17 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
     }
 
     override fun hidePrivacyContent() {
-        this.backgroundTintList?.defaultColor
+        pastTextColor = currentTextColor
         style {
             textColor(Color.TRANSPARENT)
-            if (backgroundTintList == null) {
-                backgroundTint(Color.LTGRAY)
-            }
+            backgroundTint(Color.LTGRAY)
             textStyle(typeface.style)
         }
     }
 
     override fun showPrivacyContent() {
-        // TODO: 2021/04/05 change background color to a value from database
         style {
-            textColor(Color.BLACK)
+            textColor(pastTextColor)
             backgroundTint(null)
             textStyle(typeface.style)
         }

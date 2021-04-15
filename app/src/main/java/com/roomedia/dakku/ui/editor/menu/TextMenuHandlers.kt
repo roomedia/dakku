@@ -14,6 +14,7 @@ import com.roomedia.dakku.ui.editor.sticker.StickerView
 class TextMenuHandlers(
     lifecycleOwner: LifecycleOwner,
     private val selectedSticker: MutableLiveData<StickerView?>,
+    val textColor: ObservableInt,
 ) {
 
     val isBold = ObservableBoolean()
@@ -27,6 +28,7 @@ class TextMenuHandlers(
             (sticker as? StickerTextViewImpl)?.apply {
                 isBold.set(typeface.isBold)
                 isItalic.set(typeface.isItalic)
+                textColor.set(currentTextColor)
                 alignIndex = Alignments.indexOf(gravity)
             }
             alignIcon.set(AlignmentIcons[alignIndex])
@@ -39,6 +41,12 @@ class TextMenuHandlers(
 
     fun onSize() {
         TODO("not yet implemented")
+    }
+
+    fun onColor() {
+        (selectedSticker.value as? StickerTextViewImpl)?.apply {
+            // TODO: 2021/04/14 set slider VISIBLE/GONE for all button -> do when working on undo/redo
+        }
     }
 
     fun onAlign() {

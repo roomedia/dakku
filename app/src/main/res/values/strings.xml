@@ -53,4 +53,5 @@
     <string name="menu_align_right">오른쪽 정렬</string>
     <string name="menu_letter_spacing">텍스트 자간</string>
     <string name="menu_line_spacing">텍스트 행간</string>
+    <string name="menu_color">글자색</string>
 </resources>

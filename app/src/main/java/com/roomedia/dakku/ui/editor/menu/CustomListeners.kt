@@ -51,6 +51,7 @@ class LineSpacingListener(private val sticker: StickerTextViewImpl) :
         sticker.style {
             layoutWidth(sticker.width)
             layoutHeight(WRAP_CONTENT)
+            textColor(sticker.currentTextColor)
             textStyle(sticker.typeface.style)
             lineHeight(progress.fromSlider(SliderType.LINE_SPACING).toInt())
         }
@@ -66,6 +67,7 @@ class LetterSpacingListener(private val sticker: StickerTextViewImpl) :
         sticker.style {
             layoutWidth(WRAP_CONTENT)
             layoutHeight(sticker.height)
+            textColor(sticker.currentTextColor)
             textStyle(sticker.typeface.style)
             letterSpacing(progress.fromSlider(SliderType.LETTER_SPACING))
         }

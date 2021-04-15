@@ -26,6 +26,10 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="ColorMenu" parent="@style/TransparentTextMenu">
+        <item name="android:src">@drawable/bg_round</item>
+    </style>
+
     <style name="TitleText">
         <item name="android:textSize">20sp</item>
     </style>
