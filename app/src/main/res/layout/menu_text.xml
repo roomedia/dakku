@@ -43,10 +43,31 @@
                     android:onClick="@{ () -> textMenuHandlers.onSize() }"
                     tools:text="14" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textStyle="bold" />
+
+                <View style="@style/verticalDivider" />
+
+                <Button
+                    android:id="@+id/boldButton"
+                    style="@style/TintTextMenu"
+                    android:contentDescription="@string/menu_bold"
+                    android:onClick="@{ () -> textMenuHandlers.onBold() }"
+                    android:text="B"
+                    android:textStyle="bold"
+                    android:backgroundTint="@{textMenuHandlers.isBold}"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/italicButton"
+                    style="@style/TintTextMenu"
+                    android:contentDescription="@string/menu_italic"
+                    android:fontFamily="serif"
+                    android:onClick="@{ () -> textMenuHandlers.onItalic() }"
+                    android:text="I"
+                    android:textStyle="italic"
+                    android:backgroundTint="@{textMenuHandlers.isItalic}"
+                    tools:ignore="HardcodedText" />
+
+                <View style="@style/verticalDivider" />
 
                 <ImageButton
                     android:id="@+id/alignButton"
@@ -55,33 +76,6 @@
                     android:onClick="@{ () -> textMenuHandlers.onAlign() }"
                     app:srcCompat="@{textMenuHandlers.alignIcon}"
                     tools:srcCompat="@drawable/ic_align_left" />
-
-                <View style="@style/verticalDivider" />
-
-                <Button
-                    android:id="@+id/boldButton"
-                    style="@style/TransparentTextMenu"
-                    android:background="@drawable/bg_toggle"
-                    android:contentDescription="@string/menu_bold"
-                    android:onClick="@{ () -> textMenuHandlers.onBold() }"
-                    android:text="B"
-                    android:textStyle="bold"
-                    android:selected="@{textMenuHandlers.isBold}"
-                    tools:ignore="HardcodedText" />
-
-                <Button
-                    android:id="@+id/italicButton"
-                    style="@style/TransparentTextMenu"
-                    android:background="@drawable/bg_toggle"
-                    android:contentDescription="@string/menu_italic"
-                    android:fontFamily="serif"
-                    android:onClick="@{ () -> textMenuHandlers.onItalic() }"
-                    android:text="I"
-                    android:textStyle="italic"
-                    android:selected="@{textMenuHandlers.isItalic}"
-                    tools:ignore="HardcodedText" />
-
-                <View style="@style/verticalDivider" />
 
                 <ImageButton
                     android:id="@+id/spacingButton"
