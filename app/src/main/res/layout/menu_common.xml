@@ -58,29 +58,6 @@
                 <View style="@style/verticalDivider" />
 
                 <ImageButton
-                    android:id="@+id/translationButton"
-                    style="@style/TransparentMenu"
-                    android:contentDescription="@string/menu_translate"
-                    android:onClick="@{ () -> commonMenuHandlers.onTranslation() }"
-                    app:srcCompat="@drawable/ic_translate" />
-
-                <ImageButton
-                    android:id="@+id/rotationButton"
-                    style="@style/TransparentMenu"
-                    android:contentDescription="@string/menu_rotate"
-                    android:onClick="@{ () -> commonMenuHandlers.onRotation() }"
-                    app:srcCompat="@drawable/ic_rotate" />
-
-                <ImageButton
-                    android:id="@+id/scaleButton"
-                    style="@style/TransparentMenu"
-                    android:contentDescription="@string/menu_scale"
-                    android:onClick="@{ () -> commonMenuHandlers.onScale() }"
-                    app:srcCompat="@drawable/ic_scale" />
-
-                <View style="@style/verticalDivider" />
-
-                <ImageButton
                     android:id="@+id/layerButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_layer"

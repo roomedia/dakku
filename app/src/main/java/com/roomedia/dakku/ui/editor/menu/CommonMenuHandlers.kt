@@ -73,18 +73,6 @@ class CommonMenuHandlers(
         activity.deleteSelected()
     }
 
-    fun onTranslation() {
-        TODO("not yet implemented")
-    }
-
-    fun onRotation() {
-        TODO("not yet implemented")
-    }
-
-    fun onScale() {
-        TODO("not yet implemented")
-    }
-
     fun onLayer() {
         TODO("not yet implemented")
     }
