@@ -1,8 +1,8 @@
 package com.roomedia.dakku.ui.editor.menu
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
+import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LifecycleOwner
 import com.roomedia.dakku.R
@@ -12,7 +12,7 @@ import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class CommonMenuHandlers(
     private val activity: DiaryEditorActivity,
-    private val binding: ActivityDiaryEditorBinding,
+    binding: ActivityDiaryEditorBinding,
 ) {
 
     private val selectedSticker = activity.selectedSticker
@@ -20,7 +20,8 @@ class CommonMenuHandlers(
 
     val visibility = ObservableInt(View.VISIBLE)
     val menuHandlersVisibility = ObservableInt(0)
-    val textColor = ObservableInt(Color.BLACK)
+    private val observableTextSize = ObservableFloat(45F)
+    private val observableTextColor = ObservableInt(0xFF000000.toInt())
 
     init {
         initSelectedSticker()
@@ -28,33 +29,26 @@ class CommonMenuHandlers(
         binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
         binding.textMenu.textMenuHandlers = TextMenuHandlers(
             activity as LifecycleOwner,
+            binding.seekBarMenu,
             selectedSticker,
-            textColor
+            observableTextSize,
+            observableTextColor,
         )
         binding.colorMenu.colorMenuHandlers = ColorMenuHandlers(
             activity as Context,
             binding.colorMenu,
             selectedSticker,
-            textColor
+            observableTextColor,
         )
     }
 
     private fun initSelectedSticker() {
-        selectedSticker.observe(activity) { sticker ->
-            when (sticker) {
-                null -> return@observe
-                is StickerTextViewImpl -> {
-                    menuHandlersVisibility.set(R.id.textMenu)
-                    binding.verticalSeekBar.apply {
-                        setOnSeekBarChangeListener(LineSpacingListener(sticker))
-                        progress = sticker.lineHeight.toSlider(SliderType.LINE_SPACING)
-                    }
-                    binding.horizontalSeekBar.apply {
-                        setOnSeekBarChangeListener(LetterSpacingListener(sticker))
-                        progress = sticker.letterSpacing.toSlider(SliderType.LETTER_SPACING)
-                    }
-                }
+        selectedSticker.observe(activity) { stickerView ->
+            val menuId = when (stickerView) {
+                is StickerTextViewImpl -> R.id.textMenu
+                else -> return@observe
             }
+            menuHandlersVisibility.set(menuId)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.roomedia.dakku.ui.editor.menu
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.widget.Button
@@ -43,5 +44,11 @@ object BindingAdapters {
             textStyle(typeface.style)
             add(R.style.TintTextMenu)
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @BindingAdapter("android:text")
+    @JvmStatic fun Button.setText(textSize: Float) {
+        text = "%.0f".format(textSize)
     }
 }

@@ -80,6 +80,7 @@ class DiaryEditorActivity : AppCompatActivity() {
                     else -> TODO("not yet implemented")
                 }
             }.forEach {
+                it.isEnabled = false
                 binding.diaryFrame.addView(it)
             }
             stickerViewModel.stickers?.removeObservers(this)

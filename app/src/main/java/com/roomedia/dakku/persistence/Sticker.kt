@@ -31,7 +31,7 @@ data class Sticker(
 
     var text: CharSequence? = null,
     val font: String = "",
-    val textSize: Int = 14,
+    var textSize: Int = 14,
     var textColor: Int? = null,
     var textAlignment: Int? = null,
     var textStyle: Int = 0,

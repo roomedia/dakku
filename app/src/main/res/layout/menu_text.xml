@@ -39,6 +39,7 @@
                 <Button
                     android:id="@+id/sizeButton"
                     style="@style/TransparentTextMenu"
+                    android:text="@{textMenuHandlers.observableTextSize}"
                     android:contentDescription="@string/menu_size"
                     android:onClick="@{ () -> textMenuHandlers.onSize() }"
                     tools:text="14" />
@@ -50,7 +51,7 @@
                     android:onClick="@{ () -> textMenuHandlers.onColor() }"
                     android:text="A"
                     android:textSize="20sp"
-                    android:textColor="@{textMenuHandlers.textColor}"
+                    android:textColor="@{textMenuHandlers.observableTextColor}"
                     tools:ignore="HardcodedText" />
 
                 <View style="@style/verticalDivider" />

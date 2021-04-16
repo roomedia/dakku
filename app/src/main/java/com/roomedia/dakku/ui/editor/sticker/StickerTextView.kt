@@ -7,10 +7,13 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.paris.extensions.backgroundTint
 import com.airbnb.paris.extensions.gravity
+import com.airbnb.paris.extensions.layoutHeight
+import com.airbnb.paris.extensions.layoutWidth
 import com.airbnb.paris.extensions.letterSpacing
 import com.airbnb.paris.extensions.lineHeight
 import com.airbnb.paris.extensions.style
 import com.airbnb.paris.extensions.textColor
+import com.airbnb.paris.extensions.textSize
 import com.airbnb.paris.extensions.textStyle
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
@@ -58,13 +61,14 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
     override lateinit var pastTouchPos: Pair<Float, Float>
     override var pastTouchAngle: Float? = null
     override var pastTouchSpan: Float? = null
-    private var pastTextColor: Int = Color.BLACK
+    private var pastTextColor: Int = 0xFF000000.toInt()
 
     init {
         id = Date().time.toInt()
         style {
             add(R.style.Sticker_TextView)
-            textColor(Color.BLACK)
+            textSize(45)
+            textColor(0xFF000000.toInt())
         }
         setOnClickListener {
             if (isSelected) {
@@ -79,20 +83,55 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
         fromSticker(sticker)
     }
 
+    fun setStyle(
+        textSize: Int = getTextSize().toInt(),
+        textColor: Int = currentTextColor,
+        backgroundTint: Int? = null,
+        textStyle: Int = typeface.style,
+        textAlignment: Int = gravity,
+        lineSpacing: Int = lineHeight,
+        letterSpacing: Float = getLetterSpacing(),
+    ) {
+        style {
+            layoutWidth(WRAP_CONTENT)
+            layoutHeight(WRAP_CONTENT)
+            textSize(textSize)
+            if (backgroundTint == null) {
+                backgroundTint(null)
+            } else {
+                backgroundTint(backgroundTint)
+            }
+            textColor(textColor)
+            textStyle(textStyle)
+            gravity(textAlignment)
+            lineHeight(lineSpacing)
+            letterSpacing(letterSpacing)
+        }
+    }
+
+    override fun showEditTextDialog() {
+        showEditTextDialog(context, text) {
+            text = it
+        }
+        setStyle()
+    }
+
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
-        style {
-            textColor(sticker.textColor ?: Color.BLACK)
-            gravity(sticker.textAlignment ?: Gravity.START)
-            textStyle(sticker.textStyle)
-            lineHeight(sticker.lineSpacing)
-            letterSpacing(sticker.letterSpacing)
-        }
+        setStyle(
+            textSize = sticker.textSize,
+            textColor = sticker.textColor ?: 0xFF000000.toInt(),
+            textStyle = sticker.textStyle,
+            textAlignment = sticker.textAlignment ?: Gravity.START,
+            lineSpacing = sticker.lineSpacing,
+            letterSpacing = sticker.letterSpacing,
+        )
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return super.toSticker(diaryId, zIndex)?.also {
             it.type = StickerType.TEXT_VIEW
+            it.textSize = textSize.toInt()
             it.textColor = currentTextColor
             it.textAlignment = gravity
             it.textStyle = typeface.style
@@ -103,18 +142,15 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
 
     override fun hidePrivacyContent() {
         pastTextColor = currentTextColor
-        style {
-            textColor(Color.TRANSPARENT)
-            backgroundTint(Color.LTGRAY)
-            textStyle(typeface.style)
-        }
+        setStyle(
+            textColor = Color.TRANSPARENT,
+            backgroundTint = Color.LTGRAY,
+        )
     }
 
     override fun showPrivacyContent() {
-        style {
-            textColor(pastTextColor)
-            backgroundTint(null)
-            textStyle(typeface.style)
-        }
+        setStyle(
+            textColor = pastTextColor,
+        )
     }
 }
