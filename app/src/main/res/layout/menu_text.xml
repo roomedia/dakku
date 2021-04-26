@@ -29,12 +29,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/fontButton"
-                    style="@style/TransparentTextMenu"
+                <Spinner
+                    android:id="@+id/fontSpinner"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/null_"
+                    android:textAlignment="center"
                     android:contentDescription="@string/menu_font"
-                    android:onClick="@{ () -> textMenuHandlers.onFont() }"
-                    tools:text="나눔고딕" />
+                    android:entries="@array/fonts" />
 
                 <Button
                     android:id="@+id/sizeButton"
@@ -50,7 +52,6 @@
                     android:contentDescription="@string/menu_color"
                     android:onClick="@{ () -> textMenuHandlers.onColor() }"
                     android:text="A"
-                    android:textSize="20sp"
                     android:textColor="@{textMenuHandlers.observableTextColor}"
                     tools:ignore="HardcodedText" />
 

@@ -54,4 +54,20 @@
     <string name="menu_letter_spacing">텍스트 자간</string>
     <string name="menu_line_spacing">텍스트 행간</string>
     <string name="menu_color">글자색</string>
+
+    <string-array name="fonts">
+        <item>시스템</item>
+        <item>갈맷글</item>
+        <item>강부장님체</item>
+        <item>고딕 아니고 고딩</item>
+        <item>규리의 일기</item>
+        <item>김유이체</item>
+        <item>고운 밤</item>
+        <item>동동</item>
+        <item>쑥쑥</item>
+        <item>써라운드</item>
+        <item>써라운드 에어</item>
+        <item>NEO둥근모</item>
+        <item>리디바탕</item>
+    </string-array>
 </resources>
