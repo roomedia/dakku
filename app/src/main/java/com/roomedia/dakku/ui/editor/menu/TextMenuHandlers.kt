@@ -17,8 +17,6 @@ class TextMenuHandlers(
     lifecycleOwner: LifecycleOwner,
     binding: ActivityDiaryEditorBinding,
     private val selectedSticker: MutableLiveData<StickerView?>,
-    val observableTextSize: ObservableFloat,
-    val observableTextColor: ObservableInt,
 ) {
     private val verticalSeekBar = binding.seekBarMenu.verticalSeekBar
     private val horizontalSeekBar = binding.seekBarMenu.horizontalSeekBar
@@ -26,6 +24,9 @@ class TextMenuHandlers(
 
     val isBold = ObservableBoolean()
     val isItalic = ObservableBoolean()
+
+    val observableTextSize = ObservableFloat(45F)
+    val observableTextColor = ObservableInt(0xFF000000.toInt())
 
     private val verticalSeekBarListener = MutableLiveData<OnSeekBarChangeListener>()
     private val horizontalSeekBarListener = MutableLiveData<OnSeekBarChangeListener>()
@@ -49,6 +50,7 @@ class TextMenuHandlers(
                 isBold.set(typeface.isBold)
                 isItalic.set(typeface.isItalic)
 
+                fontSpinner.setSelection(fontIndex)
                 observableTextSize.set(textSize)
                 observableTextColor.set(currentTextColor)
 

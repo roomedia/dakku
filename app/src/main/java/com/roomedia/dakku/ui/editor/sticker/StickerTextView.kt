@@ -152,6 +152,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
         setStyle(
+            fontIndex = sticker.fontIndex,
             textSize = sticker.textSize,
             textColor = sticker.textColor ?: 0xFF000000.toInt(),
             textStyle = sticker.textStyle,
@@ -164,6 +165,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {
         return super.toSticker(diaryId, zIndex)?.also {
             it.type = StickerType.TEXT_VIEW
+            it.fontIndex = fontIndex
             it.textSize = textSize.toInt()
             it.textColor = currentTextColor
             it.textAlignment = gravity

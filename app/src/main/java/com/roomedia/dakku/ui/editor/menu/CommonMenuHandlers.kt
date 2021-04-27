@@ -2,7 +2,6 @@ package com.roomedia.dakku.ui.editor.menu
 
 import android.content.Context
 import android.view.View
-import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LifecycleOwner
 import com.roomedia.dakku.R
@@ -20,20 +19,20 @@ class CommonMenuHandlers(
 
     val visibility = ObservableInt(View.VISIBLE)
     val menuHandlersVisibility = ObservableInt(0)
-    private val observableTextSize = ObservableFloat(45F)
-    private val observableTextColor = ObservableInt(0xFF000000.toInt())
 
     init {
         initSelectedSticker()
         binding.commonMenu.commonMenuHandlers = this
         binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
-        binding.textMenu.textMenuHandlers = TextMenuHandlers(
+
+        val textMenuHandlers = TextMenuHandlers(
             activity as LifecycleOwner,
             binding,
             selectedSticker,
-            observableTextSize,
-            observableTextColor,
         )
+        binding.textMenu.textMenuHandlers = textMenuHandlers
+
+        val observableTextColor = textMenuHandlers.observableTextColor
         binding.colorMenu.colorMenuHandlers = ColorMenuHandlers(
             activity as Context,
             binding.colorMenu,
