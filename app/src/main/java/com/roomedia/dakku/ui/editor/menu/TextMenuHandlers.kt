@@ -25,7 +25,7 @@ class TextMenuHandlers(
     val isBold = ObservableBoolean()
     val isItalic = ObservableBoolean()
 
-    val observableTextSize = ObservableFloat(45f)
+    val observableTextSize = ObservableFloat(50f)
     val observableTextColor = ObservableInt(0xFF000000.toInt())
 
     private var verticalSeekBarListener: OnSeekBarChangeListener? = null

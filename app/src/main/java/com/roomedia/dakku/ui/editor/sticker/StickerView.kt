@@ -1,9 +1,11 @@
 package com.roomedia.dakku.ui.editor.sticker
 
 import android.content.Context
+import android.view.MotionEvent
 import android.view.ViewGroup
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.ui.editor.Delta
+import com.roomedia.dakku.ui.editor.TransformGestureDetector
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.pow
@@ -15,6 +17,8 @@ interface StickerView {
     var pastTouchPos: Pair<Float, Float>
     var pastTouchAngle: Float?
     var pastTouchSpan: Float?
+    val transformGestureDetector: TransformGestureDetector
+        get() = TransformGestureDetector.getInstance(getContext())
 
     fun getId(): Int
     fun getContext(): Context
@@ -106,4 +110,8 @@ interface StickerView {
 
     fun hidePrivacyContent()
     fun showPrivacyContent()
+
+    fun onTouchEvent(event: MotionEvent): Boolean {
+        return transformGestureDetector.onTouchEvent(this, event)
+    }
 }

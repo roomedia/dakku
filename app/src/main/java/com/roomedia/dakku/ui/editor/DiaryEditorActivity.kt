@@ -9,7 +9,6 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.Diary
@@ -30,8 +29,9 @@ class DiaryEditorActivity : AppCompatActivity() {
         StickerViewModel(diary)
     }
 
-    private var transformGestureDetector: TransformGestureDetector? = null
-    val selectedSticker = MutableLiveData<StickerView?>(null)
+    private val transformGestureDetector by lazy { TransformGestureDetector.getInstance(this) }
+    val selectedSticker by lazy { transformGestureDetector.selectedSticker }
+
     val requestActivity = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = result.data?.data
@@ -44,34 +44,30 @@ class DiaryEditorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        initCommonMenu()
-        initDiaryFrame()
+        setIsEditObserver()
+        addDiaryStickers()
 
         binding.commonMenuHandlers = CommonMenuHandlers(this, binding)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun initCommonMenu() {
+    private fun setIsEditObserver() {
         stickerViewModel.isEdit.observe(this) { isEdit ->
             editMenuItem.isVisible = !isEdit
             saveMenuItem.isVisible = isEdit
 
             binding.commonMenuHandlers?.setVisibility(isEdit)
-            binding.diaryFrame.children.forEach {
-                it.isEnabled = isEdit
+            binding.diaryFrame.apply {
+                children.forEach { it.isEnabled = isEdit }
             }
-
-            if (isEdit) {
-                transformGestureDetector = TransformGestureDetector(this, selectedSticker)
-            } else {
+            if (!isEdit) {
                 selectSticker(null)
-                transformGestureDetector = null
                 stickerViewModel.save(binding.diaryFrame)
             }
         }
     }
 
-    private fun initDiaryFrame() {
+    private fun addDiaryStickers() {
         stickerViewModel.stickers?.observe(this) { stickers ->
             stickers.map {
                 when (it.type) {
@@ -119,7 +115,6 @@ class DiaryEditorActivity : AppCompatActivity() {
         stickerViewModel.onBack(
             {
                 showConfirmDialog(this) {
-                    transformGestureDetector = null
                     finish()
                 }
             },
@@ -128,7 +123,7 @@ class DiaryEditorActivity : AppCompatActivity() {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return transformGestureDetector?.onTouchEvent(event) ?: false
+        return transformGestureDetector.onTouchEvent(event)
     }
 
     fun selectSticker(stickerView: StickerView?) {

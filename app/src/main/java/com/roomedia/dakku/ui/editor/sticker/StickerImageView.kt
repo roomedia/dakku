@@ -3,6 +3,7 @@ package com.roomedia.dakku.ui.editor.sticker
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.view.MotionEvent
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.AppCompatImageView
@@ -97,5 +98,9 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
         return super.toSticker(diaryId, zIndex)?.also {
             it.type = StickerType.IMAGE_VIEW
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return super<StickerImageView>.onTouchEvent(event)
     }
 }
