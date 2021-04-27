@@ -3,7 +3,8 @@ package com.roomedia.dakku.ui.editor
 import android.content.Context
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import androidx.lifecycle.LiveData
+import android.view.View
+import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.ui.editor.sticker.StickerView
 
 data class Delta(val x: Float, val y: Float)
@@ -13,10 +14,33 @@ fun MotionEvent.getDelta(): Delta? {
     return Delta(getX(1) - getX(0), getY(1) - getY(0))
 }
 
-class TransformGestureDetector(
-    context: Context,
-    private val selectedSticker: LiveData<StickerView?>
-) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
+class TransformGestureDetector(context: Context) :
+    ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
+
+    private var count = 0
+    private val threshold = 10
+    val selectedSticker = MutableLiveData<StickerView?>(null)
+
+    fun onTouchEvent(stickerView: StickerView?, event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (event.pointerCount == 1) count = 0
+                onTouchDownEvent(event)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                count++
+                onTouchMoveEvent(event)
+            }
+            MotionEvent.ACTION_UP -> {
+                if (count < threshold) {
+                    (stickerView as? View)?.performClick()
+                    selectedSticker.value = stickerView
+                }
+            }
+            else -> return false
+        }
+        return true
+    }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
@@ -51,5 +75,15 @@ class TransformGestureDetector(
 
     private fun onTouchUpEvent() {
         selectedSticker.value?.onTouchUp()
+    }
+
+    companion object {
+        var instance: TransformGestureDetector? = null
+        fun getInstance(context: Context): TransformGestureDetector {
+            if (instance == null) {
+                instance = TransformGestureDetector(context)
+            }
+            return instance!!
+        }
     }
 }

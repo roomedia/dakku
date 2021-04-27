@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
@@ -94,7 +95,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
         id = Date().time.toInt()
         style {
             add(R.style.Sticker_TextView)
-            textSize(45)
+            textSize(50)
             textColor(0xFF000000.toInt())
         }
         setOnClickListener {
@@ -187,5 +188,9 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
         setStyle(
             textColor = pastTextColor,
         )
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return super<StickerTextView>.onTouchEvent(event)
     }
 }
