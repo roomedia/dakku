@@ -5,7 +5,7 @@
 
     <data>
         <variable name="viewModel" type="com.roomedia.dakku.ui.editor.StickerViewModel" />
-        <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.CommonMenuHandlers" />
+        <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.CommonMenuHandlers" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,23 +23,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <include
+            android:id="@+id/seekBarMenu"
+            layout="@layout/menu_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/menuLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/menuLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="@{commonMenuHandlers.visibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <include
+                android:id="@+id/colorMenu"
+                layout="@layout/menu_color" />
+
+            <include
+                android:id="@+id/textMenu"
+                layout="@layout/menu_text"
+                android:selectVisibility="@{commonMenuHandlers.menuHandlersVisibility}" />
+
+            <include
                 android:id="@+id/addMenu"
-                android:visibility="@{commonMenuHandlers.addMenuVisibility}"
-                layout="@layout/menu_add" />
+                layout="@layout/menu_add"
+                android:selectVisibility="@{commonMenuHandlers.menuHandlersVisibility}" />
 
             <include
                 android:id="@+id/commonMenu"
-                android:visibility="@{commonMenuHandlers.commonMenuVisibility}"
                 layout="@layout/menu_common" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

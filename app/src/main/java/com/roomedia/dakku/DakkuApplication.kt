@@ -11,6 +11,7 @@ class DakkuApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        setMediaFolder()
     }
 
     fun setMediaFolder() {
