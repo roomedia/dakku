@@ -1,24 +1,28 @@
 package com.roomedia.dakku.ui.editor.menu
 
 import android.view.Gravity
+import android.view.View
+import android.widget.AdapterView
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.airbnb.paris.extensions.textStyle
 import com.roomedia.dakku.R
-import com.roomedia.dakku.databinding.MenuSeekBarBinding
+import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerView
 
 class TextMenuHandlers(
     lifecycleOwner: LifecycleOwner,
-    private val binding: MenuSeekBarBinding,
+    binding: ActivityDiaryEditorBinding,
     private val selectedSticker: MutableLiveData<StickerView?>,
     val observableTextSize: ObservableFloat,
     val observableTextColor: ObservableInt,
 ) {
+    private val verticalSeekBar = binding.seekBarMenu.verticalSeekBar
+    private val horizontalSeekBar = binding.seekBarMenu.horizontalSeekBar
+    private val fontSpinner = binding.textMenu.fontSpinner
 
     val isBold = ObservableBoolean()
     val isItalic = ObservableBoolean()
@@ -30,6 +34,16 @@ class TextMenuHandlers(
     val alignIcon = ObservableInt()
 
     init {
+        fontSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+                onFont(position)
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>) {
+                onFont(0)
+            }
+        }
+
         selectedSticker.observe(lifecycleOwner) { stickerView ->
             (stickerView as? StickerTextViewImpl)?.apply {
                 isBold.set(typeface.isBold)
@@ -47,25 +61,27 @@ class TextMenuHandlers(
         }
 
         verticalSeekBarListener.observe(lifecycleOwner) { listener ->
-            binding.verticalSeekBar.apply {
+            verticalSeekBar.apply {
                 setOnSeekBarChangeListener(listener)
             }
         }
         horizontalSeekBarListener.observe(lifecycleOwner) { listener ->
-            binding.horizontalSeekBar.apply {
+            horizontalSeekBar.apply {
                 setOnSeekBarChangeListener(listener)
             }
         }
     }
 
-    fun onFont() {
-        TODO("not yet implemented")
+    fun onFont(position: Int) {
+        (selectedSticker.value as? StickerTextViewImpl)?.setStyle(
+            fontIndex = position
+        )
     }
 
     fun onSize() {
         (selectedSticker.value as? StickerTextViewImpl)?.let { stickerView ->
             verticalSeekBarListener.value = ScaleListener(
-                binding.verticalSeekBar,
+                verticalSeekBar,
                 stickerView,
                 observableTextSize
             )
@@ -110,8 +126,8 @@ class TextMenuHandlers(
     fun onSpacing() {
         (selectedSticker.value as? StickerTextViewImpl)?.let { stickerView ->
             // TODO: 2021/04/14 set slider VISIBLE/GONE for all button -> do when working on undo/redo
-            verticalSeekBarListener.value = LineSpacingListener(binding.verticalSeekBar, stickerView)
-            horizontalSeekBarListener.value = LetterSpacingListener(binding.horizontalSeekBar, stickerView)
+            verticalSeekBarListener.value = LineSpacingListener(verticalSeekBar, stickerView)
+            horizontalSeekBarListener.value = LetterSpacingListener(horizontalSeekBar, stickerView)
         }
     }
 

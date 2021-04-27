@@ -29,7 +29,7 @@ class CommonMenuHandlers(
         binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
         binding.textMenu.textMenuHandlers = TextMenuHandlers(
             activity as LifecycleOwner,
-            binding.seekBarMenu,
+            binding,
             selectedSticker,
             observableTextSize,
             observableTextColor,

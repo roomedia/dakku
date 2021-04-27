@@ -2,10 +2,14 @@ package com.roomedia.dakku.ui.editor.sticker
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.Gravity
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.paris.extensions.backgroundTint
+import com.airbnb.paris.extensions.fontFamily
+import com.airbnb.paris.extensions.fontFamilyRes
 import com.airbnb.paris.extensions.gravity
 import com.airbnb.paris.extensions.layoutHeight
 import com.airbnb.paris.extensions.layoutWidth
@@ -20,10 +24,13 @@ import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.editor.Delta
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
+import com.roomedia.dakku.ui.editor.sticker.StickerTextView.Companion.Fonts
 import com.roomedia.dakku.ui.util.showEditTextDialog
 import java.util.Date
 
 interface StickerTextView : StickerView {
+
+    var fontIndex: Int
 
     fun getText(): CharSequence
     fun setText(text: CharSequence?)
@@ -51,17 +58,37 @@ interface StickerTextView : StickerView {
             setText(it)
         }
     }
+
+    companion object {
+        val Fonts = listOf(
+            R.font.null_,
+            R.font.nanum_0,
+            R.font.nanum_1,
+            R.font.nanum_2,
+            R.font.nanum_3,
+            R.font.nanum_4,
+            R.font.cafe24_0,
+            R.font.cafe24_1,
+            R.font.cafe24_2,
+            R.font.cafe24_3,
+            R.font.cafe24_4,
+            R.font.neodgm,
+            R.font.ridibatang,
+        )
+    }
 }
 
 @SuppressLint("ViewConstructor")
-class StickerTextViewImpl(activity: DiaryEditorActivity) :
+class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
     AppCompatTextView(activity, null, 0), StickerTextView {
 
     override var ratio: Float? = null
     override lateinit var pastTouchPos: Pair<Float, Float>
     override var pastTouchAngle: Float? = null
     override var pastTouchSpan: Float? = null
-    private var pastTextColor: Int = 0xFF000000.toInt()
+
+    override var fontIndex: Int = 0
+    @ColorInt private var pastTextColor: Int = 0xFF000000.toInt()
 
     init {
         id = Date().time.toInt()
@@ -84,6 +111,7 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
     }
 
     fun setStyle(
+        fontIndex: Int = this.fontIndex,
         textSize: Int = getTextSize().toInt(),
         textColor: Int = currentTextColor,
         backgroundTint: Int? = null,
@@ -92,9 +120,14 @@ class StickerTextViewImpl(activity: DiaryEditorActivity) :
         lineSpacing: Int = lineHeight,
         letterSpacing: Float = getLetterSpacing(),
     ) {
+        this.fontIndex = fontIndex
         style {
             layoutWidth(WRAP_CONTENT)
             layoutHeight(WRAP_CONTENT)
+            when (fontIndex) {
+                0 -> fontFamily(Typeface.DEFAULT)
+                else -> fontFamilyRes(Fonts[fontIndex])
+            }
             textSize(textSize)
             if (backgroundTint == null) {
                 backgroundTint(null)
