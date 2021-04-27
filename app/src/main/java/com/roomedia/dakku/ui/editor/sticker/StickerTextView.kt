@@ -14,7 +14,7 @@ import com.airbnb.paris.extensions.gravity
 import com.airbnb.paris.extensions.layoutHeight
 import com.airbnb.paris.extensions.layoutWidth
 import com.airbnb.paris.extensions.letterSpacing
-import com.airbnb.paris.extensions.lineHeight
+import com.airbnb.paris.extensions.lineSpacingMultiplier
 import com.airbnb.paris.extensions.style
 import com.airbnb.paris.extensions.textColor
 import com.airbnb.paris.extensions.textSize
@@ -117,7 +117,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
         backgroundTint: Int? = null,
         textStyle: Int = typeface.style,
         textAlignment: Int = gravity,
-        lineSpacing: Int = lineHeight,
+        lineSpacing: Float = lineSpacingMultiplier,
         letterSpacing: Float = getLetterSpacing(),
     ) {
         this.fontIndex = fontIndex
@@ -137,7 +137,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
             textColor(textColor)
             textStyle(textStyle)
             gravity(textAlignment)
-            lineHeight(lineSpacing)
+            lineSpacingMultiplier(lineSpacing)
             letterSpacing(letterSpacing)
         }
     }
@@ -170,7 +170,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
             it.textColor = currentTextColor
             it.textAlignment = gravity
             it.textStyle = typeface.style
-            it.lineSpacing = lineHeight
+            it.lineSpacing = lineSpacingMultiplier
             it.letterSpacing = letterSpacing
         }
     }

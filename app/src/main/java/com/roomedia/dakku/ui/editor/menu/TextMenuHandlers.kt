@@ -25,11 +25,11 @@ class TextMenuHandlers(
     val isBold = ObservableBoolean()
     val isItalic = ObservableBoolean()
 
-    val observableTextSize = ObservableFloat(45F)
+    val observableTextSize = ObservableFloat(45f)
     val observableTextColor = ObservableInt(0xFF000000.toInt())
 
-    private val verticalSeekBarListener = MutableLiveData<OnSeekBarChangeListener>()
-    private val horizontalSeekBarListener = MutableLiveData<OnSeekBarChangeListener>()
+    private var verticalSeekBarListener: OnSeekBarChangeListener? = null
+    private var horizontalSeekBarListener: OnSeekBarChangeListener? = null
 
     private var alignIndex = 0
     val alignIcon = ObservableInt()
@@ -54,22 +54,11 @@ class TextMenuHandlers(
                 observableTextSize.set(textSize)
                 observableTextColor.set(currentTextColor)
 
-                verticalSeekBarListener.value?.setSticker(stickerView)
-                horizontalSeekBarListener.value?.setSticker(stickerView)
+                verticalSeekBarListener?.setSticker(stickerView)
+                horizontalSeekBarListener?.setSticker(stickerView)
 
                 alignIndex = Alignments.indexOf(gravity)
                 alignIcon.set(AlignmentIcons[alignIndex])
-            }
-        }
-
-        verticalSeekBarListener.observe(lifecycleOwner) { listener ->
-            verticalSeekBar.apply {
-                setOnSeekBarChangeListener(listener)
-            }
-        }
-        horizontalSeekBarListener.observe(lifecycleOwner) { listener ->
-            horizontalSeekBar.apply {
-                setOnSeekBarChangeListener(listener)
             }
         }
     }
@@ -82,7 +71,7 @@ class TextMenuHandlers(
 
     fun onSize() {
         (selectedSticker.value as? StickerTextViewImpl)?.let { stickerView ->
-            verticalSeekBarListener.value = ScaleListener(
+            verticalSeekBarListener = ScaleListener(
                 verticalSeekBar,
                 stickerView,
                 observableTextSize
@@ -128,8 +117,8 @@ class TextMenuHandlers(
     fun onSpacing() {
         (selectedSticker.value as? StickerTextViewImpl)?.let { stickerView ->
             // TODO: 2021/04/14 set slider VISIBLE/GONE for all button -> do when working on undo/redo
-            verticalSeekBarListener.value = LineSpacingListener(verticalSeekBar, stickerView)
-            horizontalSeekBarListener.value = LetterSpacingListener(horizontalSeekBar, stickerView)
+            verticalSeekBarListener = LineSpacingListener(verticalSeekBar, stickerView)
+            horizontalSeekBarListener = LetterSpacingListener(horizontalSeekBar, stickerView)
         }
     }
 

@@ -35,8 +35,8 @@ data class Sticker(
     var textColor: Int? = null,
     var textAlignment: Int? = null,
     var textStyle: Int = 0,
-    var lineSpacing: Int = 14,
-    var letterSpacing: Float = 0F,
+    var lineSpacing: Float = 1f,
+    var letterSpacing: Float = 0f,
 
     var uri: Uri? = null,
 )
