@@ -1,7 +1,10 @@
 package com.roomedia.dakku.ui.editor
 
+import android.content.Context
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import androidx.lifecycle.LiveData
+import com.roomedia.dakku.ui.editor.sticker.StickerView
 
 data class Delta(val x: Float, val y: Float)
 
@@ -10,8 +13,10 @@ fun MotionEvent.getDelta(): Delta? {
     return Delta(getX(1) - getX(0), getY(1) - getY(0))
 }
 
-class TransformGestureDetector(private val activity: DiaryEditorActivity) :
-    ScaleGestureDetector(activity, SimpleOnScaleGestureListener()) {
+class TransformGestureDetector(
+    context: Context,
+    private val selectedSticker: LiveData<StickerView?>
+) : ScaleGestureDetector(context, SimpleOnScaleGestureListener()) {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
@@ -30,21 +35,21 @@ class TransformGestureDetector(private val activity: DiaryEditorActivity) :
     }
 
     private fun onTouchDownEvent(event: MotionEvent) {
-        activity.selectedSticker?.initTranslation(event.x, event.y)
+        selectedSticker.value?.initTranslation(event.x, event.y)
     }
 
     private fun onTouchMoveEvent(event: MotionEvent) {
         if (event.pointerCount == 1) {
-            activity.selectedSticker?.setTranslation(event.x, event.y)
+            selectedSticker.value?.setTranslation(event.x, event.y)
             return
         }
         event.getDelta()?.let { delta ->
-            activity.selectedSticker?.setRotation(delta)
-            activity.selectedSticker?.setScale(delta)
+            selectedSticker.value?.setRotation(delta)
+            selectedSticker.value?.setScale(delta)
         }
     }
 
     private fun onTouchUpEvent() {
-        activity.selectedSticker?.onTouchUp()
+        selectedSticker.value?.onTouchUp()
     }
 }

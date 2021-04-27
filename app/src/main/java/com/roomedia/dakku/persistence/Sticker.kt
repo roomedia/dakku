@@ -23,11 +23,20 @@ data class Sticker(
     val diaryId: Long,
     val x: Float,
     val y: Float,
-    val w: Int,
-    val h: Int,
+    var w: Int,
+    var h: Int,
     val rot: Float,
     val zIndex: Int,
     var type: StickerType? = null,
+
     var text: CharSequence? = null,
+    var fontIndex: Int = 0,
+    var textSize: Int = 14,
+    var textColor: Int? = null,
+    var textAlignment: Int? = null,
+    var textStyle: Int = 0,
+    var lineSpacing: Float = 1f,
+    var letterSpacing: Float = 0f,
+
     var uri: Uri? = null,
 )

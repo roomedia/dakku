@@ -5,16 +5,19 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.repository.DiaryRepository
-import com.roomedia.dakku.ui.util.CommonViewModel
 
-class DiaryListViewModel : CommonViewModel<Diary>(), LifecycleOwner {
+class DiaryListViewModel : LifecycleOwner {
 
-    override val repository = DiaryRepository()
+    private val repository = DiaryRepository()
     val diaries = repository.diaries
     private val registry by lazy { LifecycleRegistry(this) }
 
     override fun getLifecycle(): Lifecycle {
         return registry
+    }
+
+    private fun update(vararg entities: Diary) {
+        repository.update(*entities)
     }
 
     fun updateAll() {

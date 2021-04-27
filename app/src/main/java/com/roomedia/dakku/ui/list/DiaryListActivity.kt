@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryListBinding
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.util.REQUEST
-import com.roomedia.dakku.ui.util.setIcon
 
 class DiaryListActivity : AppCompatActivity() {
 
@@ -67,5 +67,11 @@ class DiaryListActivity : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         startActivity(intent)
+    }
+
+    private fun MenuItem.setIcon(@DrawableRes iconIdOn: Int, @DrawableRes iconIdOff: Int): MenuItem {
+        val iconId = if (isChecked) iconIdOn else iconIdOff
+        setIcon(iconId)
+        return this
     }
 }

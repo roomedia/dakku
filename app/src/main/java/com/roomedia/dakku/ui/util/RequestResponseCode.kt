@@ -8,9 +8,3 @@ enum class REQUEST {
     NEW_STICKER,
     EDIT_STICKER,
 }
-
-enum class RESPONSE {
-    INSERT_DIARY,
-    UPDATE_DIARY,
-    ROLLBACK_DIARY,
-}

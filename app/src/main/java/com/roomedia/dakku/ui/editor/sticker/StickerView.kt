@@ -77,11 +77,7 @@ interface StickerView {
     }
 
     private fun toDegrees(value: Float): Float {
-        return (value / PI.toFloat() * 180F) % 360F
-    }
-
-    private fun normalize(value: Float, srcLimit: Float, dstLimit: Float): Float {
-        return value * dstLimit / srcLimit
+        return (value / PI.toFloat() * 180f) % 360f
     }
 
     fun fromSticker(sticker: Sticker) {

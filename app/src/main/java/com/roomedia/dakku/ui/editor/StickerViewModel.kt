@@ -10,15 +10,13 @@ import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.DakkuApplication
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Diary
-import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.repository.StickerRepository
 import com.roomedia.dakku.ui.editor.sticker.StickerView
-import com.roomedia.dakku.ui.util.CommonViewModel
 import java.io.ByteArrayOutputStream
 import java.util.Date
 
-class StickerViewModel(private var diary: Diary?) : CommonViewModel<Sticker>() {
-    override val repository = StickerRepository()
+class StickerViewModel(private var diary: Diary?) {
+    private val repository = StickerRepository()
     val stickers = diary?.id?.let { repository.getFrom(it) }
 
     private var isInit = true

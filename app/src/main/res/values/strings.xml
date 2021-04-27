@@ -34,11 +34,40 @@
     <string name="editor_save">저장</string>
 
     <string name="example_text">다람쥐\n헌 쳇바퀴\n타고파</string>
+    <string name="menu_text">텍스트 박스 추가</string>
     <string name="menu_image">이미지 추가</string>
     <string name="menu_video">비디오 추가</string>
     <string name="menu_switch">스위치 추가</string>
     <string name="menu_radio">라디오 버튼 추가</string>
     <string name="menu_check">체크 박스 추가</string>
     <string name="menu_slider">슬라이더 추가</string>
-    <string name="menu_text">텍스트 박스 추가</string>
+
+    <string name="menu_font">폰트 변경</string>
+    <string name="menu_size">텍스트 크기 변경</string>
+    <string name="menu_bold">굵게</string>
+    <string name="menu_italic">기울임</string>
+    <string name="menu_stroke">취소선</string>
+    <string name="menu_underline">밑줄</string>
+    <string name="menu_align_left">왼쪽 정렬</string>
+    <string name="menu_align_center">가운데 정렬</string>
+    <string name="menu_align_right">오른쪽 정렬</string>
+    <string name="menu_letter_spacing">텍스트 자간</string>
+    <string name="menu_line_spacing">텍스트 행간</string>
+    <string name="menu_color">글자색</string>
+
+    <string-array name="fonts">
+        <item>시스템</item>
+        <item>갈맷글</item>
+        <item>강부장님체</item>
+        <item>고딕 아니고 고딩</item>
+        <item>규리의 일기</item>
+        <item>김유이체</item>
+        <item>고운 밤</item>
+        <item>동동</item>
+        <item>쑥쑥</item>
+        <item>써라운드</item>
+        <item>써라운드 에어</item>
+        <item>NEO둥근모</item>
+        <item>리디바탕</item>
+    </string-array>
 </resources>
