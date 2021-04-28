@@ -5,17 +5,21 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.roomedia.dakku.DakkuApplication
+import com.roomedia.dakku.MimeTypes
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityStickerListBinding
 import java.io.File
+import java.security.InvalidKeyException
 import java.util.Date
 
 class StickerListActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityStickerListBinding.inflate(layoutInflater) }
-    private val type by lazy { intent.getStringExtra("mime_types") ?: "*" }
-    private val adapter by lazy { StickerAdapter(type) }
+    private val mimeTypeEnum by lazy {
+        val type = intent.getStringExtra("mime_types") ?: throw InvalidKeyException()
+        MimeTypes.values().find { it.mimeType == type }!!
+    }
+    private val adapter by lazy { StickerAdapter(mimeTypeEnum.toFolder()) }
 
     private val observer = SelectLifecycleObserver(activityResultRegistry) { uri ->
         cloneContent(uri)
@@ -25,7 +29,7 @@ class StickerListActivity : AppCompatActivity() {
     private fun cloneContent(uri: Uri) {
         val inputStream = contentResolver.openInputStream(uri)!!
         // TODO: change extension as extension of source content
-        val outputFile = File(DakkuApplication.instance.mediaFolder, "$type/${Date().time}.jpg")
+        val outputFile = File(mimeTypeEnum.toPath(), "${Date().time}.jpg")
         val outputStream = outputFile.outputStream()
 
         inputStream.copyTo(outputStream)
@@ -49,7 +53,7 @@ class StickerListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
-            R.id.button_sticker_add -> observer.selectItem("$type/*")
+            R.id.button_sticker_add -> observer.selectItem("${mimeTypeEnum.mimeType}/*")
             else -> {}
         }
         return super.onOptionsItemSelected(item)

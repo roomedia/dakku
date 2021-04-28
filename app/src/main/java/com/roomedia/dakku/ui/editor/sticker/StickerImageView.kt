@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.AppCompatImageView
 import coil.api.load
 import com.airbnb.paris.extensions.style
+import com.roomedia.dakku.MimeTypes
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
@@ -18,7 +19,7 @@ import java.util.Date
 
 interface StickerImageView : StickerView {
 
-    val type: String
+    val type: MimeTypes
     var uri: Uri?
     val requestActivity: ActivityResultLauncher<Intent>
 
@@ -51,7 +52,7 @@ interface StickerImageView : StickerView {
 
     fun showSelectItemDialog() {
         val intent = Intent(getContext(), StickerListActivity::class.java)
-            .putExtra("mime_types", type)
+            .putExtra("mime_types", type.mimeType)
         requestActivity.launch(intent)
     }
 
@@ -68,7 +69,7 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
     override var pastTouchAngle: Float? = null
     override var pastTouchSpan: Float? = null
 
-    override val type = "image"
+    override val type = MimeTypes.Image
     override var uri: Uri? = null
     override val requestActivity = activity.requestActivity
 
