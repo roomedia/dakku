@@ -10,12 +10,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
+import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerView
 
 class TextMenuHandlers(
     lifecycleOwner: LifecycleOwner,
     binding: ActivityDiaryEditorBinding,
+    private val selectedMenu: MutableLiveData<Int>,
     private val selectedSticker: MutableLiveData<StickerView?>,
 ) {
     private val verticalSeekBar = binding.seekBarMenu.verticalSeekBar
@@ -69,7 +71,8 @@ class TextMenuHandlers(
         )
     }
 
-    fun onSize() {
+    fun onSize(view: View) {
+        selectedMenu.value = view.id
         (selectedSticker.value as? StickerTextViewImpl)?.let { stickerView ->
             verticalSeekBarListener = ScaleListener(
                 verticalSeekBar,
@@ -79,20 +82,20 @@ class TextMenuHandlers(
         }
     }
 
-    fun onColor() {
-        (selectedSticker.value as? StickerTextViewImpl)?.apply {
-            // TODO: 2021/04/14 set slider VISIBLE/GONE for all button -> do when working on undo/redo
-        }
+    fun onColor(view: View) {
+        selectedMenu.value = view.id
     }
 
-    fun onAlign() {
+    fun onAlign(view: View) {
+        selectedMenu.value = view.id
         alignIndex = (alignIndex + 1) % Alignments.size
         alignIcon.set(AlignmentIcons[alignIndex])
         val sticker = selectedSticker.value as? StickerTextViewImpl
         sticker?.gravity = Alignments[alignIndex]
     }
 
-    fun onBold() {
+    fun onBold(view: View) {
+        selectedMenu.value = view.id
         (selectedSticker.value as? StickerTextViewImpl)?.apply {
             isBold.set(!typeface.isBold)
             var textStyle = if (typeface.isBold) 0 else 1
@@ -103,7 +106,8 @@ class TextMenuHandlers(
         }
     }
 
-    fun onItalic() {
+    fun onItalic(view: View) {
+        selectedMenu.value = view.id
         (selectedSticker.value as? StickerTextViewImpl)?.apply {
             isItalic.set(!typeface.isItalic)
             var textStyle = if (typeface.isBold) 1 else 0
@@ -114,9 +118,9 @@ class TextMenuHandlers(
         }
     }
 
-    fun onSpacing() {
+    fun onSpacing(view: View) {
+        selectedMenu.value = view.id
         (selectedSticker.value as? StickerTextViewImpl)?.let { stickerView ->
-            // TODO: 2021/04/14 set slider VISIBLE/GONE for all button -> do when working on undo/redo
             verticalSeekBarListener = LineSpacingListener(verticalSeekBar, stickerView)
             horizontalSeekBarListener = LetterSpacingListener(horizontalSeekBar, stickerView)
         }

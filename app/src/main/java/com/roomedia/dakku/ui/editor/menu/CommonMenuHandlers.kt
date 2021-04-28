@@ -2,8 +2,10 @@ package com.roomedia.dakku.ui.editor.menu
 
 import android.content.Context
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
@@ -14,6 +16,7 @@ class CommonMenuHandlers(
     binding: ActivityDiaryEditorBinding,
 ) {
 
+    private val selectedMenu = MutableLiveData<@IdRes Int>()
     private val selectedSticker = activity.selectedSticker
     private val frame = binding.diaryFrame
 
@@ -21,13 +24,16 @@ class CommonMenuHandlers(
     val menuHandlersVisibility = ObservableInt(0)
 
     init {
+        initSelectedMenu(binding)
         initSelectedSticker()
+
         binding.commonMenu.commonMenuHandlers = this
-        binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame)
+        binding.addMenu.addMenuHandlers = AddMenuHandlers(activity, frame, selectedMenu)
 
         val textMenuHandlers = TextMenuHandlers(
             activity as LifecycleOwner,
             binding,
+            selectedMenu,
             selectedSticker,
         )
         binding.textMenu.textMenuHandlers = textMenuHandlers
@@ -41,11 +47,29 @@ class CommonMenuHandlers(
         )
     }
 
+    private fun initSelectedMenu(binding: ActivityDiaryEditorBinding) {
+        selectedMenu.observe(activity) { menuId ->
+            binding.seekBarMenu.verticalSeekBar.visibility = when (menuId) {
+                binding.textMenu.sizeButton.id,
+                binding.textMenu.spacingButton.id -> View.VISIBLE
+                else -> View.GONE
+            }
+            binding.seekBarMenu.horizontalSeekBar.visibility = when (menuId) {
+                binding.textMenu.spacingButton.id -> View.VISIBLE
+                else -> View.GONE
+            }
+            binding.colorMenu.colorContainer.visibility = when (menuId) {
+                binding.textMenu.textColorButton.id -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
+    }
+
     private fun initSelectedSticker() {
         selectedSticker.observe(activity) { stickerView ->
             val menuId = when (stickerView) {
                 is StickerTextViewImpl -> R.id.textMenu
-                else -> return@observe
+                else -> 0
             }
             menuHandlersVisibility.set(menuId)
         }
@@ -60,7 +84,8 @@ class CommonMenuHandlers(
         }
     }
 
-    fun onAdd() {
+    fun onAdd(view: View) {
+        selectedMenu.value = view.id
         menuHandlersVisibility.set(R.id.addMenu)
     }
 
@@ -72,16 +97,19 @@ class CommonMenuHandlers(
         TODO("not yet implemented")
     }
 
-    fun onDelete() {
+    fun onDelete(view: View) {
+        selectedMenu.value = view.id
         menuHandlersVisibility.set(0)
         activity.deleteSelected()
     }
 
-    fun onLayer() {
+    fun onLayer(view: View) {
+        selectedMenu.value = view.id
         TODO("not yet implemented")
     }
 
-    fun onDuplicate() {
+    fun onDuplicate(view: View) {
+        selectedMenu.value = view.id
         TODO("not yet implemented")
     }
 }

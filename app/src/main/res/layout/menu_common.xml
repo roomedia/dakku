@@ -31,7 +31,7 @@
                     android:id="@+id/addButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_add"
-                    android:onClick="@{ () -> commonMenuHandlers.onAdd() }"
+                    android:onClick="@{ (view) -> commonMenuHandlers.onAdd(view) }"
                     app:srcCompat="@drawable/ic_add" />
 
                 <ImageButton
@@ -52,7 +52,7 @@
                     android:id="@+id/deleteButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_delete"
-                    android:onClick="@{ () -> commonMenuHandlers.onDelete() }"
+                    android:onClick="@{ (view) -> commonMenuHandlers.onDelete(view) }"
                     app:srcCompat="@drawable/ic_delete" />
 
                 <View style="@style/verticalDivider" />
@@ -61,14 +61,14 @@
                     android:id="@+id/layerButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_layer"
-                    android:onClick="@{ () -> commonMenuHandlers.onLayer() }"
+                    android:onClick="@{ (view) -> commonMenuHandlers.onLayer(view) }"
                     app:srcCompat="@drawable/ic_layers" />
 
                 <ImageButton
                     android:id="@+id/duplicateButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_duplicate"
-                    android:onClick="@{ () -> commonMenuHandlers.onDuplicate() }"
+                    android:onClick="@{ (view) -> commonMenuHandlers.onDuplicate(view) }"
                     app:srcCompat="@drawable/ic_duplicate" />
 
             </LinearLayout>
