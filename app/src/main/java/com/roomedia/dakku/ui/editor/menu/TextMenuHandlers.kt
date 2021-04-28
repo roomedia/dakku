@@ -10,7 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
-import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerView
 
@@ -48,19 +47,29 @@ class TextMenuHandlers(
         }
 
         selectedSticker.observe(lifecycleOwner) { stickerView ->
-            (stickerView as? StickerTextViewImpl)?.apply {
-                isBold.set(typeface.isBold)
-                isItalic.set(typeface.isItalic)
+            when (stickerView) {
+                is StickerTextViewImpl -> {
+                    isBold.set(stickerView.typeface.isBold)
+                    isItalic.set(stickerView.typeface.isItalic)
 
-                fontSpinner.setSelection(fontIndex)
-                observableTextSize.set(textSize)
-                observableTextColor.set(currentTextColor)
+                    fontSpinner.setSelection(stickerView.fontIndex)
+                    observableTextSize.set(stickerView.textSize)
+                    observableTextColor.set(stickerView.currentTextColor)
 
-                verticalSeekBarListener?.setSticker(stickerView)
-                horizontalSeekBarListener?.setSticker(stickerView)
+                    verticalSeekBarListener?.setSticker(stickerView)
+                    horizontalSeekBarListener?.setSticker(stickerView)
 
-                alignIndex = Alignments.indexOf(gravity)
-                alignIcon.set(AlignmentIcons[alignIndex])
+                    alignIndex = Alignments.indexOf(stickerView.gravity)
+                    alignIcon.set(AlignmentIcons[alignIndex])
+                }
+                else -> {
+                    verticalSeekBarListener = null
+                    horizontalSeekBarListener = null
+
+                    verticalSeekBar.visibility = View.GONE
+                    horizontalSeekBar.visibility = View.GONE
+                    binding.colorMenu.colorContainer.visibility = View.GONE
+                }
             }
         }
     }

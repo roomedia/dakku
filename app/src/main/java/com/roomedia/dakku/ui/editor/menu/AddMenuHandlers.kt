@@ -2,7 +2,6 @@ package com.roomedia.dakku.ui.editor.menu
 
 import android.view.View
 import android.widget.FrameLayout
-import androidx.annotation.IdRes
 import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl

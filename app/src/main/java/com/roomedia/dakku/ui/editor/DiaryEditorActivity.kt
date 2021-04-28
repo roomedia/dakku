@@ -57,6 +57,11 @@ class DiaryEditorActivity : AppCompatActivity() {
 
             transformGestureDetector.setEnable(isEdit)
             binding.commonMenuHandlers?.setVisibility(isEdit)
+
+            val visibility = if (isEdit) View.VISIBLE else View.GONE
+            binding.seekBarMenu.root.visibility = visibility
+            binding.colorMenu.root.visibility = visibility
+
             if (!isEdit) {
                 selectSticker(null)
                 stickerViewModel.save(binding.diaryFrame)
