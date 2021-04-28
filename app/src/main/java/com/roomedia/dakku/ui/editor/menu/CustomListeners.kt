@@ -1,5 +1,7 @@
 package com.roomedia.dakku.ui.editor.menu
 
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.SeekBar
 import androidx.databinding.ObservableFloat
 import com.roomedia.dakku.normalize
@@ -117,4 +119,37 @@ class LetterSpacingListener(
             letterSpacing = progress.fromSlider(SliderType.LETTER_SPACING),
         )
     }
+}
+
+class LayerListener(
+    private val frame: FrameLayout,
+    private val seekBar: SeekBar,
+    private var stickerView: View?,
+) : SeekBar.OnSeekBarChangeListener {
+
+    init {
+        setSticker(stickerView)
+    }
+
+    fun setSticker(stickerView: View?) {
+        if (stickerView == null) {
+            seekBar.visibility = View.GONE
+            return
+        }
+        this.stickerView = stickerView
+        seekBar.setOnSeekBarChangeListener(null)
+
+        seekBar.max = frame.childCount - 1
+        seekBar.progress = frame.indexOfChild(stickerView)
+        seekBar.setOnSeekBarChangeListener(this)
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        frame.removeView(stickerView)
+        frame.addView(stickerView, progress)
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar) {}
 }

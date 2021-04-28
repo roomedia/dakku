@@ -34,4 +34,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <SeekBar
+        android:id="@+id/variableVerticalSeekBar"
+        android:layout_width="400dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:max="100"
+        android:rotation="-90"
+        android:translationX="-200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

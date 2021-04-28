@@ -22,6 +22,11 @@ class CommonMenuHandlers(
 
     val visibility = ObservableInt(View.VISIBLE)
     val menuHandlersVisibility = ObservableInt(0)
+    private val layerListener = LayerListener(
+        frame,
+        binding.seekBarMenu.variableVerticalSeekBar,
+        selectedSticker.value as? View
+    )
 
     init {
         initSelectedMenu(binding)
@@ -58,6 +63,10 @@ class CommonMenuHandlers(
                 binding.textMenu.spacingButton.id -> View.VISIBLE
                 else -> View.GONE
             }
+            binding.seekBarMenu.variableVerticalSeekBar.visibility = when (menuId) {
+                binding.commonMenu.layerButton.id -> View.VISIBLE
+                else -> View.GONE
+            }
             binding.colorMenu.colorContainer.visibility = when (menuId) {
                 binding.textMenu.textColorButton.id -> View.VISIBLE
                 else -> View.GONE
@@ -72,6 +81,7 @@ class CommonMenuHandlers(
                 else -> 0
             }
             menuHandlersVisibility.set(menuId)
+            layerListener.setSticker(stickerView as? View)
         }
     }
 
@@ -105,7 +115,6 @@ class CommonMenuHandlers(
 
     fun onLayer(view: View) {
         selectedMenu.value = view.id
-        TODO("not yet implemented")
     }
 
     fun onDuplicate(view: View) {
