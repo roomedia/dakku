@@ -46,6 +46,7 @@ interface OnSeekBarChangeListener : SeekBar.OnSeekBarChangeListener {
     var stickerView: StickerTextViewImpl
 
     fun setSticker(stickerView: StickerTextViewImpl) {
+        this.stickerView = stickerView
         seekBar.setOnSeekBarChangeListener(this)
     }
 

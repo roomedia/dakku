@@ -43,14 +43,14 @@
                     style="@style/TransparentTextMenu"
                     android:text="@{textMenuHandlers.observableTextSize}"
                     android:contentDescription="@string/menu_size"
-                    android:onClick="@{ () -> textMenuHandlers.onSize() }"
+                    android:onClick="@{ (view) -> textMenuHandlers.onSize(view) }"
                     tools:text="14" />
 
                 <Button
                     android:id="@+id/textColorButton"
                     style="@style/TransparentTextMenu"
                     android:contentDescription="@string/menu_color"
-                    android:onClick="@{ () -> textMenuHandlers.onColor() }"
+                    android:onClick="@{ (view) -> textMenuHandlers.onColor(view) }"
                     android:text="A"
                     android:textColor="@{textMenuHandlers.observableTextColor}"
                     tools:ignore="HardcodedText" />
@@ -61,7 +61,7 @@
                     android:id="@+id/boldButton"
                     style="@style/TintTextMenu"
                     android:contentDescription="@string/menu_bold"
-                    android:onClick="@{ () -> textMenuHandlers.onBold() }"
+                    android:onClick="@{ (view) -> textMenuHandlers.onBold(view) }"
                     android:backgroundTint="@{textMenuHandlers.isBold}"
                     android:text="B"
                     android:textStyle="bold"
@@ -72,7 +72,7 @@
                     style="@style/TintTextMenu"
                     android:contentDescription="@string/menu_italic"
                     android:fontFamily="serif"
-                    android:onClick="@{ () -> textMenuHandlers.onItalic() }"
+                    android:onClick="@{ (view) -> textMenuHandlers.onItalic(view) }"
                     android:backgroundTint="@{textMenuHandlers.isItalic}"
                     android:text="I"
                     android:textStyle="italic"
@@ -84,7 +84,7 @@
                     android:id="@+id/alignButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_align_left"
-                    android:onClick="@{ () -> textMenuHandlers.onAlign() }"
+                    android:onClick="@{ (view) -> textMenuHandlers.onAlign(view) }"
                     app:srcCompat="@{textMenuHandlers.alignIcon}"
                     tools:srcCompat="@drawable/ic_align_left" />
 
@@ -92,7 +92,7 @@
                     android:id="@+id/spacingButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_spacing"
-                    android:onClick="@{ () -> textMenuHandlers.onSpacing() }"
+                    android:onClick="@{ (view) -> textMenuHandlers.onSpacing(view) }"
                     app:srcCompat="@drawable/ic_spacing" />
 
             </LinearLayout>
