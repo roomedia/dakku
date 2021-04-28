@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "893344535360",
+    "project_id": "dakku-cloud-storage",
+    "storage_bucket": "dakku-cloud-storage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893344535360:android:d68ee9143f3e07208160a5",
+        "android_client_info": {
+          "package_name": "com.roomedia.dakku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893344535360-r2m4nj1l4s3ip0sblrq4430b1irm0qqp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roomedia.dakku",
+            "certificate_hash": "cca1d9375af7fabc1ecbcb0073a57b2d1576a785"
+          }
+        },
+        {
+          "client_id": "893344535360-mof13u5jigqgv1h9keb016hoq9m8rcu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwO9_CCyh0GcQ0NyCBjIoMUwPfDhOC--I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893344535360-mof13u5jigqgv1h9keb016hoq9m8rcu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
