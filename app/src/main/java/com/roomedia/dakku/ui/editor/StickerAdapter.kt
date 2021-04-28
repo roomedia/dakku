@@ -18,6 +18,7 @@ class StickerAdapter(type: String) : RecyclerView.Adapter<StickerAdapter.Sticker
 
     private var dataset = File(DakkuApplication.instance.mediaFolder, type).listFiles()
         ?.map { it.toUri() }
+        ?.sortedBy { it.lastPathSegment }
         ?.toMutableList()
         ?: mutableListOf()
 

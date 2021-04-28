@@ -8,7 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.Diary
@@ -56,10 +55,8 @@ class DiaryEditorActivity : AppCompatActivity() {
             editMenuItem.isVisible = !isEdit
             saveMenuItem.isVisible = isEdit
 
+            transformGestureDetector.setEnable(isEdit)
             binding.commonMenuHandlers?.setVisibility(isEdit)
-            binding.diaryFrame.apply {
-                children.forEach { it.isEnabled = isEdit }
-            }
             if (!isEdit) {
                 selectSticker(null)
                 stickerViewModel.save(binding.diaryFrame)

@@ -24,16 +24,14 @@
     <string name="menu_undo">뒤로 가기</string>
     <string name="menu_redo">앞으로 가기</string>
     <string name="menu_delete">선택된 스티커 삭제</string>
-    <string name="menu_translate">이동</string>
-    <string name="menu_rotate">회전</string>
-    <string name="menu_scale">크기 조정</string>
     <string name="menu_layer">레이어 조정</string>
     <string name="menu_duplicate">레이어 복제</string>
 
     <string name="editor_edit">편집</string>
     <string name="editor_save">저장</string>
+    <string name="media_path">dakku-%s</string>
+    <string name="sticker_preset">스티커 프리셋</string>
 
-    <string name="example_text">다람쥐\n헌 쳇바퀴\n타고파</string>
     <string name="menu_text">텍스트 박스 추가</string>
     <string name="menu_image">이미지 추가</string>
     <string name="menu_video">비디오 추가</string>
@@ -46,13 +44,10 @@
     <string name="menu_size">텍스트 크기 변경</string>
     <string name="menu_bold">굵게</string>
     <string name="menu_italic">기울임</string>
-    <string name="menu_stroke">취소선</string>
-    <string name="menu_underline">밑줄</string>
     <string name="menu_align_left">왼쪽 정렬</string>
     <string name="menu_align_center">가운데 정렬</string>
     <string name="menu_align_right">오른쪽 정렬</string>
-    <string name="menu_letter_spacing">텍스트 자간</string>
-    <string name="menu_line_spacing">텍스트 행간</string>
+    <string name="menu_spacing">텍스트 자간, 행간 조절</string>
     <string name="menu_color">글자색</string>
 
     <string-array name="fonts">

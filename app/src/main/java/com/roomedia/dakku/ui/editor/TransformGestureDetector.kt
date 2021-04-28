@@ -6,6 +6,7 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.roomedia.dakku.ui.editor.sticker.StickerView
+import kotlin.properties.Delegates
 
 data class Delta(val x: Float, val y: Float)
 
@@ -19,9 +20,17 @@ class TransformGestureDetector(context: Context) :
 
     private var count = 0
     private val threshold = 10
+    private var isEnabled by Delegates.notNull<Boolean>()
     val selectedSticker = MutableLiveData<StickerView?>(null)
 
+    fun setEnable(isEnabled: Boolean) {
+        this.isEnabled = isEnabled
+    }
+
     fun onTouchEvent(stickerView: StickerView?, event: MotionEvent): Boolean {
+        if (!isEnabled) {
+            return false
+        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (event.pointerCount == 1) count = 0

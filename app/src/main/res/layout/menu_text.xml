@@ -91,7 +91,7 @@
                 <ImageButton
                     android:id="@+id/spacingButton"
                     style="@style/TransparentMenu"
-                    android:contentDescription="@string/menu_line_spacing"
+                    android:contentDescription="@string/menu_spacing"
                     android:onClick="@{ () -> textMenuHandlers.onSpacing() }"
                     app:srcCompat="@drawable/ic_spacing" />
 
