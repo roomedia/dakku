@@ -9,7 +9,7 @@ import androidx.room.Transaction
 
 @Dao
 interface StickerDao : CommonDao<Sticker> {
-    @Query("SELECT * FROM sticker WHERE diaryId = :diaryId ORDER BY id ASC")
+    @Query("SELECT * FROM sticker WHERE diaryId = :diaryId ORDER BY zIndex ASC")
     fun getFrom(diaryId: Long): LiveData<List<Sticker>>
 
     @Transaction
