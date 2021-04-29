@@ -6,7 +6,7 @@ import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 
 class AddMenuBar(
-    private val menuHandlersManager: MenuHandlersManager,
+    private val menuHandlersManager: MenuBarManager,
     private val diaryFrame: FrameLayout
 ) {
     fun onText(view: View) {

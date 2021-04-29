@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="colorMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.ColorMenuHandlers" />
+        <variable name="colorMenuBar" type="com.roomedia.dakku.ui.editor.menu.ColorMenuBar" />
     </data>
 
     <HorizontalScrollView

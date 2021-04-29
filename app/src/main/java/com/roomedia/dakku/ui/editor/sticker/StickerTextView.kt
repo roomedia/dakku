@@ -24,7 +24,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.editor.Delta
-import com.roomedia.dakku.ui.editor.menu.MenuHandlersManager
+import com.roomedia.dakku.ui.editor.menu.MenuBarManager
 import com.roomedia.dakku.ui.editor.sticker.StickerTextView.Companion.Fonts
 import com.roomedia.dakku.ui.util.showEditTextDialog
 import java.util.Date
@@ -80,7 +80,7 @@ interface StickerTextView : StickerView {
 }
 
 @SuppressLint("ViewConstructor")
-class StickerTextViewImpl(menuHandlersManager: MenuHandlersManager) :
+class StickerTextViewImpl(menuHandlersManager: MenuBarManager) :
     AppCompatTextView(menuHandlersManager.context, null, 0), StickerTextView {
 
     override var ratio: Float? = null
@@ -107,7 +107,7 @@ class StickerTextViewImpl(menuHandlersManager: MenuHandlersManager) :
         }
     }
 
-    constructor(menuHandlersManager: MenuHandlersManager, sticker: Sticker) :
+    constructor(menuHandlersManager: MenuBarManager, sticker: Sticker) :
         this(menuHandlersManager) {
             fromSticker(sticker)
         }

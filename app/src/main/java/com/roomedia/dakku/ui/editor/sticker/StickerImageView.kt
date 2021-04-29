@@ -14,7 +14,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.editor.StickerListActivity
-import com.roomedia.dakku.ui.editor.menu.MenuHandlersManager
+import com.roomedia.dakku.ui.editor.menu.MenuBarManager
 import java.util.Date
 
 interface StickerImageView : StickerView {
@@ -61,7 +61,7 @@ interface StickerImageView : StickerView {
 }
 
 @SuppressLint("ViewConstructor")
-class StickerImageViewImpl(menuHandlersManager: MenuHandlersManager) :
+class StickerImageViewImpl(menuHandlersManager: MenuBarManager) :
     AppCompatImageView(menuHandlersManager.context, null, 0), StickerImageView {
 
     override var ratio: Float? = null
@@ -85,7 +85,7 @@ class StickerImageViewImpl(menuHandlersManager: MenuHandlersManager) :
         }
     }
 
-    constructor(menuHandlersManager: MenuHandlersManager, sticker: Sticker) :
+    constructor(menuHandlersManager: MenuBarManager, sticker: Sticker) :
         this(menuHandlersManager) {
             fromSticker(sticker)
         }

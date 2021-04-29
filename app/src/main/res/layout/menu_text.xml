@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="textMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.TextMenuHandlers" />
+        <variable name="textMenuBar" type="com.roomedia.dakku.ui.editor.menu.TextMenuBar" />
     </data>
 
     <LinearLayout
@@ -41,18 +41,18 @@
                 <Button
                     android:id="@+id/sizeButton"
                     style="@style/TransparentTextMenu"
-                    android:text="@{textMenuHandlers.observableTextSize}"
+                    android:text="@{textMenuBar.observableTextSize}"
                     android:contentDescription="@string/menu_size"
-                    android:onClick="@{ (view) -> textMenuHandlers.onSize(view) }"
+                    android:onClick="@{ (view) -> textMenuBar.onSize(view) }"
                     tools:text="14" />
 
                 <Button
                     android:id="@+id/textColorButton"
                     style="@style/TransparentTextMenu"
                     android:contentDescription="@string/menu_color"
-                    android:onClick="@{ (view) -> textMenuHandlers.onColor(view) }"
+                    android:onClick="@{ (view) -> textMenuBar.onColor(view) }"
                     android:text="A"
-                    android:textColor="@{textMenuHandlers.observableTextColor}"
+                    android:textColor="@{textMenuBar.observableTextColor}"
                     tools:ignore="HardcodedText" />
 
                 <View style="@style/verticalDivider" />
@@ -61,8 +61,8 @@
                     android:id="@+id/boldButton"
                     style="@style/TintTextMenu"
                     android:contentDescription="@string/menu_bold"
-                    android:onClick="@{ (view) -> textMenuHandlers.onBold(view) }"
-                    android:backgroundTint="@{textMenuHandlers.isBold}"
+                    android:onClick="@{ (view) -> textMenuBar.onBold(view) }"
+                    android:backgroundTint="@{textMenuBar.isBold}"
                     android:text="B"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
@@ -72,8 +72,8 @@
                     style="@style/TintTextMenu"
                     android:contentDescription="@string/menu_italic"
                     android:fontFamily="serif"
-                    android:onClick="@{ (view) -> textMenuHandlers.onItalic(view) }"
-                    android:backgroundTint="@{textMenuHandlers.isItalic}"
+                    android:onClick="@{ (view) -> textMenuBar.onItalic(view) }"
+                    android:backgroundTint="@{textMenuBar.isItalic}"
                     android:text="I"
                     android:textStyle="italic"
                     tools:ignore="HardcodedText" />
@@ -84,15 +84,15 @@
                     android:id="@+id/alignButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_align_left"
-                    android:onClick="@{ (view) -> textMenuHandlers.onAlign(view) }"
-                    app:srcCompat="@{textMenuHandlers.alignIcon}"
+                    android:onClick="@{ (view) -> textMenuBar.onAlign(view) }"
+                    app:srcCompat="@{textMenuBar.alignIcon}"
                     tools:srcCompat="@drawable/ic_align_left" />
 
                 <ImageButton
                     android:id="@+id/spacingButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_spacing"
-                    android:onClick="@{ (view) -> textMenuHandlers.onSpacing(view) }"
+                    android:onClick="@{ (view) -> textMenuBar.onSpacing(view) }"
                     app:srcCompat="@drawable/ic_spacing" />
 
             </LinearLayout>

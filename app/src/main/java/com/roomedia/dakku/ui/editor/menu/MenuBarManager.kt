@@ -14,7 +14,7 @@ import com.roomedia.dakku.ui.editor.sticker.StickerView
 import java.io.InvalidClassException
 import kotlin.reflect.KClass
 
-class MenuHandlersManager(private val activity: DiaryEditorActivity) {
+class MenuBarManager(private val activity: DiaryEditorActivity) {
 
     val context = activity as Context
     val requestActivity = activity.requestActivity
@@ -91,10 +91,10 @@ class MenuHandlersManager(private val activity: DiaryEditorActivity) {
 
     private fun initMenuHandlers() {
         activity.binding.let {
-            it.commonMenu.commonMenuHandlers = MainMenuHandlers(this)
-            it.addMenu.addMenuHandlers = AddMenuBar(this, diaryFrame)
-            it.textMenu.textMenuHandlers = TextMenuHandlers(this, it.textMenu.fontSpinner)
-            it.colorMenu.colorMenuHandlers = ColorMenuHandlers(this, colorContainer)
+            it.commonMenu.mainMenuBar = MainMenuBar(this)
+            it.addMenu.addMenuBar = AddMenuBar(this, diaryFrame)
+            it.textMenu.textMenuBar = TextMenuBar(this, it.textMenu.fontSpinner)
+            it.colorMenu.colorMenuBar = ColorMenuBar(this, colorContainer)
         }
     }
 

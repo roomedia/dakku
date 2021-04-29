@@ -7,8 +7,8 @@ import com.airbnb.paris.extensions.style
 import com.airbnb.paris.extensions.tint
 import com.roomedia.dakku.R
 
-class ColorMenuHandlers(
-    private val menuHandlersManager: MenuHandlersManager,
+class ColorMenuBar(
+    private val menuHandlersManager: MenuBarManager,
     private val colorContainer: LinearLayout,
 ) {
 

@@ -11,8 +11,8 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerView
 
-class TextMenuHandlers(
-    private val menuHandlersManager: MenuHandlersManager,
+class TextMenuBar(
+    private val menuHandlersManager: MenuBarManager,
     private val fontSpinner: Spinner,
 ) {
     val isBold = ObservableBoolean()

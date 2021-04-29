@@ -12,7 +12,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.StickerType
-import com.roomedia.dakku.ui.editor.menu.MenuHandlersManager
+import com.roomedia.dakku.ui.editor.menu.MenuBarManager
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
 import com.roomedia.dakku.ui.util.REQUEST
@@ -27,7 +27,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         StickerViewModel(diary)
     }
 
-    private val menuHandlersManager by lazy { MenuHandlersManager(this) }
+    private val menuBarManager by lazy { MenuBarManager(this) }
     private val transformGestureDetector by lazy { TransformGestureDetector.getInstance(this) }
     val selectedSticker by lazy { transformGestureDetector.selectedSticker }
 
@@ -46,7 +46,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         setIsEditObserver()
         addDiaryStickers()
 
-        binding.menuHandlersManager = menuHandlersManager
+        binding.menuBarManager = menuBarManager
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -56,14 +56,14 @@ class DiaryEditorActivity : AppCompatActivity() {
             saveMenuItem.isVisible = isEdit
 
             transformGestureDetector.setEnable(isEdit)
-            menuHandlersManager.setVisibility(isEdit)
+            menuBarManager.setVisibility(isEdit)
 
             val visibility = if (isEdit) View.VISIBLE else View.GONE
             binding.seekBarMenu.root.visibility = visibility
             binding.colorMenu.root.visibility = visibility
 
             if (!isEdit) {
-                menuHandlersManager.selectSticker(null)
+                menuBarManager.selectSticker(null)
                 stickerViewModel.save(binding.diaryFrame)
             }
         }
@@ -73,8 +73,8 @@ class DiaryEditorActivity : AppCompatActivity() {
         stickerViewModel.stickers?.observe(this) { stickers ->
             stickers.map {
                 when (it.type) {
-                    StickerType.TEXT_VIEW -> StickerTextViewImpl(menuHandlersManager, it)
-                    StickerType.IMAGE_VIEW -> StickerImageViewImpl(menuHandlersManager, it)
+                    StickerType.TEXT_VIEW -> StickerTextViewImpl(menuBarManager, it)
+                    StickerType.IMAGE_VIEW -> StickerImageViewImpl(menuBarManager, it)
                     else -> TODO("not yet implemented")
                 }
             }.forEach {

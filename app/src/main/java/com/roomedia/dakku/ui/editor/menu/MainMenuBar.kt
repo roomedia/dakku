@@ -3,7 +3,7 @@ package com.roomedia.dakku.ui.editor.menu
 import android.view.View
 import com.roomedia.dakku.R
 
-class MainMenuHandlers(private val menuHandlersManager: MenuHandlersManager) {
+class MainMenuBar(private val menuHandlersManager: MenuBarManager) {
     fun onAdd(view: View) {
         menuHandlersManager.selectMenu(view.id)
         menuHandlersManager.showSubMenu(R.id.addMenu)
