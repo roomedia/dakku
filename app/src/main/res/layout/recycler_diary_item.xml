@@ -51,8 +51,9 @@
             android:id="@+id/lockImageButton"
             style="@style/TransparentImageButton"
             android:contentDescription="@{viewModel.isLocked ? @string/lock_on : @string/lock_off}"
-            android:src="@{viewModel.isLocked ? @drawable/ic_lock_on : @drawable/ic_lock_off}"
             android:onClick="@{(view) -> viewModel.onLock(view.context)}"
+            android:src="@{viewModel.isLocked ? @drawable/ic_lock_on : @drawable/ic_lock_off}"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_lock_off" />
@@ -66,6 +67,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@{viewModel.title}"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/cardView"

@@ -39,6 +39,7 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_undo"
                     android:onClick="@{ () -> mainMenuBar.onUndo() }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_undo" />
 
                 <ImageButton
@@ -46,6 +47,7 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_redo"
                     android:onClick="@{ () -> mainMenuBar.onRedo() }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_redo" />
 
                 <ImageButton
@@ -55,7 +57,9 @@
                     android:onClick="@{ (view) -> mainMenuBar.onDelete(view) }"
                     app:srcCompat="@drawable/ic_delete" />
 
-                <View style="@style/verticalDivider" />
+                <View
+                    style="@style/verticalDivider"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/layerButton"
@@ -69,6 +73,7 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_duplicate"
                     android:onClick="@{ (view) -> mainMenuBar.onDuplicate(view) }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_duplicate" />
 
             </LinearLayout>
