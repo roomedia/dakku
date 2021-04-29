@@ -90,8 +90,6 @@ interface StickerView {
             setTranslationX(x)
             setTranslationY(y)
             setRotation(rot)
-            getLayoutParams().width = w
-            getLayoutParams().height = h
         }
     }
 
