@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.MotionEvent
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.FrameLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.AppCompatImageView
 import coil.api.load
@@ -24,13 +25,10 @@ interface StickerImageView : StickerView {
     val requestActivity: ActivityResultLauncher<Intent>
 
     fun loadImage(uri: Uri?)
-    fun setImage(uri: Uri?) {
+    fun setImage(uri: Uri?, width: Int = WRAP_CONTENT, height: Int = WRAP_CONTENT) {
         this.uri = uri
         loadImage(uri)
-        val layoutParams = getLayoutParams().apply {
-            width = WRAP_CONTENT
-            height = WRAP_CONTENT
-        }
+        val layoutParams = FrameLayout.LayoutParams(width, height)
         setLayoutParams(layoutParams)
     }
 
@@ -41,7 +39,7 @@ interface StickerImageView : StickerView {
 
     override fun fromSticker(sticker: Sticker) {
         super.fromSticker(sticker)
-        setImage(sticker.uri)
+        setImage(sticker.uri, sticker.w, sticker.h)
     }
 
     override fun toSticker(diaryId: Long, zIndex: Int): Sticker? {

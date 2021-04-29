@@ -35,13 +35,13 @@
     </style>
 
     <style name="Sticker">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">2dp</item>
         <item name="android:background">@drawable/bg_selectable</item>
     </style>
 
     <style name="Sticker.TextView" parent="Sticker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:inputType">textMultiLine|text</item>
         <item name="android:backgroundTintMode">add</item>
         <item name="android:padding">8dp</item>
