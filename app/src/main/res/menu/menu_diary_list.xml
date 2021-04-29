@@ -10,5 +10,6 @@
         android:id="@+id/button_category_lock"
         android:icon="@drawable/ic_lock_off"
         android:title="@string/category_lock"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>

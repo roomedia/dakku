@@ -34,7 +34,9 @@
                     android:onClick="@{ (view) -> addMenuBar.onText(view) }"
                     app:srcCompat="@drawable/ic_text" />
 
-                <View style="@style/verticalDivider" />
+                <View
+                    style="@style/verticalDivider"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/imageButton"
@@ -48,15 +50,19 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_video"
                     android:onClick="@{ (view) -> addMenuBar.onVideo(view) }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_video" />
 
-                <View style="@style/verticalDivider" />
+                <View
+                    style="@style/verticalDivider"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/switchButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_switch"
                     android:onClick="@{ (view) -> addMenuBar.onSwitch(view) }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_switch" />
 
                 <ImageButton
@@ -64,6 +70,7 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_radio"
                     android:onClick="@{ (view) -> addMenuBar.onRadio(view) }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_radio" />
 
                 <ImageButton
@@ -71,6 +78,7 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_check"
                     android:onClick="@{ (view) -> addMenuBar.onCheck(view) }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_check" />
 
                 <ImageButton
@@ -78,6 +86,7 @@
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_slider"
                     android:onClick="@{ (view) -> addMenuBar.onSlider(view) }"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_slider" />
 
             </LinearLayout>
