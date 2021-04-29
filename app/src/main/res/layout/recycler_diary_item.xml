@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel" type="com.roomedia.dakku.ui.list.DiaryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/thumbnail_image_view"
+                android:layout_width="128dp"
+                android:layout_height="192dp"
+                android:contentDescription="@string/diary_thumbnail"
+                android:onClick="@{(view) -> viewModel.onThumbnail(view.context)}"
+                android:scaleType="centerCrop"
+                android:src="@{viewModel.thumbnail}"
+                android:tint="@color/colorOverlay"
+                tools:src="@color/white"
+                tools:tint="@color/colorOverlay"
+                tools:ignore="UseAppTint" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageButton
+            android:id="@+id/bookmarkImageButton"
+            style="@style/TransparentImageButton"
+            android:contentDescription="@{viewModel.isBookmarked ? @string/bookmark_on : @string/bookmark_off}"
+            android:src="@{viewModel.isBookmarked ? @drawable/ic_bookmark_on : @drawable/ic_bookmark_off}"
+            android:onClick="@{() -> viewModel.onBookmark()}"
+            app:layout_constraintEnd_toStartOf="@+id/lockImageButton"
+            app:layout_constraintTop_toTopOf="@+id/lockImageButton"
+            tools:src="@drawable/ic_bookmark_off" />
+
+        <ImageButton
+            android:id="@+id/lockImageButton"
+            style="@style/TransparentImageButton"
+            android:contentDescription="@{viewModel.isLocked ? @string/lock_on : @string/lock_off}"
+            android:onClick="@{(view) -> viewModel.onLock(view.context)}"
+            android:src="@{viewModel.isLocked ? @drawable/ic_lock_on : @drawable/ic_lock_off}"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_lock_off" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{viewModel.title}"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            tools:text="다이어리 조금 많이 긴 타이틀" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

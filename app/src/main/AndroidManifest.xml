@@ -8,14 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Dakku">
-        <activity android:name=".ui.MainActivity">
+        android:theme="@style/Theme.Dakku.DayNight"
+        android:name=".DakkuApplication">
+
+        <activity android:name=".ui.list.DiaryListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.editor.DiaryEditorActivity"
+            android:theme="@style/Theme.Dakku.Light" />
+
+        <activity android:name=".ui.editor.StickerListActivity" />
     </application>
 
 </manifest>

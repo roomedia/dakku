@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel" type="com.roomedia.dakku.ui.editor.StickerViewModel" />
+        <variable name="menuBarManager" type="com.roomedia.dakku.ui.editor.menu.MenuBarManager" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.editor.DiaryEditorActivity">
+
+        <FrameLayout
+            android:id="@+id/diaryFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/seekBarMenu"
+            layout="@layout/menu_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/menuLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/menuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{menuBarManager.visibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <include
+                android:id="@+id/colorMenu"
+                layout="@layout/menu_color" />
+
+            <include
+                android:id="@+id/textMenu"
+                layout="@layout/menu_text"
+                android:selectVisibility="@{menuBarManager.subMenuVisibility}" />
+
+            <include
+                android:id="@+id/addMenu"
+                layout="@layout/menu_add"
+                android:selectVisibility="@{menuBarManager.subMenuVisibility}" />
+
+            <include
+                android:id="@+id/commonMenu"
+                layout="@layout/menu_common" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

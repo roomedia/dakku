@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="mainMenuBar" type="com.roomedia.dakku.ui.editor.menu.MainMenuBar" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View style="@style/horizontalDivider" />
+
+        <HorizontalScrollView
+            android:id="@+id/mainMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/addButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_add"
+                    android:onClick="@{ (view) -> mainMenuBar.onAdd(view) }"
+                    app:srcCompat="@drawable/ic_add" />
+
+                <ImageButton
+                    android:id="@+id/undoButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_undo"
+                    android:onClick="@{ () -> mainMenuBar.onUndo() }"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_undo" />
+
+                <ImageButton
+                    android:id="@+id/redoButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_redo"
+                    android:onClick="@{ () -> mainMenuBar.onRedo() }"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_redo" />
+
+                <ImageButton
+                    android:id="@+id/deleteButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_delete"
+                    android:onClick="@{ (view) -> mainMenuBar.onDelete(view) }"
+                    app:srcCompat="@drawable/ic_delete" />
+
+                <View
+                    style="@style/verticalDivider"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/layerButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_layer"
+                    android:onClick="@{ (view) -> mainMenuBar.onLayer(view) }"
+                    app:srcCompat="@drawable/ic_layers" />
+
+                <ImageButton
+                    android:id="@+id/duplicateButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_duplicate"
+                    android:onClick="@{ (view) -> mainMenuBar.onDuplicate(view) }"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_duplicate" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+</layout>

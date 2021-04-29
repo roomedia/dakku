@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TransparentImageButton">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/bg_transparent</item>
+    </style>
+
+    <style name="TransparentMenu" parent="TransparentImageButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="TransparentTextMenu" parent="@style/Widget.AppCompat.Button.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:background">@drawable/bg_transparent</item>
+    </style>
+
+    <style name="TintTextMenu" parent="@style/TransparentTextMenu">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="ColorMenu" parent="@style/TransparentTextMenu">
+        <item name="android:src">@drawable/bg_round</item>
+    </style>
+
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Sticker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:background">@drawable/bg_selectable</item>
+    </style>
+
+    <style name="Sticker.TextView" parent="Sticker">
+        <item name="android:inputType">textMultiLine|text</item>
+        <item name="android:backgroundTintMode">add</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Sticker.ImageView" parent="Sticker">
+    </style>
+
+    <style name="Sticker.VideoView" parent="Sticker">
+    </style>
+
+    <style name="Sticker.Switch" parent="Sticker">
+    </style>
+
+    <style name="Sticker.RadioButton" parent="Sticker">
+    </style>
+
+    <style name="Sticker.CheckBox" parent="Sticker">
+    </style>
+
+    <style name="Sticker.Slider" parent="Sticker">
+    </style>
+
+    <style name="verticalDivider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="horizontalDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+</resources>

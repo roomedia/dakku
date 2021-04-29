@@ -1,3 +1,68 @@
 <resources>
     <string name="app_name">dakku</string>
+    <string name="category_bookmark">마음 일기 모아보기</string>
+    <string name="category_lock">비밀 일기 모아보기</string>
+    <string name="add_new_diary">다이어리 쓰기</string>
+    <string name="locale_date_format">MM월 dd일</string>
+
+    <string name="diary_thumbnail">다이어리 썸네일</string>
+    <string name="bookmark_off">북마크 설정 버튼: off</string>
+    <string name="bookmark_on">북마크 설정 버튼: on</string>
+    <string name="lock_off">잠금 설정 버튼: off</string>
+    <string name="lock_on">잠금 설정 버튼: on</string>
+
+    <string name="input_password_title">비밀 일기 %s</string>
+    <string name="password_open">보기</string>
+    <string name="password_unlock">해제</string>
+    <string name="input_password_message">비밀번호를 입력하세요!</string>
+    <string name="input_text_message">텍스트를 입력하세요!</string>
+
+    <string name="rollback_diary_message">작업 사항이 저장되지 않습니다!</string>
+    <string name="save_diary_message">작업 사항이 저장되었습니다.</string>
+
+    <string name="menu_add">스티커 추가</string>
+    <string name="menu_undo">뒤로 가기</string>
+    <string name="menu_redo">앞으로 가기</string>
+    <string name="menu_delete">선택된 스티커 삭제</string>
+    <string name="menu_layer">레이어 조정</string>
+    <string name="menu_duplicate">레이어 복제</string>
+
+    <string name="editor_edit">편집</string>
+    <string name="editor_save">저장</string>
+    <string name="media_path">dakku-%s</string>
+    <string name="sticker_preset">스티커 프리셋</string>
+
+    <string name="menu_text">텍스트 박스 추가</string>
+    <string name="menu_image">이미지 추가</string>
+    <string name="menu_video">비디오 추가</string>
+    <string name="menu_switch">스위치 추가</string>
+    <string name="menu_radio">라디오 버튼 추가</string>
+    <string name="menu_check">체크 박스 추가</string>
+    <string name="menu_slider">슬라이더 추가</string>
+
+    <string name="menu_font">폰트 변경</string>
+    <string name="menu_size">텍스트 크기 변경</string>
+    <string name="menu_bold">굵게</string>
+    <string name="menu_italic">기울임</string>
+    <string name="menu_align_left">왼쪽 정렬</string>
+    <string name="menu_align_center">가운데 정렬</string>
+    <string name="menu_align_right">오른쪽 정렬</string>
+    <string name="menu_spacing">텍스트 자간, 행간 조절</string>
+    <string name="menu_color">글자색</string>
+
+    <string-array name="fonts">
+        <item>시스템</item>
+        <item>갈맷글</item>
+        <item>강부장님체</item>
+        <item>고딕 아니고 고딩</item>
+        <item>규리의 일기</item>
+        <item>김유이체</item>
+        <item>고운 밤</item>
+        <item>동동</item>
+        <item>쑥쑥</item>
+        <item>써라운드</item>
+        <item>써라운드 에어</item>
+        <item>NEO둥근모</item>
+        <item>리디바탕</item>
+    </string-array>
 </resources>

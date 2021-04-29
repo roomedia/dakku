@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidUnknownAttribute -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="textMenuBar" type="com.roomedia.dakku.ui.editor.menu.TextMenuBar" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View style="@style/horizontalDivider" />
+
+        <HorizontalScrollView
+            android:id="@+id/textMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/fontSpinner"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/null_"
+                    android:textAlignment="center"
+                    android:contentDescription="@string/menu_font"
+                    android:entries="@array/fonts" />
+
+                <Button
+                    android:id="@+id/sizeButton"
+                    style="@style/TransparentTextMenu"
+                    android:text="@{textMenuBar.observableTextSize}"
+                    android:contentDescription="@string/menu_size"
+                    android:onClick="@{ (view) -> textMenuBar.onSize(view) }"
+                    tools:text="14" />
+
+                <Button
+                    android:id="@+id/textColorButton"
+                    style="@style/TransparentTextMenu"
+                    android:contentDescription="@string/menu_color"
+                    android:onClick="@{ (view) -> textMenuBar.onColor(view) }"
+                    android:text="A"
+                    android:textColor="@{textMenuBar.observableTextColor}"
+                    tools:ignore="HardcodedText" />
+
+                <View style="@style/verticalDivider" />
+
+                <Button
+                    android:id="@+id/boldButton"
+                    style="@style/TintTextMenu"
+                    android:contentDescription="@string/menu_bold"
+                    android:onClick="@{ (view) -> textMenuBar.onBold(view) }"
+                    android:backgroundTint="@{textMenuBar.isBold}"
+                    android:text="B"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/italicButton"
+                    style="@style/TintTextMenu"
+                    android:contentDescription="@string/menu_italic"
+                    android:fontFamily="serif"
+                    android:onClick="@{ (view) -> textMenuBar.onItalic(view) }"
+                    android:backgroundTint="@{textMenuBar.isItalic}"
+                    android:text="I"
+                    android:textStyle="italic"
+                    tools:ignore="HardcodedText" />
+
+                <View style="@style/verticalDivider" />
+
+                <ImageButton
+                    android:id="@+id/alignButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_align_left"
+                    android:onClick="@{ (view) -> textMenuBar.onAlign(view) }"
+                    app:srcCompat="@{textMenuBar.alignIcon}"
+                    tools:srcCompat="@drawable/ic_align_left" />
+
+                <ImageButton
+                    android:id="@+id/spacingButton"
+                    style="@style/TransparentMenu"
+                    android:contentDescription="@string/menu_spacing"
+                    android:onClick="@{ (view) -> textMenuBar.onSpacing(view) }"
+                    app:srcCompat="@drawable/ic_spacing" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+</layout>
