@@ -12,22 +12,22 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.databinding.ActivityDiaryEditorBinding
 import com.roomedia.dakku.persistence.Diary
 import com.roomedia.dakku.persistence.StickerType
-import com.roomedia.dakku.ui.editor.menu.CommonMenuHandlers
+import com.roomedia.dakku.ui.editor.menu.MenuHandlersManager
 import com.roomedia.dakku.ui.editor.sticker.StickerImageViewImpl
 import com.roomedia.dakku.ui.editor.sticker.StickerTextViewImpl
-import com.roomedia.dakku.ui.editor.sticker.StickerView
 import com.roomedia.dakku.ui.util.REQUEST
 import com.roomedia.dakku.ui.util.showConfirmDialog
 import java.util.Date
 
 class DiaryEditorActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityDiaryEditorBinding.inflate(layoutInflater) }
+    val binding by lazy { ActivityDiaryEditorBinding.inflate(layoutInflater) }
     private val stickerViewModel by lazy {
         val diary = intent.getParcelableExtra("diary") as? Diary ?: Diary(Date().time)
         StickerViewModel(diary)
     }
 
+    private val menuHandlersManager by lazy { MenuHandlersManager(this) }
     private val transformGestureDetector by lazy { TransformGestureDetector.getInstance(this) }
     val selectedSticker by lazy { transformGestureDetector.selectedSticker }
 
@@ -46,7 +46,7 @@ class DiaryEditorActivity : AppCompatActivity() {
         setIsEditObserver()
         addDiaryStickers()
 
-        binding.commonMenuHandlers = CommonMenuHandlers(this, binding)
+        binding.menuHandlersManager = menuHandlersManager
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -56,14 +56,14 @@ class DiaryEditorActivity : AppCompatActivity() {
             saveMenuItem.isVisible = isEdit
 
             transformGestureDetector.setEnable(isEdit)
-            binding.commonMenuHandlers?.setVisibility(isEdit)
+            menuHandlersManager.setVisibility(isEdit)
 
             val visibility = if (isEdit) View.VISIBLE else View.GONE
             binding.seekBarMenu.root.visibility = visibility
             binding.colorMenu.root.visibility = visibility
 
             if (!isEdit) {
-                selectSticker(null)
+                menuHandlersManager.selectSticker(null)
                 stickerViewModel.save(binding.diaryFrame)
             }
         }
@@ -73,8 +73,8 @@ class DiaryEditorActivity : AppCompatActivity() {
         stickerViewModel.stickers?.observe(this) { stickers ->
             stickers.map {
                 when (it.type) {
-                    StickerType.TEXT_VIEW -> StickerTextViewImpl(this, it)
-                    StickerType.IMAGE_VIEW -> StickerImageViewImpl(this, it)
+                    StickerType.TEXT_VIEW -> StickerTextViewImpl(menuHandlersManager, it)
+                    StickerType.IMAGE_VIEW -> StickerImageViewImpl(menuHandlersManager, it)
                     else -> TODO("not yet implemented")
                 }
             }.forEach {
@@ -126,18 +126,5 @@ class DiaryEditorActivity : AppCompatActivity() {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return transformGestureDetector.onTouchEvent(event)
-    }
-
-    fun selectSticker(stickerView: StickerView?) {
-        stickerView?.setSelected(true)
-        selectedSticker.value?.setSelected(false)
-        selectedSticker.value = stickerView
-    }
-
-    fun deleteSelected() {
-        selectedSticker.value?.let { sticker ->
-            binding.diaryFrame.removeView(sticker as View)
-        }
-        selectSticker(null)
     }
 }

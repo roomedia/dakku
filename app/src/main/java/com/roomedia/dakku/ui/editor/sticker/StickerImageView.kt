@@ -13,8 +13,8 @@ import com.roomedia.dakku.MimeTypes
 import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
-import com.roomedia.dakku.ui.editor.DiaryEditorActivity
 import com.roomedia.dakku.ui.editor.StickerListActivity
+import com.roomedia.dakku.ui.editor.menu.MenuHandlersManager
 import java.util.Date
 
 interface StickerImageView : StickerView {
@@ -61,8 +61,8 @@ interface StickerImageView : StickerView {
 }
 
 @SuppressLint("ViewConstructor")
-class StickerImageViewImpl(activity: DiaryEditorActivity) :
-    AppCompatImageView(activity, null, 0), StickerImageView {
+class StickerImageViewImpl(menuHandlersManager: MenuHandlersManager) :
+    AppCompatImageView(menuHandlersManager.context, null, 0), StickerImageView {
 
     override var ratio: Float? = null
     override lateinit var pastTouchPos: Pair<Float, Float>
@@ -71,7 +71,7 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
 
     override val type = MimeTypes.Image
     override var uri: Uri? = null
-    override val requestActivity = activity.requestActivity
+    override val requestActivity = menuHandlersManager.requestActivity
 
     init {
         id = Date().time.toInt()
@@ -80,14 +80,15 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
             if (isSelected) {
                 showSelectItemDialog()
             } else {
-                activity.selectSticker(this)
+                menuHandlersManager.selectSticker(this)
             }
         }
     }
 
-    constructor(activity: DiaryEditorActivity, sticker: Sticker) : this(activity) {
-        fromSticker(sticker)
-    }
+    constructor(menuHandlersManager: MenuHandlersManager, sticker: Sticker) :
+        this(menuHandlersManager) {
+            fromSticker(sticker)
+        }
 
     override fun loadImage(uri: Uri?) {
         load(uri) {
@@ -101,6 +102,7 @@ class StickerImageViewImpl(activity: DiaryEditorActivity) :
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return super<StickerImageView>.onTouchEvent(event)
     }

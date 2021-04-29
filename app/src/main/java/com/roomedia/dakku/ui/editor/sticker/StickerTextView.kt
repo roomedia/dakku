@@ -24,7 +24,7 @@ import com.roomedia.dakku.R
 import com.roomedia.dakku.persistence.Sticker
 import com.roomedia.dakku.persistence.StickerType
 import com.roomedia.dakku.ui.editor.Delta
-import com.roomedia.dakku.ui.editor.DiaryEditorActivity
+import com.roomedia.dakku.ui.editor.menu.MenuHandlersManager
 import com.roomedia.dakku.ui.editor.sticker.StickerTextView.Companion.Fonts
 import com.roomedia.dakku.ui.util.showEditTextDialog
 import java.util.Date
@@ -80,8 +80,8 @@ interface StickerTextView : StickerView {
 }
 
 @SuppressLint("ViewConstructor")
-class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
-    AppCompatTextView(activity, null, 0), StickerTextView {
+class StickerTextViewImpl(menuHandlersManager: MenuHandlersManager) :
+    AppCompatTextView(menuHandlersManager.context, null, 0), StickerTextView {
 
     override var ratio: Float? = null
     override lateinit var pastTouchPos: Pair<Float, Float>
@@ -102,14 +102,15 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
             if (isSelected) {
                 showEditTextDialog()
             } else {
-                activity.selectSticker(this)
+                menuHandlersManager.selectSticker(this)
             }
         }
     }
 
-    constructor(context: DiaryEditorActivity, sticker: Sticker) : this(context) {
-        fromSticker(sticker)
-    }
+    constructor(menuHandlersManager: MenuHandlersManager, sticker: Sticker) :
+        this(menuHandlersManager) {
+            fromSticker(sticker)
+        }
 
     fun setStyle(
         fontIndex: Int = this.fontIndex,
@@ -190,6 +191,7 @@ class StickerTextViewImpl(private val activity: DiaryEditorActivity) :
         )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return super<StickerTextView>.onTouchEvent(event)
     }
