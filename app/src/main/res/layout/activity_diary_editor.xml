@@ -5,7 +5,7 @@
 
     <data>
         <variable name="viewModel" type="com.roomedia.dakku.ui.editor.StickerViewModel" />
-        <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.CommonMenuHandlers" />
+        <variable name="menuBarManager" type="com.roomedia.dakku.ui.editor.menu.MenuBarManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="@{commonMenuHandlers.visibility}"
+            android:visibility="@{menuBarManager.visibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -50,12 +50,12 @@
             <include
                 android:id="@+id/textMenu"
                 layout="@layout/menu_text"
-                android:selectVisibility="@{commonMenuHandlers.menuHandlersVisibility}" />
+                android:selectVisibility="@{menuBarManager.subMenuVisibility}" />
 
             <include
                 android:id="@+id/addMenu"
                 layout="@layout/menu_add"
-                android:selectVisibility="@{commonMenuHandlers.menuHandlersVisibility}" />
+                android:selectVisibility="@{menuBarManager.subMenuVisibility}" />
 
             <include
                 android:id="@+id/commonMenu"

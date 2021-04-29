@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="commonMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.CommonMenuHandlers" />
+        <variable name="mainMenuBar" type="com.roomedia.dakku.ui.editor.menu.MainMenuBar" />
     </data>
 
     <LinearLayout
@@ -14,7 +14,7 @@
         <View style="@style/horizontalDivider" />
 
         <HorizontalScrollView
-            android:id="@+id/commonMenu"
+            android:id="@+id/mainMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorOnPrimary"
@@ -31,28 +31,28 @@
                     android:id="@+id/addButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_add"
-                    android:onClick="@{ (view) -> commonMenuHandlers.onAdd(view) }"
+                    android:onClick="@{ (view) -> mainMenuBar.onAdd(view) }"
                     app:srcCompat="@drawable/ic_add" />
 
                 <ImageButton
                     android:id="@+id/undoButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_undo"
-                    android:onClick="@{ () -> commonMenuHandlers.onUndo() }"
+                    android:onClick="@{ () -> mainMenuBar.onUndo() }"
                     app:srcCompat="@drawable/ic_undo" />
 
                 <ImageButton
                     android:id="@+id/redoButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_redo"
-                    android:onClick="@{ () -> commonMenuHandlers.onRedo() }"
+                    android:onClick="@{ () -> mainMenuBar.onRedo() }"
                     app:srcCompat="@drawable/ic_redo" />
 
                 <ImageButton
                     android:id="@+id/deleteButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_delete"
-                    android:onClick="@{ (view) -> commonMenuHandlers.onDelete(view) }"
+                    android:onClick="@{ (view) -> mainMenuBar.onDelete(view) }"
                     app:srcCompat="@drawable/ic_delete" />
 
                 <View style="@style/verticalDivider" />
@@ -61,14 +61,14 @@
                     android:id="@+id/layerButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_layer"
-                    android:onClick="@{ (view) -> commonMenuHandlers.onLayer(view) }"
+                    android:onClick="@{ (view) -> mainMenuBar.onLayer(view) }"
                     app:srcCompat="@drawable/ic_layers" />
 
                 <ImageButton
                     android:id="@+id/duplicateButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_duplicate"
-                    android:onClick="@{ (view) -> commonMenuHandlers.onDuplicate(view) }"
+                    android:onClick="@{ (view) -> mainMenuBar.onDuplicate(view) }"
                     app:srcCompat="@drawable/ic_duplicate" />
 
             </LinearLayout>

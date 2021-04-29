@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="addMenuHandlers" type="com.roomedia.dakku.ui.editor.menu.AddMenuHandlers" />
+        <variable name="addMenuBar" type="com.roomedia.dakku.ui.editor.menu.AddMenuBar" />
     </data>
 
     <LinearLayout
@@ -31,7 +31,7 @@
                     android:id="@+id/textButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_text"
-                    android:onClick="@{ (view) -> addMenuHandlers.onText(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onText(view) }"
                     app:srcCompat="@drawable/ic_text" />
 
                 <View style="@style/verticalDivider" />
@@ -40,14 +40,14 @@
                     android:id="@+id/imageButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_image"
-                    android:onClick="@{ (view) -> addMenuHandlers.onImage(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onImage(view) }"
                     app:srcCompat="@drawable/ic_image" />
 
                 <ImageButton
                     android:id="@+id/videoButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_video"
-                    android:onClick="@{ (view) -> addMenuHandlers.onVideo(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onVideo(view) }"
                     app:srcCompat="@drawable/ic_video" />
 
                 <View style="@style/verticalDivider" />
@@ -56,28 +56,28 @@
                     android:id="@+id/switchButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_switch"
-                    android:onClick="@{ (view) -> addMenuHandlers.onSwitch(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onSwitch(view) }"
                     app:srcCompat="@drawable/ic_switch" />
 
                 <ImageButton
                     android:id="@+id/radioButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_radio"
-                    android:onClick="@{ (view) -> addMenuHandlers.onRadio(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onRadio(view) }"
                     app:srcCompat="@drawable/ic_radio" />
 
                 <ImageButton
                     android:id="@+id/checkButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_check"
-                    android:onClick="@{ (view) -> addMenuHandlers.onCheck(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onCheck(view) }"
                     app:srcCompat="@drawable/ic_check" />
 
                 <ImageButton
                     android:id="@+id/sliderButton"
                     style="@style/TransparentMenu"
                     android:contentDescription="@string/menu_slider"
-                    android:onClick="@{ (view) -> addMenuHandlers.onSlider(view) }"
+                    android:onClick="@{ (view) -> addMenuBar.onSlider(view) }"
                     app:srcCompat="@drawable/ic_slider" />
 
             </LinearLayout>
